@@ -1,17 +1,748 @@
 ---
-
 ---
-
+<!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
+<head>
+  <meta charset="utf-8" />
+  <link rel="icon" type="image/svg+xml" href="/aibn-logo.svg" />
+  <link rel="icon" href="/favicon.ico" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="generator" content={Astro.generator} />
+  <title>ai builders network</title>
+  <meta name="description" content="a community for engineers, founders, and makers who build AI solutions." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    /* ── RESET ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    ul { list-style: none; }
+    a { text-decoration: none; color: inherit; }
+
+    /* ── TOKENS ── */
+    :root {
+      --c-primary:      #C73E22;
+      --c-primary-deep: #B83A22;
+      --c-ink:          #1A1A1A;
+      --c-on-ink:       #F4F1EA;
+      --c-neutral:      #F4F1EA;
+      --c-muted:        #5C5C5C;
+      --c-surface:      #FFFFFF;
+      --c-divider:      #1A1A1A;
+
+      --f-display: 'DM Mono', monospace;
+      --f-body:    'Inter', sans-serif;
+      --f-mono:    'DM Mono', monospace;
+
+      --sp-xs: 8px;
+      --sp-sm: 16px;
+      --sp-md: 24px;
+      --sp-lg: 48px;
+      --sp-xl: 120px;
+
+      --r-sm: 4px;
+      --r-md: 8px;
+
+      --max-w:    1100px;
+      --side-pad: clamp(20px, 5vw, 64px);
+    }
+
+    /* ── BASE ── */
+    html { font-size: 16px; scroll-behavior: smooth; }
+    body {
+      background: var(--c-neutral);
+      color: var(--c-ink);
+      font-family: var(--f-body);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* ── CONTAINER ── */
+    .container {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding-inline: var(--side-pad);
+    }
+
+    /* ── TYPOGRAPHY ── */
+    .display-xl {
+      font-family: var(--f-display);
+      font-size: clamp(3rem, 7vw, 5rem);
+      font-weight: 500;
+      line-height: 1.0;
+      letter-spacing: -0.03em;
+      text-transform: lowercase;
+    }
+    .display-l {
+      font-family: var(--f-display);
+      font-size: clamp(2rem, 5vw, 3.25rem);
+      font-weight: 500;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      text-transform: lowercase;
+    }
+    .heading {
+      font-family: var(--f-display);
+      font-size: 1.25rem;
+      font-weight: 500;
+      line-height: 1.2;
+      text-transform: lowercase;
+    }
+    .body-lg {
+      font-family: var(--f-body);
+      font-size: 1.25rem;
+      font-weight: 400;
+      line-height: 1.5;
+    }
+    .body-md {
+      font-family: var(--f-body);
+      font-size: 1rem;
+      font-weight: 400;
+      line-height: 1.6;
+    }
+    .eyebrow {
+      font-family: var(--f-mono);
+      font-size: 0.75rem;
+      font-weight: 500;
+      line-height: 1.4;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--c-muted);
+    }
+    .eyebrow--on-ink {
+      color: rgba(244, 241, 234, 0.5);
+    }
+
+    /* ── SECTION BACKGROUNDS ── */
+    .section--ink {
+      background: var(--c-ink);
+      color: var(--c-on-ink);
+    }
+    .section--neutral {
+      background: var(--c-neutral);
+      color: var(--c-ink);
+    }
+
+    /* ── SECTION DIVIDER ── */
+    .section-divider {
+      height: 1px;
+      background: var(--c-divider);
+      opacity: 0.15;
+    }
+
+    /* ── BUTTON ── */
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--c-primary);
+      color: var(--c-surface);
+      font-family: var(--f-display);
+      font-size: 1rem;
+      font-weight: 500;
+      line-height: 1.2;
+      padding: 14px 24px;
+      border-radius: var(--r-sm);
+      border: none;
+      cursor: pointer;
+      transition: background 0.15s ease, transform 0.15s ease;
+      white-space: nowrap;
+      text-transform: lowercase;
+    }
+    .btn-primary:hover {
+      background: var(--c-primary-deep);
+      transform: translateY(-1px);
+    }
+    .btn--sm {
+      font-size: 0.875rem;
+      padding: 10px 18px;
+    }
+
+    /* ── LOGO ── */
+    .logo-img {
+      display: block;
+      border-radius: var(--r-sm);
+      flex-shrink: 0;
+    }
+    .logo-img--sm { width: 40px; height: 40px; }
+    .logo-img--lg { width: 140px; height: 140px; }
+
+    /* ── HERO LOGO ANIMATION ── */
+    @keyframes logo-in {
+      from { opacity: 0; transform: scale(0.85); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+    .hero-logo-img {
+      animation: logo-in 0.5s cubic-bezier(0.2, 0, 0, 1) both;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .hero-logo-img { animation: none; }
+    }
+
+    /* ── DOT BULLET ── */
+    .dot-bullet {
+      display: inline-grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      width: 9px;
+      height: 9px;
+      flex-shrink: 0;
+    }
+    .dot-bullet span {
+      border-radius: 1px;
+      background: currentColor;
+      opacity: 0.25;
+    }
+    .dot-bullet span.accent {
+      background: var(--c-primary);
+      opacity: 1;
+    }
+
+    /* ═══════════════════════════════
+       HEADER
+    ═══════════════════════════════ */
+    .header {
+      background: var(--c-ink);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      transform: translateY(-100%);
+      transition: transform 0.25s cubic-bezier(0.2, 0, 0, 1);
+    }
+    .header.is-visible {
+      transform: translateY(0);
+    }
+    .header__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-block: var(--sp-sm);
+    }
+    .wordmark {
+      display: flex;
+      align-items: center;
+      gap: var(--sp-sm);
+      color: var(--c-on-ink);
+    }
+    .wordmark__text {
+      font-family: var(--f-display);
+      font-size: 0.875rem;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      text-transform: lowercase;
+    }
+
+    /* ═══════════════════════════════
+       HERO
+    ═══════════════════════════════ */
+    .hero {
+      padding-block: clamp(80px, 14vw, 160px);
+    }
+    .hero__inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: var(--sp-md);
+    }
+    .hero__inner .display-xl {
+      max-width: 16ch;
+    }
+    .hero__inner .body-lg {
+      max-width: 46ch;
+      color: var(--c-muted);
+    }
+    .hero__inner .btn-primary {
+      margin-top: var(--sp-xs);
+    }
+
+    /* ═══════════════════════════════
+       WHAT THIS IS
+    ═══════════════════════════════ */
+    .what {
+      padding-block: clamp(48px, 10vw, 120px);
+    }
+    .what-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto auto;
+      gap: 2px;
+      background: rgba(244, 241, 234, 0.2);
+    }
+    .what-grid__cell {
+      background: var(--c-ink);
+      padding: var(--sp-lg);
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-sm);
+    }
+    .what-grid__cell .heading {
+      color: var(--c-on-ink);
+    }
+    .what-grid__cell .body-md {
+      color: rgba(244, 241, 234, 0.65);
+    }
+
+    /* ═══════════════════════════════
+       BENEFITS
+    ═══════════════════════════════ */
+    .benefits {
+      padding-block: clamp(48px, 10vw, 120px);
+    }
+    .benefits .eyebrow {
+      display: block;
+      margin-bottom: var(--sp-sm);
+    }
+    .benefits .display-l {
+      margin-bottom: var(--sp-lg);
+    }
+    .benefit-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto auto;
+      gap: 1px;
+      background: var(--c-divider);
+      border: 1px solid var(--c-divider);
+    }
+    .benefit-card {
+      background: var(--c-surface);
+      padding: var(--sp-lg);
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-md);
+    }
+    .benefit-card__header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .benefit-card .body-md {
+      color: var(--c-muted);
+    }
+
+    /* ═══════════════════════════════
+       FIT CHECK
+    ═══════════════════════════════ */
+    .fit {
+      padding-block: clamp(48px, 10vw, 120px);
+    }
+    .fit .eyebrow {
+      display: block;
+      margin-bottom: var(--sp-sm);
+    }
+    .fit .display-l {
+      color: var(--c-on-ink);
+      margin-bottom: var(--sp-lg);
+    }
+    .fit-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2px;
+      background: rgba(244, 241, 234, 0.2);
+    }
+    .fit-col {
+      background: var(--c-ink);
+      padding: var(--sp-lg);
+    }
+    .fit-col__label {
+      display: block;
+      margin-bottom: var(--sp-md);
+    }
+    .fit-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-sm);
+    }
+    .fit-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--sp-sm);
+    }
+    .fit-list li .dot-bullet {
+      margin-top: 6px;
+      color: var(--c-on-ink);
+    }
+    .fit-list li span:last-child {
+      font-family: var(--f-body);
+      font-size: 1rem;
+      line-height: 1.6;
+      color: rgba(244, 241, 234, 0.75);
+    }
+    .fit-list--no li span:last-child {
+      color: rgba(244, 241, 234, 0.4);
+    }
+    .fit-list--no li .dot-bullet span.accent {
+      background: var(--c-muted);
+    }
+
+    /* ═══════════════════════════════
+       FINAL CTA
+    ═══════════════════════════════ */
+    .cta-final {
+      padding-block: clamp(48px, 10vw, 120px);
+    }
+    .cta-final__inner {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--sp-md);
+    }
+    .cta-final .eyebrow {
+      margin-bottom: 0;
+    }
+    .cta-final .display-l {
+      margin-bottom: var(--sp-sm);
+    }
+    .cta-final__footnote {
+      color: var(--c-muted);
+      margin-top: var(--sp-xs);
+    }
+
+    /* ═══════════════════════════════
+       FOOTER
+    ═══════════════════════════════ */
+    .footer {
+      background: var(--c-ink);
+      border-top: 1px solid rgba(244, 241, 234, 0.12);
+      padding-block: var(--sp-lg);
+    }
+    .footer__inner {
+      display: flex;
+      align-items: center;
+      gap: var(--sp-md);
+    }
+    .footer__logo {
+      display: flex;
+      align-items: center;
+      gap: var(--sp-sm);
+    }
+
+    /* ═══════════════════════════════
+       NEXT EVENT
+    ═══════════════════════════════ */
+    .next-event {
+      padding-block: clamp(48px, 10vw, 120px);
+    }
+    .next-event .eyebrow {
+      display: block;
+      margin-bottom: var(--sp-md);
+    }
+    .event-card {
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      border: 1px solid var(--c-divider);
+    }
+    .event-card__body {
+      padding: var(--sp-lg);
+      border-right: 1px solid var(--c-divider);
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-md);
+    }
+    .event-card__tag {
+      color: var(--c-primary);
+      margin-bottom: 0;
+    }
+    .event-card__body .display-l {
+      margin-bottom: 0;
+    }
+    .event-card__desc {
+      color: var(--c-muted);
+      max-width: 52ch;
+    }
+    .event-hosts {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin-top: auto;
+      padding-top: var(--sp-md);
+      border-top: 1px solid rgba(26, 26, 26, 0.1);
+    }
+    .event-hosts .eyebrow {
+      margin-bottom: 0;
+    }
+    .event-card__meta {
+      padding: var(--sp-lg);
+      display: flex;
+      flex-direction: column;
+      gap: var(--sp-md);
+      background: var(--c-surface);
+    }
+    .event-meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .event-meta-item .eyebrow {
+      margin-bottom: 0;
+    }
+    .event-card__meta .btn-primary {
+      margin-top: auto;
+      text-align: center;
+    }
+
+    /* ═══════════════════════════════
+       MOBILE
+    ═══════════════════════════════ */
+    @media (max-width: 640px) {
+      .what-grid,
+      .benefit-grid,
+      .fit-grid {
+        grid-template-columns: 1fr;
+      }
+      .event-card {
+        grid-template-columns: 1fr;
+      }
+      .event-card__body {
+        border-right: none;
+        border-bottom: 1px solid var(--c-divider);
+      }
+    }
+    @media (max-width: 480px) {
+      .wordmark__text { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════
+       HEADER
+  ═══════════════════════════════ -->
+  <header class="header">
+    <div class="container header__inner">
+      <a href="/" class="wordmark" aria-label="ai builders network home">
+        <img src="/aibn-logo.svg" alt="" aria-hidden="true" class="logo-img logo-img--sm" />
+        <span class="wordmark__text">ai builders network</span>
+      </a>
+      <a href="https://chat.whatsapp.com/FcOe3JuGYT1DV1xxMN8e5w?s=sh&p=i&mlu=2&amv=1" target="_blank" rel="noopener noreferrer" class="btn-primary btn--sm">join</a>
+    </div>
+  </header>
+
+  <!-- ═══════════════════════════════
+       HERO
+  ═══════════════════════════════ -->
+  <section class="hero section--neutral" aria-label="hero">
+    <div class="container hero__inner">
+      <img src="/aibn-logo.svg" alt="aibn logo mark" class="logo-img logo-img--lg hero-logo-img" />
+      <h1 class="display-xl">where builders ship ai.</h1>
+      <p class="body-lg">a community of enthusiasts passionate about building AI solutions that shape the future.</p>
+      <a href="https://chat.whatsapp.com/FcOe3JuGYT1DV1xxMN8e5w?s=sh&p=i&mlu=2&amv=1" target="_blank" rel="noopener noreferrer" class="btn-primary">join the network</a>
+    </div>
+  </section>
+
+  <div class="section-divider" role="separator"></div>
+
+  <!-- ═══════════════════════════════
+       WHAT THIS IS
+  ═══════════════════════════════ -->
+  <section class="what section--ink" aria-labelledby="what-heading">
+    <div class="container">
+      <div class="what-grid" role="presentation">
+        <div class="what-grid__cell">
+          <h2 class="heading" id="what-heading">a network of builders</h2>
+          <p class="body-md">ai builders network is a gathering of people who ship AI-powered products, tools, and experiments. if you're wiring models to APIs at midnight or testing prompts on a side project — you belong here.</p>
+        </div>
+        <div class="what-grid__cell">
+          <h3 class="heading">who it's for</h3>
+          <p class="body-md">software engineers, indie founders, and curious makers who want peers, not an audience. people who care more about what ships than what sounds impressive.</p>
+        </div>
+        <div class="what-grid__cell">
+          <h3 class="heading">how it works</h3>
+          <p class="body-md">weekly build demos. async knowledge sharing. early access to each other's projects. accountability through showing up and sharing your work, rough edges included.</p>
+        </div>
+        <div class="what-grid__cell">
+          <h3 class="heading">why now</h3>
+          <p class="body-md">the tools changed in 2024. what one person can ship alone changed too. a small, focused group of serious builders compounds faster than any large, passive audience.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider" role="separator"></div>
+
+  <!-- ═══════════════════════════════
+       WHY JOIN / BENEFITS
+  ═══════════════════════════════ -->
+  <section class="benefits section--neutral" aria-labelledby="benefits-heading">
+    <div class="container">
+      <span class="eyebrow">why join</span>
+      <h2 class="display-l" id="benefits-heading">the reasons are concrete.</h2>
+      <div class="benefit-grid" role="presentation">
+
+        <div class="benefit-card">
+          <div class="benefit-card__header">
+            <span class="dot-bullet" aria-hidden="true">
+              <span></span><span></span><span class="accent"></span><span></span>
+            </span>
+            <h3 class="heading">peers who build</h3>
+          </div>
+          <p class="body-md">skip the theory. talk with people who shipped something this week and have the commits to prove it.</p>
+        </div>
+
+        <div class="benefit-card">
+          <div class="benefit-card__header">
+            <span class="dot-bullet" aria-hidden="true">
+              <span></span><span></span><span class="accent"></span><span></span>
+            </span>
+            <h3 class="heading">shared knowledge</h3>
+          </div>
+          <p class="body-md">real findings from real experiments — what model handles what task, what breaks under load, what actually makes it to users.</p>
+        </div>
+
+        <div class="benefit-card">
+          <div class="benefit-card__header">
+            <span class="dot-bullet" aria-hidden="true">
+              <span></span><span></span><span class="accent"></span><span></span>
+            </span>
+            <h3 class="heading">early idea access</h3>
+          </div>
+          <p class="body-md">see projects before they're polished. give feedback that shapes what gets built, not what gets announced.</p>
+        </div>
+
+        <div class="benefit-card">
+          <div class="benefit-card__header">
+            <span class="dot-bullet" aria-hidden="true">
+              <span></span><span></span><span class="accent"></span><span></span>
+            </span>
+            <h3 class="heading">built-in accountability</h3>
+          </div>
+          <p class="body-md">weekly demos keep you honest. nothing ships faster than knowing your peers will ask "so, what did you build this week?"</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider" role="separator"></div>
+
+  <!-- ═══════════════════════════════
+       WHO IT IS FOR
+  ═══════════════════════════════ -->
+  <section class="fit section--ink" aria-labelledby="fit-heading">
+    <div class="container">
+      <span class="eyebrow eyebrow--on-ink">who belongs here</span>
+      <h2 class="display-l" id="fit-heading">filter yourself in.<br>or out.</h2>
+      <div class="fit-grid" role="presentation">
+
+        <div class="fit-col">
+          <span class="fit-col__label eyebrow eyebrow--on-ink">you'll thrive here if —</span>
+          <ul class="fit-list">
+            <li>
+              <span class="dot-bullet" aria-hidden="true"><span></span><span></span><span class="accent"></span><span></span></span>
+              <span>you're building something with AI, however early or rough</span>
+            </li>
+            <li>
+              <span class="dot-bullet" aria-hidden="true"><span></span><span></span><span class="accent"></span><span></span></span>
+              <span>you're an engineer, founder, or maker who experiments hands-on</span>
+            </li>
+            <li>
+              <span class="dot-bullet" aria-hidden="true"><span></span><span></span><span class="accent"></span><span></span></span>
+              <span>you want peers, not a platform to broadcast at</span>
+            </li>
+            <li>
+              <span class="dot-bullet" aria-hidden="true"><span></span><span></span><span class="accent"></span><span></span></span>
+              <span>you care more about shipping than being right in a thread</span>
+            </li>
+            <li>
+              <span class="dot-bullet" aria-hidden="true"><span></span><span></span><span class="accent"></span><span></span></span>
+              <span>you're comfortable sharing half-finished ideas in public</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="fit-col fit-col--no">
+          <span class="fit-col__label eyebrow eyebrow--on-ink">this isn't for you if —</span>
+          <ul class="fit-list fit-list--no">
+            <li>
+              <span class="dot-bullet" aria-hidden="true"><span></span><span></span><span class="accent"></span><span></span></span>
+              <span>you want to spectate without contributing</span>
+            </li>
+            <li>
+              <span class="dot-bullet" aria-hidden="true"><span></span><span></span><span class="accent"></span><span></span></span>
+              <span>you need polished content and finished answers only</span>
+            </li>
+            <li>
+              <span class="dot-bullet" aria-hidden="true"><span></span><span></span><span class="accent"></span><span></span></span>
+              <span>you're not ready to show your work publicly</span>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider" role="separator"></div>
+
+  <!-- ═══════════════════════════════
+       NEXT EVENT
+  ═══════════════════════════════ -->
+  <section class="next-event section--neutral" aria-labelledby="event-heading">
+    <div class="container">
+      <span class="eyebrow">next event</span>
+      <div class="event-card">
+        <div class="event-card__body">
+          <p class="event-card__tag eyebrow">workshop · in-person · chennai</p>
+          <h2 class="display-l" id="event-heading">vibe coding:<br>the right way.</h2>
+          <p class="body-lg event-card__desc">a hands-on workshop taking you from concept to market-ready product using modern AI tools. build the right thing, build it the right way, take it to the right people.</p>
+          <div class="event-hosts">
+            <span class="eyebrow">led by</span>
+            <p class="body-md">hameed · leo · hari</p>
+          </div>
+        </div>
+        <div class="event-card__meta">
+          <div class="event-meta-item">
+            <span class="eyebrow">date</span>
+            <span class="heading">sat, june 27</span>
+          </div>
+          <div class="event-meta-item">
+            <span class="eyebrow">location</span>
+            <span class="body-md">paperflite hq, chennai</span>
+          </div>
+          <div class="event-meta-item">
+            <span class="eyebrow">price</span>
+            <span class="heading">₹3,499</span>
+          </div>
+          <a href="https://the-ai-vibecoding-workshop.vercel.app/" class="btn-primary" target="_blank" rel="noopener noreferrer">reserve your seat</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider" role="separator"></div>
+
+  <!-- ═══════════════════════════════
+       FINAL CTA
+  ═══════════════════════════════ -->
+  <section class="cta-final section--neutral" aria-label="join the network">
+    <div class="container cta-final__inner">
+      <span class="eyebrow">ready to build</span>
+      <h2 class="display-l">your next experiment<br>starts with the right people.</h2>
+      <a href="https://chat.whatsapp.com/FcOe3JuGYT1DV1xxMN8e5w?s=sh&p=i&mlu=2&amv=1" target="_blank" rel="noopener noreferrer" class="btn-primary">join the network</a>
+      <p class="cta-final__footnote body-md">free to join · no spam · just builders building.</p>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════
+       FOOTER
+  ═══════════════════════════════ -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div class="footer__logo">
+        <img src="/aibn-logo.svg" alt="" aria-hidden="true" class="logo-img logo-img--sm" />
+        <span class="eyebrow eyebrow--on-ink" style="margin-bottom:0">ai builders network · est. 2026</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const header = document.querySelector('.header');
+    const hero   = document.querySelector('.hero');
+    const observer = new IntersectionObserver(
+      ([entry]) => header.classList.toggle('is-visible', !entry.isIntersecting),
+      { threshold: 0 }
+    );
+    observer.observe(hero);
+  </script>
+</body>
 </html>
