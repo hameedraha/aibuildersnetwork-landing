@@ -1,0 +1,80 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import '../styles/certificate.css';
+---
+
+<BaseLayout
+  title="credential verification · ai builders network"
+  description="verify an ai builders network workshop certificate by certificate number."
+  headerReveal={false}
+>
+  <section class="cert-portal section--ink" aria-label="credential verification">
+    <div class="container cert-portal__wrap">
+      <div id="certificate-verify-layout" class="cert-portal__layout">
+        <aside class="cert-portal__aside" id="certificate-verify-aside">
+          <img src="/aibn-logo.svg" alt="" class="cert-portal__logo" aria-hidden="true" />
+          <span class="eyebrow eyebrow--on-ink">official registry</span>
+          <h1 class="display-l cert-portal__title">credential verification</h1>
+          <p class="body-md cert-portal__desc">
+            confirm that a workshop certificate was issued by ai builders network. enter the number printed on the credential.
+          </p>
+          <ul class="cert-portal__trust" aria-label="registry assurances">
+            <li>
+              <span class="dot-bullet" aria-hidden="true"><span></span><span></span><span class="accent"></span><span></span></span>
+              <span>live lookup against the issued registry</span>
+            </li>
+            <li>
+              <span class="dot-bullet" aria-hidden="true"><span></span><span></span><span class="accent"></span><span></span></span>
+              <span>holder name returned only when authenticated</span>
+            </li>
+          </ul>
+        </aside>
+
+        <div class="cert-portal__stage" id="certificate-verify-stage">
+          <div id="certificate-verify-panel" class="cert-record">
+            <div class="cert-record__top">
+              <span class="cert-record__badge eyebrow">registry lookup</span>
+              <span class="cert-record__status-dot" aria-hidden="true"></span>
+            </div>
+
+            <form id="certificate-verify-form" class="cert-record__form" novalidate>
+              <label class="cert-record__label" for="certificate-id">certificate number</label>
+              <div class="cert-record__field">
+                <input
+                  class="cert-record__input"
+                  id="certificate-id"
+                  name="certificateId"
+                  type="text"
+                  inputmode="text"
+                  autocomplete="off"
+                  spellcheck="false"
+                  placeholder="enter certificate number"
+                  required
+                />
+                <button type="submit" class="btn-primary cert-record__submit" id="certificate-verify-submit">
+                  verify
+                </button>
+              </div>
+            </form>
+
+            <div id="certificate-verify-error" class="cert-record__alert" role="alert" aria-live="assertive" hidden></div>
+
+            <div id="certificate-verify-loading" class="cert-record__loading" hidden aria-live="polite">
+              <span class="cert-record__loading-bar" aria-hidden="true"></span>
+              <span class="body-md">checking registry…</span>
+            </div>
+          </div>
+
+          <div id="certificate-verify-success" class="cert-record cert-record--verified" role="status" aria-live="polite" hidden></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  import { initCertificateVerification } from '../scripts/certificate-verify';
+
+  initCertificateVerification();
+  document.addEventListener('astro:page-load', initCertificateVerification);
+</script>
