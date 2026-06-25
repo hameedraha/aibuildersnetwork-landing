@@ -28,7 +28,7 @@ cp .env.example .env
 
 The community signup form posts to `/api/community-registration` on the same origin. The API route forwards submissions to this webhook. Without it configured, submissions will fail.
 
-For production, set the same variable in your hosting provider’s environment settings (not only in a local `.env` file). The site uses the Astro Node adapter — run the built server (`node ./dist/server/entry.mjs`) or deploy to a Node-compatible host.
+For production, set the same variable in your hosting provider’s environment settings (not only in a local `.env` file). On Vercel, add `COMMUNITY_REGISTRATION_WEBHOOK_URL` in Project → Settings → Environment Variables.
 
 ## Design repository
 

@@ -13,7 +13,7 @@
     "design-repo:update": "./scripts/update-design-repository.sh"
   },
   "dependencies": {
-    "@astrojs/node": "^10.1.4",
+    "@astrojs/vercel": "^10.0.8",
     "@n8n_io/n8n-demo-component": "^1.0.20",
     "astro": "^6.4.7"
   },
