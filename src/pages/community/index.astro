@@ -1,0 +1,201 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import JoinRegistrationModal from '../../components/community/JoinRegistrationModal.astro';
+---
+
+<BaseLayout
+  title="community · ai builders network"
+  description="join a close-knit community of ai builders — engineers, founders, and makers who ship."
+  headerReveal={true}
+>
+  <section class="community-hero section--neutral" aria-labelledby="community-heading" data-header-trigger>
+    <div class="container community-hero__inner">
+      <img src="/aibn-logo.svg" alt="aibn logo mark" class="logo-img logo-img--lg community-hero__logo" />
+      <span class="eyebrow">community</span>
+      <h1 class="display-xl" id="community-heading">what is this community.</h1>
+      <p class="body-lg community-hero__desc">
+        a small, close-knit group of engineers, founders, and makers who ship AI-powered products, tools, and experiments. weekly build demos. async knowledge sharing. peers, not an audience.
+      </p>
+    </div>
+  </section>
+
+  <div class="section-divider" role="separator"></div>
+
+  <section class="benefits section--neutral section-pad" aria-labelledby="benefits-heading">
+    <div class="container">
+      <span class="eyebrow">what you get</span>
+      <h2 class="display-l" id="benefits-heading">out of joining.</h2>
+      <div class="benefit-grid" role="presentation">
+        <div class="benefit-card">
+          <div class="benefit-card__header">
+            <span class="dot-bullet" aria-hidden="true"><span></span><span></span><span class="accent"></span><span></span></span>
+            <h3 class="heading">peers who build</h3>
+          </div>
+          <p class="body-md">talk with people who shipped something this week and have the commits to prove it.</p>
+        </div>
+        <div class="benefit-card">
+          <div class="benefit-card__header">
+            <span class="dot-bullet" aria-hidden="true"><span></span><span></span><span class="accent"></span><span></span></span>
+            <h3 class="heading">shared knowledge</h3>
+          </div>
+          <p class="body-md">real findings from real experiments — what works, what breaks, what actually ships.</p>
+        </div>
+        <div class="benefit-card">
+          <div class="benefit-card__header">
+            <span class="dot-bullet" aria-hidden="true"><span></span><span></span><span class="accent"></span><span></span></span>
+            <h3 class="heading">early idea access</h3>
+          </div>
+          <p class="body-md">see projects before they're polished. give feedback that shapes what gets built.</p>
+        </div>
+        <div class="benefit-card">
+          <div class="benefit-card__header">
+            <span class="dot-bullet" aria-hidden="true"><span></span><span></span><span class="accent"></span><span></span></span>
+            <h3 class="heading">built-in accountability</h3>
+          </div>
+          <p class="body-md">weekly demos keep you honest. your peers will ask "so, what did you build this week?"</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider" role="separator"></div>
+
+  <section class="fit section--ink section-pad" aria-labelledby="fit-heading">
+    <div class="container">
+      <span class="eyebrow eyebrow--on-ink">who it's for</span>
+      <h2 class="display-l" id="fit-heading">and who it's not.</h2>
+      <div class="fit-grid" role="presentation">
+        <div class="fit-col">
+          <span class="fit-col__label eyebrow eyebrow--on-ink">for you if —</span>
+          <ul class="fit-list">
+            <li>
+              <span class="dot-bullet" aria-hidden="true"><span></span><span></span><span class="accent"></span><span></span></span>
+              <span>you're building something with AI, however early or rough</span>
+            </li>
+            <li>
+              <span class="dot-bullet" aria-hidden="true"><span></span><span></span><span class="accent"></span><span></span></span>
+              <span>you're an engineer, founder, or maker who experiments hands-on</span>
+            </li>
+            <li>
+              <span class="dot-bullet" aria-hidden="true"><span></span><span></span><span class="accent"></span><span></span></span>
+              <span>you want peers, not a platform to broadcast at</span>
+            </li>
+            <li>
+              <span class="dot-bullet" aria-hidden="true"><span></span><span></span><span class="accent"></span><span></span></span>
+              <span>you care more about shipping than being right in a thread</span>
+            </li>
+          </ul>
+        </div>
+        <div class="fit-col">
+          <span class="fit-col__label eyebrow eyebrow--on-ink">not for you if —</span>
+          <ul class="fit-list fit-list--no">
+            <li>
+              <span class="dot-bullet" aria-hidden="true"><span></span><span></span><span class="accent"></span><span></span></span>
+              <span>you want to spectate without contributing</span>
+            </li>
+            <li>
+              <span class="dot-bullet" aria-hidden="true"><span></span><span></span><span class="accent"></span><span></span></span>
+              <span>you need polished content and finished answers only</span>
+            </li>
+            <li>
+              <span class="dot-bullet" aria-hidden="true"><span></span><span></span><span class="accent"></span><span></span></span>
+              <span>you're not ready to show your work publicly</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider" role="separator"></div>
+
+  <section class="apply section--neutral" aria-label="apply to join">
+    <div class="container">
+      <div class="apply__inner">
+        <div class="apply__copy">
+          <span class="eyebrow">ready to join</span>
+          <h2 class="display-l">your next experiment starts with the right people.</h2>
+          <p class="body-md apply__note">free · reviewed within 24 hours · no spam</p>
+        </div>
+        <div class="apply__action">
+          <button type="button" class="btn-primary" data-open-join-modal>join the ai builders network</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <JoinRegistrationModal />
+</BaseLayout>
+
+<style>
+  @keyframes community-logo-in {
+    from { opacity: 0; transform: scale(0.85); }
+    to   { opacity: 1; transform: scale(1); }
+  }
+  .community-hero {
+    padding-block: clamp(80px, 14vw, 160px);
+  }
+  .community-hero__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: var(--sp-md);
+  }
+  .community-hero__logo {
+    animation: community-logo-in 0.5s cubic-bezier(0.2, 0, 0, 1) both;
+  }
+  .community-hero__inner .display-xl {
+    max-width: 16ch;
+  }
+  .community-hero__desc {
+    max-width: 46ch;
+    color: var(--c-muted);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .community-hero__logo { animation: none; }
+  }
+
+  .apply {
+    padding-block: clamp(48px, 10vw, 120px);
+  }
+  .apply__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--sp-lg);
+    padding: var(--sp-lg);
+    border: 1px solid var(--c-divider);
+    background: var(--c-surface);
+  }
+  .apply__copy {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-sm);
+  }
+  .apply__copy .display-l {
+    max-width: 20ch;
+  }
+  .apply__note {
+    color: var(--c-muted);
+    max-width: 42ch;
+  }
+  .apply__action {
+    flex-shrink: 0;
+  }
+  @media (max-width: 720px) {
+    .apply__inner {
+      flex-direction: column;
+      align-items: stretch;
+      gap: var(--sp-md);
+    }
+    .apply__copy .display-l {
+      max-width: none;
+    }
+    .apply__action .btn-primary {
+      width: 100%;
+    }
+  }
+</style>

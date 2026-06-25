@@ -1,0 +1,24 @@
+AI Agent Starter Checklist — AI Builders Network
+=================================================
+
+Before you write code:
+[ ] Define one user goal the agent must accomplish end-to-end
+[ ] List the 1-3 tools needed (no more for v1)
+[ ] Choose runtime: framework / SDK / roll your own
+[ ] Set up logging for every model turn and tool call
+
+Tool design:
+[ ] Each tool does exactly one thing
+[ ] Tool descriptions explain when to use, inputs, and output shape
+[ ] Tools return structured data, not prose
+
+First vertical slice:
+[ ] User input → one tool call → useful response
+[ ] Error handling when tool fails
+[ ] Demo-ready in under a weekend
+
+Before production:
+[ ] Observability dashboard or trace log
+[ ] Prompt versioned in git
+[ ] Test set of 10+ real inputs
+[ ] Cost and latency measured per request

@@ -1,0 +1,75 @@
+---
+interface Heading {
+  depth: number;
+  text: string;
+  slug: string;
+}
+
+interface Props {
+  headings: Heading[];
+  eventDate: Date;
+  location: string;
+  city: string;
+  price: string;
+  ticketUrl: string;
+  status: 'live' | 'upcoming' | 'past';
+}
+
+const { headings, eventDate, location, city, price, ticketUrl, status } = Astro.props;
+
+const day = eventDate.toLocaleDateString('en-US', { day: 'numeric' });
+const month = eventDate.toLocaleDateString('en-US', { month: 'short' });
+const weekday = eventDate.toLocaleDateString('en-US', { weekday: 'long' });
+const year = eventDate.getFullYear();
+const isLive = status === 'live';
+const isPast = status === 'past';
+---
+
+<aside class="event-sidebar" aria-label="event navigation">
+  <div class="event-sidebar__ticket">
+    <div class="event-sidebar__date">
+      <span class="event-sidebar__date-day">{day}</span>
+      <span class="event-sidebar__date-month">{month}</span>
+      <span class="eyebrow event-sidebar__date-meta">{weekday} · {year}</span>
+    </div>
+
+    <dl class="event-sidebar__facts">
+      <div>
+        <dt class="eyebrow">where</dt>
+        <dd class="body-md">{location}, {city}</dd>
+      </div>
+      <div>
+        <dt class="eyebrow">price</dt>
+        <dd class="heading">{price}</dd>
+      </div>
+    </dl>
+
+    {!isPast ? (
+      <a href={ticketUrl} class="btn-primary event-sidebar__cta" target="_blank" rel="noopener noreferrer">
+        {isLive ? 'reserve your seat' : 'get tickets'}
+      </a>
+    ) : (
+      <p class="body-md event-sidebar__past-note">this event has ended.</p>
+    )}
+  </div>
+
+  {headings.length > 0 && (
+    <nav class="event-toc" aria-label="table of contents">
+      <span class="eyebrow event-sidebar__label">on this page</span>
+      <ol class="event-toc__list">
+        {headings.map((heading) => (
+          <li class:list={['event-toc__item', `event-toc__item--h${heading.depth}`]}>
+            <a
+              href={`#${heading.slug}`}
+              class="event-toc__link"
+              data-toc-link
+              data-slug={heading.slug}
+            >
+              {heading.text}
+            </a>
+          </li>
+        ))}
+      </ol>
+    </nav>
+  )}
+</aside>

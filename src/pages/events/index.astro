@@ -1,0 +1,277 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import EventFeaturedCard from '../../components/EventFeaturedCard.astro';
+import EventTimelineItem from '../../components/EventTimelineItem.astro';
+import { getCollection } from 'astro:content';
+
+const events = (await getCollection('events') ?? []).sort(
+  (a, b) => a.data.eventDate.valueOf() - b.data.eventDate.valueOf()
+);
+
+const live = events.filter((e) => e.data.status === 'live');
+const upcoming = events.filter((e) => e.data.status === 'upcoming');
+const past = events.filter((e) => e.data.status === 'past');
+const featured = live[0] ?? upcoming[0] ?? null;
+const timelineRest = events.filter((e) => e.id !== featured?.id);
+---
+
+<BaseLayout
+  title="events · ai builders network"
+  description="workshops, meetups, and builder gatherings from ai builders network."
+>
+  <header class="events-hero section--ink" aria-labelledby="events-heading">
+    <div class="container events-hero__inner">
+      <span class="eyebrow eyebrow--on-ink">gatherings</span>
+      <h1 class="display-l" id="events-heading">events.</h1>
+      <p class="body-lg events-hero__desc">
+        workshops and in-person sessions for builders shipping with ai. what's on now, what's next.
+      </p>
+      <div class="events-hero__stats">
+        <div class="events-hero__stat">
+          <span class="events-hero__stat-num">{live.length}</span>
+          <span class="eyebrow eyebrow--on-ink">live</span>
+        </div>
+        <div class="events-hero__stat">
+          <span class="events-hero__stat-num">{upcoming.length}</span>
+          <span class="eyebrow eyebrow--on-ink">upcoming</span>
+        </div>
+        <div class="events-hero__stat">
+          <span class="events-hero__stat-num">{past.length}</span>
+          <span class="eyebrow eyebrow--on-ink">past</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  {featured && (
+    <>
+      <div class="section-divider" role="separator"></div>
+      <section class="section--neutral events-featured-section" aria-label="featured event">
+        <div class="container">
+          <span class="eyebrow">
+            {featured.data.status === 'live' ? 'happening now' : 'next up'}
+          </span>
+          <EventFeaturedCard event={featured} />
+        </div>
+      </section>
+    </>
+  )}
+
+  <div class="section-divider" role="separator"></div>
+
+  <section class="section--neutral events-timeline-section" aria-label="event timeline">
+    <div class="container">
+      <span class="eyebrow">timeline</span>
+      <h2 class="display-l events-timeline__heading">the schedule.</h2>
+
+      <ol class="events-timeline">
+        {timelineRest.map((event, i) => (
+          <EventTimelineItem event={event} showLine={i < timelineRest.length - 1} />
+        ))}
+
+        <li class="events-timeline__item events-timeline__item--future">
+          <div class="events-timeline__rail" aria-hidden="true">
+            <span class="events-timeline__marker events-timeline__marker--future"></span>
+          </div>
+          <article class="events-timeline__card events-timeline__card--future">
+            <span class="eyebrow">on the horizon</span>
+            <h3 class="heading">more events coming soon.</h3>
+            <p class="body-md events-timeline__desc">
+              weekly build demos online. more workshops in chennai and beyond. join the network to get early access.
+            </p>
+            <a
+              href="/community"
+              class="btn-secondary btn--sm"
+            >
+              get notified
+            </a>
+          </article>
+        </li>
+      </ol>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .events-hero {
+    padding-block: clamp(56px, 10vw, 96px);
+    border-bottom: 1px solid rgba(244, 241, 234, 0.1);
+  }
+  .events-hero__inner {
+    max-width: 720px;
+  }
+  .events-hero .display-l {
+    color: var(--c-on-ink);
+    margin-bottom: var(--sp-md);
+  }
+  .events-hero__desc {
+    color: rgba(244, 241, 234, 0.65);
+    max-width: 48ch;
+    margin-bottom: var(--sp-lg);
+  }
+  .events-hero__stats {
+    display: flex;
+    gap: var(--sp-lg);
+    padding-top: var(--sp-md);
+    border-top: 1px solid rgba(244, 241, 234, 0.12);
+  }
+  .events-hero__stat {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .events-hero__stat-num {
+    font-family: var(--f-display);
+    font-size: 2rem;
+    font-weight: 500;
+    line-height: 1;
+    color: var(--c-on-ink);
+    letter-spacing: -0.02em;
+  }
+
+  .events-featured-section {
+    padding-block: clamp(40px, 6vw, 72px);
+  }
+  .events-featured-section .eyebrow {
+    display: block;
+    margin-bottom: var(--sp-md);
+  }
+
+  .events-timeline-section {
+    padding-block: clamp(40px, 6vw, 72px);
+  }
+  .events-timeline__heading {
+    margin-bottom: var(--sp-lg);
+  }
+
+  .events-timeline {
+    list-style: none;
+    max-width: 800px;
+  }
+
+  .events-timeline__item {
+    display: grid;
+    grid-template-columns: 40px 1fr;
+    gap: var(--sp-lg);
+    list-style: none;
+  }
+  .events-timeline__rail {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 8px;
+  }
+  .events-timeline__marker {
+    width: 14px;
+    height: 14px;
+    border-radius: var(--r-sm);
+    background: var(--c-primary);
+    flex-shrink: 0;
+  }
+  .events-timeline__item--past .events-timeline__marker {
+    background: var(--c-muted);
+  }
+  .events-timeline__item--live .events-timeline__marker {
+    background: var(--c-primary);
+    box-shadow: 0 0 0 3px rgba(199, 62, 34, 0.2);
+  }
+  .events-timeline__marker--future {
+    background: transparent !important;
+    border: 2px dashed rgba(26, 26, 26, 0.2);
+    box-shadow: none !important;
+  }
+  .events-timeline__line {
+    width: 1px;
+    flex: 1;
+    min-height: 32px;
+    background: rgba(26, 26, 26, 0.12);
+    margin-top: var(--sp-sm);
+  }
+
+  .events-timeline__card {
+    background: var(--c-surface);
+    border: 1px solid rgba(26, 26, 26, 0.1);
+    border-radius: var(--r-md);
+    padding: var(--sp-lg);
+    margin-bottom: var(--sp-lg);
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-sm);
+  }
+  .events-timeline__card--future {
+    background: transparent;
+    border-style: dashed;
+    border-color: rgba(26, 26, 26, 0.15);
+  }
+  .events-timeline__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--sp-sm);
+    flex-wrap: wrap;
+  }
+  .events-timeline__status {
+    font-family: var(--f-mono);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--c-muted);
+    padding: 3px 8px;
+    border: 1px solid rgba(26, 26, 26, 0.1);
+    border-radius: var(--r-sm);
+  }
+  .events-timeline__status--live {
+    color: var(--c-primary);
+    border-color: rgba(199, 62, 34, 0.25);
+    background: rgba(199, 62, 34, 0.06);
+  }
+  .events-timeline__format {
+    color: var(--c-primary);
+  }
+  .events-timeline__desc {
+    color: var(--c-muted);
+    max-width: 58ch;
+  }
+  .events-timeline__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--sp-md);
+    padding-top: var(--sp-sm);
+    margin-top: var(--sp-xs);
+    border-top: 1px solid rgba(26, 26, 26, 0.08);
+    flex-wrap: wrap;
+  }
+  .events-timeline__footer .body-md {
+    color: var(--c-muted);
+  }
+  .events-timeline__links {
+    display: flex;
+    gap: var(--sp-md);
+    margin-top: var(--sp-xs);
+  }
+  .events-timeline__link {
+    font-family: var(--f-display);
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--c-muted);
+    text-transform: lowercase;
+    transition: color 0.15s ease;
+  }
+  .events-timeline__link:hover,
+  .events-timeline__link--accent {
+    color: var(--c-primary);
+  }
+  .events-timeline__card h3 a:hover {
+    color: var(--c-primary);
+  }
+  .events-timeline__card--future .events-timeline__desc {
+    margin-bottom: var(--sp-sm);
+  }
+
+  @media (max-width: 640px) {
+    .events-hero__stats { gap: var(--sp-md); }
+    .events-timeline__item { grid-template-columns: 28px 1fr; gap: var(--sp-md); }
+  }
+</style>

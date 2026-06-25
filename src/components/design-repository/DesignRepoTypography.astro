@@ -1,0 +1,83 @@
+---
+import type { FontMeta } from '../../data/design-repository.types';
+
+interface Props {
+  fonts: FontMeta[];
+  typography: Record<string, Record<string, string | number>>;
+}
+
+const { fonts, typography } = Astro.props;
+
+const googleUrls = [...new Set(
+  fonts.filter((f) => f.source === 'google' && f.cssUrl).map((f) => f.cssUrl!)
+)];
+
+function specimenStyles(fontName: string) {
+  const display = Object.values(typography).find(
+    (t) => t.fontFamily === fontName && String(t.fontSize).includes('rem') && parseFloat(String(t.fontSize)) >= 2
+  ) ?? Object.values(typography).find((t) => t.fontFamily === fontName);
+
+  const body = Object.values(typography).find(
+    (t) => t.fontFamily === fontName && (String(t.fontSize).includes('1rem') || String(t.fontSize) === '16')
+  ) ?? Object.values(typography).find((t) => t.fontFamily === fontName && t !== display);
+
+  return { display, body };
+}
+
+function typoCss(style: Record<string, string | number> | undefined): string {
+  if (!style) return '';
+  const parts: string[] = [];
+  if (style.fontFamily) parts.push(`font-family: "${style.fontFamily}", system-ui, sans-serif`);
+  if (style.fontSize) {
+    const fs = String(style.fontSize);
+    parts.push(`font-size: ${fs.includes('px') || fs.includes('rem') || fs.includes('em') ? fs : `${fs}px`}`);
+  }
+  if (style.fontWeight) parts.push(`font-weight: ${style.fontWeight}`);
+  if (style.lineHeight) parts.push(`line-height: ${style.lineHeight}`);
+  if (style.letterSpacing) {
+    const ls = String(style.letterSpacing);
+    parts.push(`letter-spacing: ${ls.includes('px') || ls.includes('em') ? ls : `${ls}px`}`);
+  }
+  return parts.join('; ');
+}
+---
+
+{googleUrls.map((url) => (
+  <link rel="stylesheet" href={url} />
+))}
+
+<div class="design-repo-typography">
+  {fonts.map((font) => {
+    const { display, body } = specimenStyles(font.name);
+    return (
+      <div class="design-repo-type-specimen">
+        <div class="design-repo-type-specimen__header">
+          <span class="design-repo-type-specimen__name">{font.name}</span>
+          {font.source === 'custom' ? (
+            <span class="design-repo-type-specimen__badge">custom</span>
+          ) : (
+            <span class="design-repo-type-specimen__badge design-repo-type-specimen__badge--google">google fonts</span>
+          )}
+        </div>
+        {display && (
+          <p class="design-repo-type-specimen__display" style={typoCss(display)}>
+            the quick brown fox jumps over the lazy dog
+          </p>
+        )}
+        {body && body !== display && (
+          <p class="design-repo-type-specimen__body" style={typoCss(body)}>
+            the quick brown fox jumps over the lazy dog — body text at reading size.
+          </p>
+        )}
+        {!display && !body && (
+          <p
+            class="design-repo-type-specimen__body"
+            style={`font-family: "${font.name}", system-ui, sans-serif`}
+          >
+            the quick brown fox jumps over the lazy dog
+          </p>
+        )}
+      </div>
+    );
+  })}
+</div>

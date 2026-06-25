@@ -9,9 +9,14 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "design-repo:update": "./scripts/update-design-repository.sh"
   },
   "dependencies": {
+    "@n8n_io/n8n-demo-component": "^1.0.20",
     "astro": "^6.4.7"
+  },
+  "devDependencies": {
+    "yaml": "^2.9.0"
   }
 }

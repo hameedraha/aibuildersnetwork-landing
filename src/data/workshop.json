@@ -1,0 +1,150 @@
+{
+  "hub": {
+    "title": "workshop prompts",
+    "subtitle": "unlock each section as we go.",
+    "about": "your on-the-day companion for vibe coding: the right way — a 4-hour, in-person workshop in chennai. hameed, leo, and hari walk you from idea to product to customer using modern AI tools and proven startup thinking.",
+    "meta": "sat, 27 june 2026 · paperflite hq, perungudi",
+    "cta": {
+      "label": "workshop details & tickets",
+      "url": "https://the-ai-vibecoding-workshop.vercel.app/"
+    }
+  },
+  "cards": [
+    {
+      "slug": "why",
+      "title": "why",
+      "description": "build the right thing.",
+      "otp": "0000"
+    },
+    {
+      "slug": "how",
+      "title": "how",
+      "description": "build it the right way.",
+      "otp": "0000"
+    },
+    {
+      "slug": "who",
+      "title": "who",
+      "description": "take it to the right people.",
+      "otp": "0000"
+    }
+  ],
+  "variables": [
+    {
+      "key": "NAME",
+      "label": "your name",
+      "placeholder": "alex"
+    },
+    {
+      "key": "EMAIL",
+      "label": "your email",
+      "placeholder": "alex@example.com"
+    }
+  ],
+  "sections": {
+    "why": {
+      "title": "why",
+      "eyebrow": "build the right thing",
+      "items": [
+        {
+          "type": "prompt",
+          "id": "problem-statement",
+          "title": "frame the problem",
+          "content": "I'm $NAME building a product for a real problem I've experienced.\n\nHelp me articulate:\n1. Who has this problem?\n2. Why does it matter now?\n3. What happens if it stays unsolved?\n\nMy contact: $EMAIL"
+        },
+        {
+          "type": "prompt",
+          "id": "value-proposition",
+          "title": "sharpen the value prop",
+          "content": "I'm $NAME. My product solves [describe problem].\n\nHelp me write a one-sentence value proposition that a stranger would understand in 10 seconds.\n\nReach me at $EMAIL if you need more context."
+        }
+      ]
+    },
+    "how": {
+      "title": "how",
+      "eyebrow": "build it the right way",
+      "items": [
+        {
+          "type": "prompt",
+          "id": "mvp-scope",
+          "title": "define mvp scope",
+          "content": "I'm $NAME scoping an MVP for [product idea].\n\nHelp me cut this down to the smallest version that still delivers real value. List must-have features vs. nice-to-haves.\n\nContact: $EMAIL"
+        },
+        {
+          "type": "prompt",
+          "id": "tech-stack",
+          "title": "choose a tech stack",
+          "content": "I'm $NAME, a builder with [your skill level]. I want to ship [product type] fast using modern AI tools.\n\nRecommend a pragmatic stack and explain trade-offs for a solo builder.\n\nEmail: $EMAIL"
+        },
+        {
+          "type": "starter-picker",
+          "id": "starter-prompt",
+          "title": "starter prompt",
+          "description": "pick what you're shipping. copy a prompt tuned for that stack.",
+          "options": [
+            {
+              "id": "landing-page",
+              "title": "landing page",
+              "subtitle": "custom design.md",
+              "icon": "landing",
+              "content": "I'm $NAME building a marketing landing page for [product idea].\n\nStack: a single landing page with a custom DESIGN.md styleguide (generate one at /resources/design-generator or pick inspiration from /design-repository). Follow the design tokens strictly — colors, typography, spacing, and voice from DESIGN.md only.\n\nHelp me:\n1. Structure the page (hero, problem, solution, social proof, CTA)\n2. Write copy that matches the design.md voice\n3. List the components I need (nav, hero, feature grid, footer)\n4. Ship a polished landing page a stranger would trust in 10 seconds\n\nMy email for follow-up: $EMAIL"
+            },
+            {
+              "id": "web-app",
+              "title": "web app",
+              "subtitle": "shadcn/ui",
+              "icon": "web-app",
+              "content": "I'm $NAME building a web app for [product idea].\n\nStack: React + TypeScript, Shadcn/ui components, Tailwind CSS. Use Shadcn patterns for forms, dialogs, tables, sheets, and navigation. Accessible, keyboard-friendly, responsive.\n\nHelp me:\n1. Define the core screens and user flows for MVP\n2. Map each screen to Shadcn components (Button, Card, Dialog, Form, Table, etc.)\n3. Suggest folder structure and state approach for a solo builder\n4. List what to build first vs. defer\n\nContact: $EMAIL"
+            },
+            {
+              "id": "mobile-app",
+              "title": "mobile app",
+              "subtitle": "ionic react",
+              "icon": "mobile",
+              "content": "I'm $NAME building a mobile app for [product idea].\n\nStack: Ionic React with Capacitor. Use Ionic components (IonPage, IonHeader, IonContent, IonTabBar, IonCard, IonList, IonButton). Mobile-first patterns: tab navigation, pull-to-refresh where appropriate, native-feeling transitions.\n\nHelp me:\n1. Define the tab structure and primary user journeys\n2. Map screens to Ionic components\n3. Handle platform differences (iOS vs Android) pragmatically\n4. Plan for App Store / Play Store launch basics\n\n$EMAIL"
+            }
+          ]
+        },
+        {
+          "type": "design-showcase",
+          "id": "design-inspiration",
+          "title": "design inspiration",
+          "description": "real brand design systems as design.md files. pick one, download, ship on-brand ui.",
+          "href": "/design-repository",
+          "slugs": [
+            "stripe",
+            "notion",
+            "linear.app",
+            "vercel",
+            "figma",
+            "cursor",
+            "framer",
+            "airbnb",
+            "resend",
+            "posthog",
+            "shopify",
+            "supabase"
+          ]
+        }
+      ]
+    },
+    "who": {
+      "title": "who",
+      "eyebrow": "take it to the right people",
+      "items": [
+        {
+          "type": "prompt",
+          "id": "target-audience",
+          "title": "identify early adopters",
+          "content": "I'm $NAME launching [product].\n\nHelp me identify my first 10 ideal users: where they hang out, what language they use, and how to reach them without a marketing budget.\n\n$EMAIL"
+        },
+        {
+          "type": "prompt",
+          "id": "outreach-message",
+          "title": "write outreach copy",
+          "content": "I'm $NAME reaching out to potential early users for [product].\n\nWrite a short, honest cold message I can send on LinkedIn or email. No hype — builder-to-builder tone.\n\nSign off with my name: $NAME"
+        }
+      ]
+    }
+  }
+}

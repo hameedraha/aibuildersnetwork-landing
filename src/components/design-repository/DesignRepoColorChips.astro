@@ -1,0 +1,28 @@
+---
+interface Props {
+  colors: Record<string, string>;
+  size?: 'sm' | 'md';
+  variant?: 'dots' | 'strip';
+}
+
+const { colors, size = 'sm', variant = 'dots' } = Astro.props;
+const entries = Object.entries(colors);
+---
+
+{entries.length > 0 && (
+  <div
+    class:list={[
+      'design-repo-chips',
+      variant === 'strip' ? 'design-repo-chips--strip' : `design-repo-chips--${size}`,
+    ]}
+    aria-label="color palette"
+  >
+    {entries.map(([name, hex]) => (
+      <span
+        class="design-repo-chip"
+        style={`background: ${hex}`}
+        title={`${name} · ${hex}`}
+      ></span>
+    ))}
+  </div>
+)}

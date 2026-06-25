@@ -1,0 +1,345 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="design.md generator · ai builders network"
+  description="generate a DESIGN.md styleguide for your product — feed it to ai coding tools for on-brand output."
+>
+  <section class="page-hero section--neutral" aria-labelledby="generator-heading">
+    <div class="container">
+      <a href="/resources" class="back-link">← all resources</a>
+      <span class="eyebrow">design tool</span>
+      <h1 class="display-l" id="generator-heading">design.md generator.</h1>
+      <p class="body-lg page-hero__desc">
+        fill in your brand tokens. get a DESIGN.md file you can drop into any repo and hand to cursor, claude, or copilot.
+      </p>
+    </div>
+  </section>
+
+  <div class="section-divider" role="separator"></div>
+
+  <section class="section--neutral generator-section">
+    <div class="container generator-grid">
+      <form class="generator-form" id="design-form" aria-label="design.md generator form">
+        <fieldset class="generator-fieldset">
+          <legend class="eyebrow">identity</legend>
+          <label class="generator-label">
+            <span class="heading">product name</span>
+            <input type="text" name="name" value="my product" class="generator-input" required />
+          </label>
+          <label class="generator-label">
+            <span class="heading">description</span>
+            <textarea name="description" rows="2" class="generator-input">visual identity for a builder-focused product.</textarea>
+          </label>
+        </fieldset>
+
+        <fieldset class="generator-fieldset">
+          <legend class="eyebrow">colors</legend>
+          <label class="generator-label">
+            <span class="heading">primary</span>
+            <input type="color" name="primary" value="#C73E22" class="generator-input generator-input--color" />
+          </label>
+          <label class="generator-label">
+            <span class="heading">ink (text dark)</span>
+            <input type="color" name="ink" value="#1A1A1A" class="generator-input generator-input--color" />
+          </label>
+          <label class="generator-label">
+            <span class="heading">neutral (background)</span>
+            <input type="color" name="neutral" value="#F4F1EA" class="generator-input generator-input--color" />
+          </label>
+          <label class="generator-label">
+            <span class="heading">muted (secondary text)</span>
+            <input type="color" name="muted" value="#5C5C5C" class="generator-input generator-input--color" />
+          </label>
+        </fieldset>
+
+        <fieldset class="generator-fieldset">
+          <legend class="eyebrow">typography</legend>
+          <label class="generator-label">
+            <span class="heading">display font</span>
+            <input type="text" name="displayFont" value="DM Mono" class="generator-input" />
+          </label>
+          <label class="generator-label">
+            <span class="heading">body font</span>
+            <input type="text" name="bodyFont" value="Inter" class="generator-input" />
+          </label>
+        </fieldset>
+
+        <fieldset class="generator-fieldset">
+          <legend class="eyebrow">voice</legend>
+          <label class="generator-label">
+            <span class="heading">tone (one line)</span>
+            <input type="text" name="tone" value="lowercase, direct, builder-to-builder." class="generator-input" />
+          </label>
+        </fieldset>
+      </form>
+
+      <div class="generator-output">
+        <div class="generator-output__header">
+          <span class="eyebrow">output</span>
+          <div class="generator-output__actions">
+            <button type="button" class="btn-secondary btn--sm" id="copy-design">copy</button>
+            <button type="button" class="btn-primary btn--sm" id="download-design">download</button>
+          </div>
+        </div>
+        <pre class="generator-preview" id="design-output" aria-label="generated design.md"></pre>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  function darkenHex(hex: string, amount = 0.08): string {
+    const n = parseInt(hex.slice(1), 16);
+    const r = Math.max(0, ((n >> 16) & 0xff) * (1 - amount)) | 0;
+    const g = Math.max(0, ((n >> 8) & 0xff) * (1 - amount)) | 0;
+    const b = Math.max(0, (n & 0xff) * (1 - amount)) | 0;
+    return `#${((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1).toUpperCase()}`;
+  }
+
+  function generateDesignMd(data: FormData): string {
+    const name = (data.get('name') as string) || 'my product';
+    const description = (data.get('description') as string) || '';
+    const primary = (data.get('primary') as string) || '#C73E22';
+    const ink = (data.get('ink') as string) || '#1A1A1A';
+    const neutral = (data.get('neutral') as string) || '#F4F1EA';
+    const muted = (data.get('muted') as string) || '#5C5C5C';
+    const displayFont = (data.get('displayFont') as string) || 'DM Mono';
+    const bodyFont = (data.get('bodyFont') as string) || 'Inter';
+    const tone = (data.get('tone') as string) || 'lowercase, direct.';
+    const primaryDeep = darkenHex(primary);
+    const onPrimary = '#FFFFFF';
+    const onInk = neutral;
+    const onNeutral = ink;
+    const surface = '#FFFFFF';
+
+    return `---
+version: alpha
+name: ${name}
+description: ${description}
+colors:
+  primary: "${primary.toUpperCase()}"
+  primary-deep: "${primaryDeep}"
+  on-primary: "${onPrimary}"
+  ink: "${ink.toUpperCase()}"
+  on-ink: "${onInk.toUpperCase()}"
+  neutral: "${neutral.toUpperCase()}"
+  on-neutral: "${onNeutral.toUpperCase()}"
+  muted: "${muted.toUpperCase()}"
+  surface: "${surface}"
+  divider: "${ink.toUpperCase()}"
+typography:
+  display-xl:
+    fontFamily: ${displayFont}
+    fontSize: 5rem
+    fontWeight: 500
+    lineHeight: 1.0
+    letterSpacing: "-0.03em"
+  display-l:
+    fontFamily: ${displayFont}
+    fontSize: 3.25rem
+    fontWeight: 500
+    lineHeight: 1.05
+    letterSpacing: "-0.02em"
+  heading:
+    fontFamily: ${displayFont}
+    fontSize: 1.5rem
+    fontWeight: 500
+    lineHeight: 1.2
+  body-lg:
+    fontFamily: ${bodyFont}
+    fontSize: 1.25rem
+    fontWeight: 400
+    lineHeight: 1.5
+  body-md:
+    fontFamily: ${bodyFont}
+    fontSize: 1rem
+    fontWeight: 400
+    lineHeight: 1.6
+  label-caps:
+    fontFamily: ${displayFont}
+    fontSize: 0.75rem
+    fontWeight: 500
+    lineHeight: 1.4
+    letterSpacing: "0.12em"
+rounded:
+  none: 0px
+  sm: 4px
+  md: 8px
+spacing:
+  xs: 8px
+  sm: 16px
+  md: 24px
+  lg: 48px
+  xl: 120px
+components:
+  button-primary:
+    backgroundColor: "{colors.primary}"
+    textColor: "{colors.on-primary}"
+    typography: "{typography.heading}"
+    rounded: "{rounded.sm}"
+    padding: 16px
+  card-on-neutral:
+    backgroundColor: "{colors.surface}"
+    textColor: "{colors.on-neutral}"
+    rounded: "{rounded.md}"
+    padding: 24px
+  card-on-ink:
+    backgroundColor: "{colors.ink}"
+    textColor: "{colors.on-ink}"
+    rounded: "{rounded.md}"
+    padding: 24px
+---
+
+## Overview
+
+${description}
+
+Voice: ${tone}
+
+## Colors
+
+- **Primary (${primary.toUpperCase()}):** main accent for buttons and interaction.
+- **Ink (${ink.toUpperCase()}):** primary text and dark sections.
+- **Neutral (${neutral.toUpperCase()}):** page background.
+- **Muted (${muted.toUpperCase()}):** secondary text and captions.
+
+Body text reads in ink on neutral or on-ink on ink. Accent color is for surfaces, never long-form reading.
+
+## Typography
+
+- **${displayFont}** for display, headings, and labels. lowercase at display sizes.
+- **${bodyFont}** for body copy.
+
+## Layout
+
+Max width 1100px. generous side margins. section breaks are hairline rules at low opacity.
+
+## Do's and Don'ts
+
+- **Do** keep headings lowercase and copy specific.
+- **Do** use one accent color per viewport.
+- **Don't** use accent color for body text.
+- **Don't** add motion beyond quiet hover states.
+`;
+  }
+
+  function initGenerator() {
+    const form = document.getElementById('design-form') as HTMLFormElement | null;
+    const output = document.getElementById('design-output');
+    const copyBtn = document.getElementById('copy-design');
+    const downloadBtn = document.getElementById('download-design');
+    if (!form || !output) return;
+
+    const update = () => {
+      output.textContent = generateDesignMd(new FormData(form));
+    };
+
+    form.addEventListener('input', update);
+    update();
+
+    copyBtn?.addEventListener('click', async () => {
+      if (!output.textContent) return;
+      await navigator.clipboard.writeText(output.textContent);
+      copyBtn.textContent = 'copied';
+      setTimeout(() => { copyBtn.textContent = 'copy'; }, 1500);
+    });
+
+    downloadBtn?.addEventListener('click', () => {
+      if (!output.textContent) return;
+      const blob = new Blob([output.textContent], { type: 'text/markdown' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'DESIGN.md';
+      a.click();
+      URL.revokeObjectURL(a.href);
+    });
+  }
+
+  initGenerator();
+  document.addEventListener('astro:page-load', initGenerator);
+</script>
+
+<style>
+  .generator-section {
+    padding-block: clamp(32px, 6vw, 64px);
+  }
+  .generator-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(32px, 5vw, 64px);
+    align-items: start;
+  }
+  .generator-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-lg);
+    border: none;
+  }
+  .generator-fieldset {
+    border: 1px solid rgba(26, 26, 26, 0.12);
+    border-radius: var(--r-md);
+    padding: var(--sp-md);
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-md);
+  }
+  .generator-fieldset legend {
+    padding: 0 var(--sp-xs);
+  }
+  .generator-label {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-xs);
+  }
+  .generator-input {
+    font-family: var(--f-body);
+    font-size: 1rem;
+    padding: 10px 14px;
+    border: 1px solid rgba(26, 26, 26, 0.15);
+    border-radius: var(--r-sm);
+    background: var(--c-surface);
+    color: var(--c-ink);
+    width: 100%;
+  }
+  .generator-input--color {
+    height: 44px;
+    padding: 4px;
+    cursor: pointer;
+  }
+  .generator-output {
+    position: sticky;
+    top: calc(72px + var(--sp-md));
+  }
+  .generator-output__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: var(--sp-sm);
+    flex-wrap: wrap;
+    gap: var(--sp-sm);
+  }
+  .generator-output__actions {
+    display: flex;
+    gap: var(--sp-xs);
+  }
+  .generator-preview {
+    background: var(--c-ink);
+    color: var(--c-on-ink);
+    padding: var(--sp-md);
+    border-radius: var(--r-md);
+    font-family: var(--f-mono);
+    font-size: 0.6875rem;
+    line-height: 1.6;
+    overflow: auto;
+    max-height: calc(100vh - 160px);
+    white-space: pre-wrap;
+    border: 1px solid rgba(26, 26, 26, 0.12);
+  }
+  @media (max-width: 900px) {
+    .generator-grid { grid-template-columns: 1fr; }
+    .generator-output { position: static; }
+    .generator-preview { max-height: 480px; }
+  }
+</style>

@@ -1,0 +1,217 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { readFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+
+const designMd = readFileSync(
+  fileURLToPath(new URL('../../../DESIGN.md', import.meta.url)),
+  'utf-8'
+);
+
+const colors = [
+  { name: 'primary', hex: '#C73E22', role: 'vermilion — buttons, accents' },
+  { name: 'primary-deep', hex: '#B83A22', role: 'hover states' },
+  { name: 'ink', hex: '#1A1A1A', role: 'headers, dark sections' },
+  { name: 'on-ink', hex: '#F4F1EA', role: 'text on ink' },
+  { name: 'neutral', hex: '#F4F1EA', role: 'page background' },
+  { name: 'muted', hex: '#5C5C5C', role: 'secondary text' },
+  { name: 'surface', hex: '#FFFFFF', role: 'cards, lifted blocks' },
+];
+
+const typeSamples = [
+  { label: 'display-xl', class: 'display-xl', text: 'where builders ship.' },
+  { label: 'display-l', class: 'display-l', text: 'resources for builders.' },
+  { label: 'heading', class: 'heading', text: 'peers who build' },
+  { label: 'body-lg', class: 'body-lg', text: 'a community of enthusiasts passionate about building AI solutions.' },
+  { label: 'body-md', class: 'body-md', text: 'weekly build demos. async knowledge sharing. early access to projects.' },
+  { label: 'eyebrow', class: 'eyebrow', text: 'members · est. 2026' },
+];
+---
+
+<BaseLayout
+  title="design repository · ai builders network"
+  description="the aibn design system — colors, typography, components, and guidelines."
+>
+  <section class="page-hero section--neutral" aria-labelledby="design-repo-heading">
+    <div class="container">
+      <a href="/resources" class="back-link">← all resources</a>
+      <span class="eyebrow">design system</span>
+      <h1 class="display-l" id="design-repo-heading">design repository.</h1>
+      <p class="body-lg page-hero__desc">
+        the visual identity for ai builders network. tokens, typography, and components — sourced from one object: the aibn logo grid.
+      </p>
+      <div class="design-repo__actions">
+        <a href="/design.md" class="btn-secondary btn--sm" download>download design.md</a>
+        <a href="/resources/design-generator" class="btn-primary btn--sm">generate your own</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider" role="separator"></div>
+
+  <section class="section--neutral design-section" aria-labelledby="colors-heading">
+    <div class="container">
+      <span class="eyebrow">tokens</span>
+      <h2 class="display-l" id="colors-heading" style="margin-bottom: var(--sp-lg);">colors.</h2>
+      <div class="color-grid">
+        {colors.map((c) => (
+          <div class="color-swatch">
+            <div class="color-swatch__chip" style={`background: ${c.hex}`}></div>
+            <div class="color-swatch__info">
+              <span class="heading">{c.name}</span>
+              <span class="eyebrow">{c.hex}</span>
+              <p class="body-md">{c.role}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider" role="separator"></div>
+
+  <section class="section--neutral design-section" aria-labelledby="type-heading">
+    <div class="container">
+      <span class="eyebrow">typography</span>
+      <h2 class="display-l" id="type-heading" style="margin-bottom: var(--sp-lg);">type scale.</h2>
+      <div class="type-grid">
+        {typeSamples.map((t) => (
+          <div class="type-sample">
+            <span class="eyebrow">{t.label}</span>
+            <p class={t.class}>{t.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider" role="separator"></div>
+
+  <section class="section--neutral design-section" aria-labelledby="components-heading">
+    <div class="container">
+      <span class="eyebrow">components</span>
+      <h2 class="display-l" id="components-heading" style="margin-bottom: var(--sp-lg);">building blocks.</h2>
+      <div class="component-grid">
+        <div class="component-demo">
+          <span class="eyebrow">button-primary</span>
+          <button type="button" class="btn-primary">join the network</button>
+        </div>
+        <div class="component-demo">
+          <span class="eyebrow">button-secondary</span>
+          <button type="button" class="btn-secondary">see what's inside</button>
+        </div>
+        <div class="component-demo card-on-neutral">
+          <span class="eyebrow">card-on-neutral</span>
+          <p class="heading">lifted on paper</p>
+          <p class="body-md">surface white on neutral background.</p>
+        </div>
+        <div class="component-demo card-on-ink">
+          <span class="eyebrow eyebrow--on-ink">card-on-ink</span>
+          <p class="heading">lifted on ink</p>
+          <p class="body-md">for dark sections.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider" role="separator"></div>
+
+  <section class="section--neutral design-section" aria-labelledby="source-heading">
+    <div class="container">
+      <span class="eyebrow">source file</span>
+      <h2 class="display-l" id="source-heading" style="margin-bottom: var(--sp-md);">design.md</h2>
+      <p class="body-md" style="color: var(--c-muted); margin-bottom: var(--sp-md); max-width: 52ch;">
+        the canonical styleguide. feed it to your ai coding tools so every page matches the identity.
+      </p>
+      <pre class="design-source-preview" aria-label="design.md preview">{designMd.slice(0, 1200)}…</pre>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .design-repo__actions {
+    display: flex;
+    gap: var(--sp-sm);
+    flex-wrap: wrap;
+    margin-top: var(--sp-md);
+  }
+  .design-section {
+    padding-block: clamp(40px, 6vw, 72px);
+  }
+  .color-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1px;
+    background: var(--c-divider);
+    border: 1px solid var(--c-divider);
+  }
+  .color-swatch {
+    background: var(--c-surface);
+    padding: var(--sp-md);
+    display: flex;
+    gap: var(--sp-md);
+    align-items: center;
+  }
+  .color-swatch__chip {
+    width: 48px;
+    height: 48px;
+    border-radius: var(--r-sm);
+    flex-shrink: 0;
+    border: 1px solid rgba(26, 26, 26, 0.1);
+  }
+  .color-swatch__info .body-md {
+    color: var(--c-muted);
+    font-size: 0.875rem;
+    margin-top: 4px;
+  }
+  .type-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    background: var(--c-divider);
+    border: 1px solid var(--c-divider);
+  }
+  .type-sample {
+    background: var(--c-surface);
+    padding: var(--sp-lg);
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-sm);
+  }
+  .component-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1px;
+    background: var(--c-divider);
+    border: 1px solid var(--c-divider);
+  }
+  .component-demo {
+    padding: var(--sp-lg);
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-md);
+    align-items: flex-start;
+  }
+  .card-on-neutral {
+    background: var(--c-surface);
+  }
+  .card-on-ink {
+    background: var(--c-ink);
+    color: var(--c-on-ink);
+  }
+  .card-on-ink .body-md {
+    color: rgba(244, 241, 234, 0.65);
+  }
+  .design-source-preview {
+    background: var(--c-ink);
+    color: var(--c-on-ink);
+    padding: var(--sp-lg);
+    border-radius: var(--r-md);
+    font-family: var(--f-mono);
+    font-size: 0.75rem;
+    line-height: 1.6;
+    overflow-x: auto;
+    max-height: 400px;
+    white-space: pre-wrap;
+  }
+</style>

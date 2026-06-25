@@ -1,0 +1,73 @@
+---
+import ResourceLayout from '../../layouts/ResourceLayout.astro';
+import { getCollection, render } from 'astro:content';
+import { readFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+
+function loadAsset(relativePath: string): string {
+  return readFileSync(fileURLToPath(new URL(relativePath, import.meta.url)), 'utf-8');
+}
+
+export async function getStaticPaths() {
+  const resources = await getCollection('resources');
+  return (resources ?? []).map((resource) => ({
+    params: { id: resource.id },
+  }));
+}
+
+const { id } = Astro.params;
+if (!id) {
+  return Astro.redirect('/resources');
+}
+
+const resources = await getCollection('resources');
+const resource = resources?.find((entry) => entry.id === id);
+
+if (!resource) {
+  return Astro.redirect('/404');
+}
+
+const { Content, headings } = await render(resource);
+const { title, description, pubDate } = resource.data;
+const category = resource.data.category ?? 'guides';
+const tags = resource.data.tags ?? [];
+const downloads = resource.data.downloads ?? [];
+const workflows = resource.data.workflows ?? [];
+const prompts = resource.data.prompts ?? [];
+
+const tocHeadings = (headings ?? [])
+  .filter((h) => h.depth >= 2 && h.depth <= 3)
+  .map((h) => ({ depth: h.depth, text: h.text, slug: h.slug }));
+
+const workflowBlocks = workflows.map((w) => ({
+  ...w,
+  workflow: loadAsset(`../../../public/resources/workflows/${w.id}.json`),
+}));
+
+const promptBlocks = prompts.map((p) => ({
+  ...p,
+  content: loadAsset(`../../../public/resources/prompts/${p.id}.txt`),
+}));
+
+const formattedDate = pubDate.toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+---
+
+<ResourceLayout
+  title={title}
+  description={description}
+  category={category}
+  tags={tags}
+  formattedDate={formattedDate}
+  headings={tocHeadings}
+  downloads={downloads}
+  workflows={workflows}
+  workflowBlocks={workflowBlocks}
+  prompts={prompts}
+  promptBlocks={promptBlocks}
+>
+  <Content />
+</ResourceLayout>

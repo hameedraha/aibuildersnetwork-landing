@@ -1,0 +1,538 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import ResourceSidebar from '../components/ResourceSidebar.astro';
+import N8nWorkflowViewer from '../components/N8nWorkflowViewer.astro';
+import PromptBlock from '../components/PromptBlock.astro';
+
+interface Heading {
+  depth: number;
+  text: string;
+  slug: string;
+}
+
+interface Download {
+  label: string;
+  url: string;
+  fileType?: string;
+}
+
+interface Workflow {
+  id: string;
+  title: string;
+  description?: string;
+}
+
+interface Prompt {
+  id: string;
+  title: string;
+  description?: string;
+}
+
+interface WorkflowBlock extends Workflow {
+  workflow: string;
+}
+
+interface PromptBlockData extends Prompt {
+  content: string;
+}
+
+interface Props {
+  title: string;
+  description: string;
+  category: string;
+  tags: string[];
+  formattedDate: string;
+  headings: Heading[];
+  downloads?: Download[];
+  workflows?: Workflow[];
+  workflowBlocks?: WorkflowBlock[];
+  prompts?: Prompt[];
+  promptBlocks?: PromptBlockData[];
+}
+
+const {
+  title,
+  description,
+  category = 'guides',
+  tags = [],
+  formattedDate,
+  headings,
+  downloads = [],
+  workflows = [],
+  workflowBlocks = [],
+  prompts = [],
+  promptBlocks = [],
+} = Astro.props;
+---
+
+<BaseLayout title={`${title} · ai builders network`} description={description}>
+  <article class="resource-article">
+    <header class="resource-hero section--ink" aria-labelledby="resource-title">
+      <div class="container resource-hero__inner">
+        <a href="/resources" class="back-link back-link--on-ink">← all resources</a>
+        <div class="resource-hero__meta">
+          <span class="eyebrow eyebrow--on-ink resource-hero__tag">{category}</span>
+          <span class="eyebrow eyebrow--on-ink">{formattedDate}</span>
+        </div>
+        <h1 class="display-l" id="resource-title">{title}</h1>
+        <p class="body-lg resource-hero__desc">{description}</p>
+        {tags.length > 0 && (
+          <div class="resource-hero__tags">
+            {tags.map((t) => <span class="resource-tag resource-tag--on-ink">{t}</span>)}
+          </div>
+        )}
+      </div>
+    </header>
+
+    <div class="resource-body section--neutral">
+      <div class="container resource-body__grid">
+        <ResourceSidebar
+          headings={headings}
+          downloads={downloads}
+          workflows={workflows}
+          prompts={prompts}
+        />
+
+        <div class="resource-main">
+          <div class="resource-prose">
+            <slot />
+          </div>
+
+          {promptBlocks.length > 0 && (
+            <section class="resource-prompts" aria-label="prompts">
+              {promptBlocks.map((block) => (
+                <PromptBlock
+                  id={block.id}
+                  title={block.title}
+                  description={block.description}
+                  content={block.content}
+                />
+              ))}
+            </section>
+          )}
+
+          {workflowBlocks.length > 0 && (
+            <section class="resource-workflows" aria-label="n8n workflows">
+              {workflowBlocks.map((block) => (
+                <N8nWorkflowViewer
+                  id={block.id}
+                  title={block.title}
+                  description={block.description}
+                  workflow={block.workflow}
+                />
+              ))}
+            </section>
+          )}
+
+          {downloads.length > 0 && (
+            <section class="resource-downloads-mobile" aria-labelledby="downloads-mobile-heading">
+              <span class="eyebrow" id="downloads-mobile-heading">downloads</span>
+              <ul class="resource-downloads-mobile__list">
+                {downloads.map((file) => (
+                  <li>
+                    <a href={file.url} class="resource-downloads-mobile__item" download>
+                      <span class="heading">{file.label}</span>
+                      {file.fileType && <span class="eyebrow">{file.fileType}</span>}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+        </div>
+      </div>
+    </div>
+  </article>
+
+  {workflowBlocks.length > 0 && (
+    <script type="module" src="/vendor/n8n-demo.bundled.js"></script>
+  )}
+
+  <script>
+    function initTocSpy() {
+      const links = document.querySelectorAll<HTMLAnchorElement>('[data-toc-link]');
+      const headings = [...links]
+        .map((link) => {
+          const slug = link.dataset.slug;
+          if (!slug) return null;
+          const el = document.getElementById(slug);
+          return el ? { link, el } : null;
+        })
+        .filter((item): item is { link: HTMLAnchorElement; el: HTMLElement } => item !== null);
+
+      if (headings.length === 0) return;
+
+      const setActive = (slug: string) => {
+        links.forEach((link) => {
+          link.classList.toggle('is-active', link.dataset.slug === slug);
+        });
+      };
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          const visible = entries
+            .filter((e) => e.isIntersecting)
+            .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+
+          if (visible.length > 0) {
+            setActive(visible[0].target.id);
+          }
+        },
+        { rootMargin: '-80px 0px -60% 0px', threshold: 0 }
+      );
+
+      headings.forEach(({ el }) => observer.observe(el));
+
+      links.forEach((link) => {
+        link.addEventListener('click', () => {
+          const slug = link.dataset.slug;
+          if (slug) setActive(slug);
+        });
+      });
+    }
+
+    initTocSpy();
+    document.addEventListener('astro:page-load', initTocSpy);
+  </script>
+</BaseLayout>
+
+<style>
+  .resource-article {
+    --sidebar-width: 220px;
+  }
+
+  /* ── HERO ── */
+  .resource-hero {
+    padding-block: clamp(56px, 10vw, 96px);
+    border-bottom: 1px solid rgba(244, 241, 234, 0.1);
+  }
+  .resource-hero__inner {
+    max-width: 720px;
+  }
+  .back-link--on-ink {
+    color: rgba(244, 241, 234, 0.5);
+    margin-bottom: var(--sp-md);
+  }
+  .back-link--on-ink:hover {
+    color: var(--c-on-ink);
+  }
+  .resource-hero__meta {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-sm);
+    flex-wrap: wrap;
+    margin-bottom: var(--sp-sm);
+  }
+  .resource-hero__tag {
+    color: var(--c-primary) !important;
+    opacity: 1 !important;
+  }
+  .resource-hero .display-l {
+    color: var(--c-on-ink);
+    margin-bottom: var(--sp-md);
+    max-width: 20ch;
+  }
+  .resource-hero__desc {
+    color: rgba(244, 241, 234, 0.65);
+    max-width: 52ch;
+  }
+  .resource-hero__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: var(--sp-sm);
+  }
+  .resource-tag--on-ink {
+    color: rgba(244, 241, 234, 0.65);
+    background: rgba(244, 241, 234, 0.08);
+    border-color: rgba(244, 241, 234, 0.15);
+  }
+
+  /* ── BODY GRID ── */
+  .resource-body {
+    padding-block: clamp(40px, 6vw, 72px);
+  }
+  .resource-body__grid {
+    display: grid;
+    grid-template-columns: var(--sidebar-width) 1fr;
+    gap: clamp(32px, 5vw, 72px);
+    align-items: start;
+  }
+  .resource-main {
+    min-width: 0;
+    max-width: 680px;
+  }
+
+  /* ── SIDEBAR ── */
+  :global(.resource-sidebar) {
+    position: sticky;
+    top: calc(72px + var(--sp-md));
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-lg);
+  }
+  :global(.resource-sidebar__label) {
+    display: block;
+    margin-bottom: var(--sp-sm);
+  }
+  :global(.resource-toc__list) {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    border-left: 1px solid rgba(26, 26, 26, 0.12);
+  }
+  :global(.resource-toc__item--h3) {
+    padding-left: var(--sp-sm);
+  }
+  :global(.resource-toc__link) {
+    display: block;
+    font-family: var(--f-display);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    line-height: 1.4;
+    color: var(--c-muted);
+    text-transform: lowercase;
+    padding: 6px 0 6px var(--sp-sm);
+    border-left: 2px solid transparent;
+    margin-left: -1px;
+    transition: color 0.15s ease, border-color 0.15s ease;
+  }
+  :global(.resource-toc__link:hover),
+  :global(.resource-toc__link.is-active) {
+    color: var(--c-ink);
+    border-left-color: var(--c-primary);
+  }
+  :global(.resource-sidebar-downloads__list) {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    background: rgba(26, 26, 26, 0.08);
+    border: 1px solid rgba(26, 26, 26, 0.1);
+    border-radius: var(--r-md);
+    overflow: hidden;
+  }
+  :global(.resource-sidebar-downloads__link) {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: var(--sp-sm) var(--sp-md);
+    background: var(--c-surface);
+    transition: background 0.15s ease;
+  }
+  :global(.resource-sidebar-downloads__link:hover) {
+    background: rgba(255, 255, 255, 0.9);
+  }
+  :global(.resource-sidebar-downloads__label) {
+    font-family: var(--f-display);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    text-transform: lowercase;
+    line-height: 1.3;
+  }
+  :global(.resource-sidebar-downloads__type) {
+    font-family: var(--f-mono);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--c-muted);
+  }
+
+  /* ── PROSE ── */
+  .resource-prose :global(> p:first-of-type) {
+    font-size: 1.125rem;
+    line-height: 1.65;
+    color: var(--c-muted);
+    margin-bottom: var(--sp-lg);
+    padding-bottom: var(--sp-lg);
+    border-bottom: 1px solid rgba(26, 26, 26, 0.1);
+  }
+  .resource-prose :global(h2) {
+    font-family: var(--f-display);
+    font-size: 1.375rem;
+    font-weight: 500;
+    line-height: 1.25;
+    text-transform: lowercase;
+    color: var(--c-ink);
+    margin-top: var(--sp-lg);
+    margin-bottom: var(--sp-md);
+    padding-top: var(--sp-lg);
+    border-top: 1px solid rgba(26, 26, 26, 0.1);
+    scroll-margin-top: 96px;
+  }
+  .resource-prose :global(h2:first-of-type) {
+    margin-top: 0;
+    padding-top: 0;
+    border-top: none;
+  }
+  .resource-prose :global(h3) {
+    font-family: var(--f-display);
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1.3;
+    text-transform: lowercase;
+    color: var(--c-ink);
+    margin-top: var(--sp-md);
+    margin-bottom: var(--sp-sm);
+    scroll-margin-top: 96px;
+  }
+  .resource-prose :global(p) {
+    margin-bottom: var(--sp-md);
+    line-height: 1.75;
+    color: var(--c-ink);
+  }
+  .resource-prose :global(ul),
+  .resource-prose :global(ol) {
+    margin-bottom: var(--sp-md);
+    padding-left: 1.25rem;
+  }
+  .resource-prose :global(ul) { list-style: disc; }
+  .resource-prose :global(ol) { list-style: decimal; }
+  .resource-prose :global(li) {
+    margin-bottom: var(--sp-xs);
+    line-height: 1.75;
+    color: var(--c-muted);
+  }
+  .resource-prose :global(li strong),
+  .resource-prose :global(p strong) {
+    color: var(--c-ink);
+    font-weight: 500;
+  }
+  .resource-prose :global(blockquote) {
+    margin-block: var(--sp-md);
+    padding: var(--sp-md) var(--sp-lg);
+    border-left: 3px solid var(--c-primary);
+    background: var(--c-surface);
+    border-radius: 0 var(--r-md) var(--r-md) 0;
+  }
+  .resource-prose :global(blockquote p) {
+    color: var(--c-muted);
+    margin-bottom: 0;
+  }
+  .resource-prose :global(code) {
+    font-family: var(--f-mono);
+    font-size: 0.875em;
+    background: rgba(26, 26, 26, 0.06);
+    padding: 2px 7px;
+    border-radius: var(--r-sm);
+  }
+  .resource-prose :global(pre) {
+    background: var(--c-ink);
+    color: var(--c-on-ink);
+    padding: var(--sp-md) var(--sp-lg);
+    border-radius: var(--r-md);
+    overflow-x: auto;
+    margin-block: var(--sp-md);
+    font-size: 0.875rem;
+    line-height: 1.6;
+  }
+  .resource-prose :global(pre code) {
+    background: none;
+    padding: 0;
+    color: inherit;
+    font-size: inherit;
+  }
+  .resource-prose :global(a) {
+    color: var(--c-primary);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: color 0.15s ease;
+  }
+  .resource-prose :global(a:hover) {
+    color: var(--c-primary-deep);
+  }
+  .resource-prose :global(table) {
+    width: 100%;
+    border-collapse: collapse;
+    margin-block: var(--sp-md);
+    font-size: 0.9375rem;
+    border: 1px solid rgba(26, 26, 26, 0.12);
+    border-radius: var(--r-md);
+    overflow: hidden;
+  }
+  .resource-prose :global(th),
+  .resource-prose :global(td) {
+    padding: var(--sp-sm) var(--sp-md);
+    text-align: left;
+    border-bottom: 1px solid rgba(26, 26, 26, 0.08);
+  }
+  .resource-prose :global(th) {
+    font-family: var(--f-display);
+    font-weight: 500;
+    font-size: 0.8125rem;
+    text-transform: lowercase;
+    background: var(--c-surface);
+    color: var(--c-ink);
+  }
+  .resource-prose :global(td) {
+    color: var(--c-muted);
+  }
+  .resource-prose :global(tr:last-child td) {
+    border-bottom: none;
+  }
+  .resource-prose :global(hr) {
+    border: none;
+    height: 1px;
+    background: rgba(26, 26, 26, 0.1);
+    margin-block: var(--sp-lg);
+  }
+
+  /* ── PROMPTS ── */
+  .resource-prompts {
+    margin-top: var(--sp-md);
+  }
+
+  /* ── N8N WORKFLOWS ── */
+  .resource-workflows {
+    margin-top: var(--sp-md);
+  }
+
+  /* ── MOBILE DOWNLOADS ── */
+  .resource-downloads-mobile {
+    display: none;
+    margin-top: var(--sp-lg);
+    padding-top: var(--sp-lg);
+    border-top: 1px solid rgba(26, 26, 26, 0.1);
+  }
+  .resource-downloads-mobile .eyebrow {
+    display: block;
+    margin-bottom: var(--sp-md);
+  }
+  .resource-downloads-mobile__list {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    background: var(--c-divider);
+    border: 1px solid var(--c-divider);
+    border-radius: var(--r-md);
+    overflow: hidden;
+  }
+  .resource-downloads-mobile__item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--sp-md);
+    padding: var(--sp-md) var(--sp-lg);
+    background: var(--c-surface);
+  }
+
+  @media (max-width: 900px) {
+    .resource-body__grid {
+      grid-template-columns: 1fr;
+    }
+    :global(.resource-sidebar) {
+      position: static;
+      padding-bottom: var(--sp-md);
+      border-bottom: 1px solid rgba(26, 26, 26, 0.1);
+    }
+    :global(.resource-sidebar-downloads) {
+      display: none;
+    }
+    .resource-downloads-mobile {
+      display: block;
+    }
+    .resource-main {
+      max-width: none;
+    }
+  }
+</style>

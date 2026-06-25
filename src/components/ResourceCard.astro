@@ -1,0 +1,50 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  resource: CollectionEntry<'resources'>;
+}
+
+const { resource } = Astro.props;
+const { title, description, pubDate } = resource.data;
+const category = resource.data.category ?? 'guides';
+const tags = resource.data.tags ?? [];
+const downloads = resource.data.downloads ?? [];
+const workflows = resource.data.workflows ?? [];
+const prompts = resource.data.prompts ?? [];
+const formattedDate = pubDate.toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'short',
+  day: 'numeric',
+});
+---
+
+<a
+  href={`/resources/${resource.id}`}
+  class="resource-card"
+  data-category={category}
+>
+  <div class="resource-card__meta">
+    <span class="eyebrow resource-card__tag">{category}</span>
+    <span class="eyebrow">{formattedDate}</span>
+  </div>
+  <h2 class="heading">{title}</h2>
+  <p class="body-md">{description}</p>
+  {tags.length > 0 && (
+    <div class="resource-card__tags">
+      {tags.map((t) => <span class="resource-tag">{t}</span>)}
+    </div>
+  )}
+  <div class="resource-card__footer">
+    <span class="resource-card__read">read more →</span>
+    {(downloads.length > 0 || workflows.length > 0 || prompts.length > 0) && (
+      <span class="eyebrow">
+        {[
+          prompts.length > 0 && `${prompts.length} prompt${prompts.length === 1 ? '' : 's'}`,
+          workflows.length > 0 && `${workflows.length} workflow${workflows.length === 1 ? '' : 's'}`,
+          downloads.length > 0 && `${downloads.length} download${downloads.length === 1 ? '' : 's'}`,
+        ].filter(Boolean).join(' · ')}
+      </span>
+    )}
+  </div>
+</a>

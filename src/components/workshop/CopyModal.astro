@@ -1,0 +1,116 @@
+<div class="modal-overlay" id="copy-modal" aria-hidden="true" role="dialog" aria-labelledby="copy-modal-title">
+  <div class="modal">
+    <h2 class="modal__title" id="copy-modal-title">fill in details</h2>
+    <p class="modal__desc">complete the fields below before copying.</p>
+    <form class="var-form" id="copy-var-form"></form>
+    <div class="modal__actions">
+      <button type="button" class="btn-secondary" data-copy-cancel>cancel</button>
+      <button type="button" class="btn-primary btn--sm" data-copy-confirm>copy prompt</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  import {
+    initCopyPrompts,
+    substituteVariables,
+    copyToClipboard,
+    showCopiedFeedback,
+    persistVariableValues,
+    type VariableMeta,
+  } from '../../scripts/workshop/copy-prompt';
+
+  const modal = document.getElementById('copy-modal')!;
+  const form = document.getElementById('copy-var-form')!;
+  let pendingContent = '';
+  let pendingTrigger: HTMLButtonElement | null = null;
+
+  const configVars: VariableMeta[] = JSON.parse(
+    document.getElementById('workshop-vars-data')?.textContent ?? '[]'
+  );
+
+  function openCopyModal(payload: {
+    content: string;
+    variables: VariableMeta[];
+    prefilled: Record<string, string>;
+    trigger: HTMLButtonElement;
+  }) {
+    pendingContent = payload.content;
+    pendingTrigger = payload.trigger;
+    form.innerHTML = '';
+
+    for (const v of payload.variables) {
+      const field = document.createElement('div');
+      field.className = 'var-field';
+      field.innerHTML = `
+        <label for="var-${v.key}">${v.label}</label>
+        <input type="text" id="var-${v.key}" name="${v.key}" placeholder="${v.placeholder}" value="${payload.prefilled[v.key] ?? ''}" required />
+      `;
+      form.appendChild(field);
+    }
+
+    modal.classList.add('is-open');
+    modal.setAttribute('aria-hidden', 'false');
+    const firstInput = form.querySelector<HTMLInputElement>('input');
+    firstInput?.focus();
+  }
+
+  function closeCopyModal() {
+    modal.classList.remove('is-open');
+    modal.setAttribute('aria-hidden', 'true');
+    pendingContent = '';
+    pendingTrigger = null;
+    form.innerHTML = '';
+  }
+
+  async function handleConfirm() {
+    const inputs = form.querySelectorAll<HTMLInputElement>('input');
+    const values: Record<string, string> = {};
+    let valid = true;
+
+    inputs.forEach((input) => {
+      if (!input.value.trim()) {
+        valid = false;
+        input.focus();
+      }
+      values[input.name] = input.value.trim();
+    });
+
+    if (!valid) return;
+
+    persistVariableValues(values);
+    const text = substituteVariables(pendingContent, values);
+    try {
+      await copyToClipboard(text);
+    } catch {
+      // clipboard may be blocked; values are still saved
+    }
+
+    if (pendingTrigger) showCopiedFeedback(pendingTrigger);
+    closeCopyModal();
+  }
+
+  modal.querySelector('[data-copy-confirm]')?.addEventListener('click', handleConfirm);
+  modal.querySelector('[data-copy-cancel]')?.addEventListener('click', closeCopyModal);
+
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) closeCopyModal();
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (!modal.classList.contains('is-open')) return;
+    if (e.key === 'Escape') closeCopyModal();
+  });
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    handleConfirm();
+  });
+
+  function init() {
+    initCopyPrompts(configVars, openCopyModal);
+  }
+
+  init();
+  document.addEventListener('astro:page-load', init);
+</script>

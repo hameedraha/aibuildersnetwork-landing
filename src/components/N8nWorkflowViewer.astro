@@ -1,0 +1,86 @@
+---
+interface Props {
+  id: string;
+  title: string;
+  description?: string;
+  workflow: string;
+}
+
+const { id, title, description, workflow } = Astro.props;
+---
+
+<section class="n8n-workflow-block" id={`workflow-${id}`} aria-labelledby={`workflow-title-${id}`}>
+  <div class="n8n-workflow-block__header">
+    <h2 class="heading" id={`workflow-title-${id}`}>{title}</h2>
+    {description && <p class="body-md n8n-workflow-block__desc">{description}</p>}
+  </div>
+
+  <div class="n8n-workflow-block__viewer n8n-theme">
+    <n8n-demo
+      workflow={workflow}
+      frame="false"
+      clicktointeract="true"
+      collapseformobile="true"
+      hidecanvaserrors="true"
+      theme="light"
+    />
+  </div>
+
+  <p class="eyebrow n8n-workflow-block__hint">click the canvas to explore · double-click nodes for settings</p>
+
+  <div class="n8n-workflow-block__footer">
+    <a href={`/resources/workflows/${id}.json`} class="btn-secondary btn--sm" download>
+      download .json
+    </a>
+  </div>
+</section>
+
+<style>
+  .n8n-workflow-block {
+    margin-top: var(--sp-lg);
+    padding-top: var(--sp-lg);
+    border-top: 1px solid rgba(26, 26, 26, 0.1);
+    scroll-margin-top: 96px;
+  }
+  .n8n-workflow-block__header {
+    margin-bottom: var(--sp-md);
+  }
+  .n8n-workflow-block__desc {
+    color: var(--c-muted);
+    margin-top: var(--sp-xs);
+    max-width: 58ch;
+  }
+  .n8n-workflow-block__viewer {
+    border: 1px solid rgba(26, 26, 26, 0.12);
+    border-radius: var(--r-md);
+    overflow: hidden;
+    background: var(--c-neutral);
+    min-height: 360px;
+  }
+  /* aibn theme overrides for n8n-demo shadow DOM (inherited custom properties) */
+  .n8n-theme {
+    --n8n-color-primary-h: 9;
+    --n8n-color-primary-s: 71%;
+    --n8n-color-primary-l: 46%;
+    --n8n-frame-background-color: var(--c-neutral);
+    --n8n-overlay-background: rgba(26, 26, 26, 0.06);
+    --n8n-overlay-background-color: var(--c-primary);
+    --n8n-interact-button-color: var(--c-surface);
+    --n8n-iframe-border-radius: var(--r-sm);
+    --n8n-workflow-min-height: 360px;
+    --n8n-json-background-color: var(--c-ink);
+    --n8n-copy-button-background-color: var(--c-neutral);
+  }
+  .n8n-workflow-block__viewer :global(n8n-demo) {
+    display: block;
+    width: 100%;
+    font-family: var(--f-body);
+  }
+  .n8n-workflow-block__hint {
+    margin-top: var(--sp-sm);
+    color: var(--c-muted);
+  }
+  .n8n-workflow-block__footer {
+    margin-top: var(--sp-md);
+  }
+</style>

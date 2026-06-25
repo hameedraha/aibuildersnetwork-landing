@@ -1,0 +1,114 @@
+---
+interface Heading {
+  depth: number;
+  text: string;
+  slug: string;
+}
+
+interface Download {
+  label: string;
+  url: string;
+  fileType?: string;
+}
+
+interface Workflow {
+  id: string;
+  title: string;
+  description?: string;
+}
+
+interface Prompt {
+  id: string;
+  title: string;
+  description?: string;
+}
+
+interface Props {
+  headings: Heading[];
+  downloads?: Download[];
+  workflows?: Workflow[];
+  prompts?: Prompt[];
+}
+
+const { headings, downloads = [], workflows = [], prompts = [] } = Astro.props;
+---
+
+<aside class="resource-sidebar" aria-label="page navigation">
+  {headings.length > 0 && (
+    <nav class="resource-toc" aria-label="table of contents">
+      <span class="eyebrow resource-sidebar__label">on this page</span>
+      <ol class="resource-toc__list">
+        {headings.map((heading) => (
+          <li class:list={['resource-toc__item', `resource-toc__item--h${heading.depth}`]}>
+            <a
+              href={`#${heading.slug}`}
+              class="resource-toc__link"
+              data-toc-link
+              data-slug={heading.slug}
+            >
+              {heading.text}
+            </a>
+          </li>
+        ))}
+      </ol>
+    </nav>
+  )}
+
+  {prompts.length > 0 && (
+    <nav class="resource-toc" aria-label="prompts">
+      <span class="eyebrow resource-sidebar__label">prompts</span>
+      <ol class="resource-toc__list">
+        {prompts.map((prompt) => (
+          <li class="resource-toc__item resource-toc__item--h2">
+            <a
+              href={`#prompt-${prompt.id}`}
+              class="resource-toc__link"
+              data-toc-link
+              data-slug={`prompt-${prompt.id}`}
+            >
+              {prompt.title}
+            </a>
+          </li>
+        ))}
+      </ol>
+    </nav>
+  )}
+
+  {workflows.length > 0 && (
+    <nav class="resource-toc" aria-label="workflows">
+      <span class="eyebrow resource-sidebar__label">workflows</span>
+      <ol class="resource-toc__list">
+        {workflows.map((workflow) => (
+          <li class="resource-toc__item resource-toc__item--h2">
+            <a
+              href={`#workflow-${workflow.id}`}
+              class="resource-toc__link"
+              data-toc-link
+              data-slug={`workflow-${workflow.id}`}
+            >
+              {workflow.title}
+            </a>
+          </li>
+        ))}
+      </ol>
+    </nav>
+  )}
+
+  {downloads.length > 0 && (
+    <nav class="resource-sidebar-downloads" aria-label="downloads">
+      <span class="eyebrow resource-sidebar__label">downloads</span>
+      <ul class="resource-sidebar-downloads__list">
+        {downloads.map((file) => (
+          <li>
+            <a href={file.url} class="resource-sidebar-downloads__link" download>
+              <span class="resource-sidebar-downloads__label">{file.label}</span>
+              {file.fileType && (
+                <span class="resource-sidebar-downloads__type">{file.fileType}</span>
+              )}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  )}
+</aside>

@@ -1,0 +1,56 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { getEventSlug } from '../utils/eventSlug';
+
+interface Props {
+  event: CollectionEntry<'events'>;
+  showLine?: boolean;
+}
+
+const { event, showLine = true } = Astro.props;
+const { title, description, eventDate, format, location, price, status, ticketUrl } = event.data;
+
+const dateLabel = eventDate.toLocaleDateString('en-US', {
+  month: 'short',
+  day: 'numeric',
+  year: 'numeric',
+});
+const statusLabel =
+  status === 'live' ? 'happening now' : status === 'upcoming' ? 'upcoming' : 'past';
+---
+
+<li class:list={['events-timeline__item', `events-timeline__item--${status}`]}>
+  <div class="events-timeline__rail" aria-hidden="true">
+    <span class="events-timeline__marker"></span>
+    {showLine && <span class="events-timeline__line"></span>}
+  </div>
+
+  <article class="events-timeline__card">
+    <header class="events-timeline__header">
+      <time class="eyebrow" datetime={eventDate.toISOString()}>{dateLabel}</time>
+      <span class:list={['events-timeline__status', status === 'live' && 'events-timeline__status--live']}>
+        {statusLabel}
+      </span>
+    </header>
+
+    <p class="eyebrow events-timeline__format">{format}</p>
+    <h3 class="heading">
+      <a href={`/events/${getEventSlug(event)}`}>{title}</a>
+    </h3>
+    <p class="body-md events-timeline__desc">{description}</p>
+
+    <footer class="events-timeline__footer">
+      <span class="body-md">{location}</span>
+      <span class="heading">{price}</span>
+    </footer>
+
+    <div class="events-timeline__links">
+      <a href={`/events/${getEventSlug(event)}`} class="events-timeline__link">details →</a>
+      {(status === 'live' || status === 'upcoming') && (
+        <a href={ticketUrl} class="events-timeline__link events-timeline__link--accent" target="_blank" rel="noopener noreferrer">
+          tickets →
+        </a>
+      )}
+    </div>
+  </article>
+</li>

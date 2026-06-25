@@ -1,0 +1,197 @@
+---
+import repoIndex from '../../data/design-repository/index.json';
+import type {
+  DesignRepoEntry,
+  DesignRepoIndex,
+} from '../../data/design-repository.types';
+import type {
+  WorkshopDesignShowcaseItem,
+  WorkshopItem,
+  WorkshopStarterPickerItem,
+} from '../../data/workshop.types';
+
+interface Props {
+  item: WorkshopItem;
+  designSystemCount?: number;
+}
+
+const { item, designSystemCount = 0 } = Astro.props;
+
+const catalog = repoIndex as DesignRepoIndex;
+
+function resolveShowcaseEntries(slugs: string[]) {
+  return slugs
+    .map((slug) => catalog.entries.find((e) => e.slug === slug))
+    .filter((e): e is DesignRepoEntry => e != null)
+    .map((e) => ({
+      slug: e.slug,
+      name: e.displayName,
+      category: e.category,
+      color: e.primaryColor,
+      logo: e.logo,
+      colors: Object.values(e.primaryColors).slice(0, 6),
+    }));
+}
+
+const isStarterPicker = item.type === 'starter-picker';
+const isDesignShowcase = item.type === 'design-showcase';
+const starterItem = isStarterPicker ? (item as WorkshopStarterPickerItem) : null;
+const showcaseItem = isDesignShowcase ? (item as WorkshopDesignShowcaseItem) : null;
+const showcaseEntries = showcaseItem ? resolveShowcaseEntries(showcaseItem.slugs) : [];
+const showcaseFirst = showcaseEntries[0];
+const defaultStarter = starterItem?.options[0];
+---
+
+<details class="prompt-accordion" id={item.id}>
+  <summary class="prompt-accordion__summary">
+    <span>{item.title}</span>
+    <svg class="prompt-accordion__chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <polyline points="6 9 12 15 18 9"></polyline>
+    </svg>
+  </summary>
+
+  <div class="prompt-accordion__body">
+    {item.description && <p class="prompt-accordion__desc">{item.description}</p>}
+
+    {item.type === 'prompt' && (
+      <>
+        <pre class="prompt-accordion__content">{item.content}</pre>
+        <button type="button" class="btn-copy" data-copy-prompt data-prompt-content={item.content}>
+          copy prompt
+        </button>
+      </>
+    )}
+
+    {starterItem && defaultStarter && (
+      <div
+        class="starter-picker"
+        data-starter-picker
+        data-starter-options={JSON.stringify(starterItem.options)}
+      >
+        <div class="starter-picker__types" role="radiogroup" aria-label="product type">
+          {starterItem.options.map((option, i) => (
+            <button
+              type="button"
+              class:list={['starter-type', i === 0 && 'is-active']}
+              data-starter-type={option.id}
+              data-starter-index={i}
+              role="radio"
+              aria-checked={i === 0}
+              aria-label={`${option.title} — ${option.subtitle}`}
+            >
+              <span class="starter-type__icon" aria-hidden="true">
+                {option.icon === 'landing' && (
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="3" width="18" height="18" rx="2"></rect>
+                    <line x1="3" y1="9" x2="21" y2="9"></line>
+                    <line x1="9" y1="21" x2="9" y2="9"></line>
+                  </svg>
+                )}
+                {option.icon === 'web-app' && (
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="3" width="7" height="7" rx="1"></rect>
+                    <rect x="14" y="3" width="7" height="7" rx="1"></rect>
+                    <rect x="3" y="14" width="7" height="7" rx="1"></rect>
+                    <rect x="14" y="14" width="7" height="7" rx="1"></rect>
+                  </svg>
+                )}
+                {option.icon === 'mobile' && (
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="5" y="2" width="14" height="20" rx="2"></rect>
+                    <line x1="12" y1="18" x2="12" y2="18.01"></line>
+                  </svg>
+                )}
+              </span>
+              <span class="starter-type__label">
+                <span class="starter-type__title">{option.title}</span>
+                <span class="starter-type__sub">{option.subtitle}</span>
+              </span>
+            </button>
+          ))}
+        </div>
+
+        <div class="starter-picker__preview">
+          <pre class="starter-picker__content" data-starter-content>{defaultStarter.content}</pre>
+          <button
+            type="button"
+            class="btn-copy"
+            data-copy-prompt
+            data-starter-copy
+            data-prompt-content={defaultStarter.content}
+          >
+            copy prompt
+          </button>
+        </div>
+      </div>
+    )}
+
+    {showcaseItem && showcaseFirst && (
+      <a
+        href={showcaseItem.href}
+        class="design-showcase"
+        data-design-showcase
+        data-showcase-entries={JSON.stringify(showcaseEntries)}
+      >
+        <div class="design-showcase__inner">
+          <div
+            class="design-showcase__preview"
+            data-showcase-preview
+            style={`--ds-primary: ${showcaseFirst.color}; --ds-ink: #1a1a1a; --ds-surface: #ffffff; --ds-muted: #5c5c5c`}
+          >
+            <div class="design-showcase__mock">
+              <div class="design-showcase__mock-nav">
+                <span class="design-showcase__mock-dot"></span>
+                <span class="design-showcase__mock-dot"></span>
+                <span class="design-showcase__mock-dot design-showcase__mock-dot--accent"></span>
+              </div>
+              <div class="design-showcase__mock-card">
+                <span class="design-showcase__mock-label" data-showcase-name>{showcaseFirst.name}</span>
+                <span class="design-showcase__mock-body">primary action</span>
+                <span class="design-showcase__mock-btn">get started</span>
+              </div>
+              <div class="design-showcase__mock-chips" data-showcase-chips>
+                {showcaseFirst.colors.map((hex) => (
+                  <span class="design-showcase__chip" style={`background: ${hex}`}></span>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div class="design-showcase__info">
+            <div class="design-showcase__brand">
+              <div class="design-showcase__logo-wrap" data-showcase-logo-wrap>
+                {showcaseFirst.logo ? (
+                  <img src={showcaseFirst.logo} alt="" class="design-showcase__logo" width="40" height="40" />
+                ) : (
+                  <span class="design-showcase__logo-fallback">{showcaseFirst.name.charAt(0)}</span>
+                )}
+              </div>
+              <div>
+                <span class="design-showcase__name" data-showcase-title>{showcaseFirst.name}</span>
+                <span class="eyebrow design-showcase__category" data-showcase-category>{showcaseFirst.category}</span>
+              </div>
+            </div>
+
+            <div class="design-showcase__ticker" aria-hidden="true">
+              {showcaseEntries.map((_, i) => (
+                <span class:list={['design-showcase__tick', i === 0 && 'is-active']} data-tick-index={i}></span>
+              ))}
+            </div>
+
+            <span class="design-showcase__cta">
+              choose your design inspiration
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </span>
+          </div>
+        </div>
+
+        {designSystemCount > 0 && (
+          <span class="design-showcase__count eyebrow">{designSystemCount} systems available</span>
+        )}
+      </a>
+    )}
+  </div>
+</details>

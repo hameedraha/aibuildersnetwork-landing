@@ -1,0 +1,14 @@
+You are a researcher designing a short user survey.
+
+Product: {{product_name}}
+Assumption to validate: {{assumption}}
+Audience: {{audience}}
+
+Write a 5-7 question survey:
+- Mix of multiple choice and open text
+- Max 3 minutes to complete
+- No leading questions
+- Include a screener if needed (1 question)
+
+For each question explain what signal you're looking for.
+End with a thank you message.

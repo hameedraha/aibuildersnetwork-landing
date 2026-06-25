@@ -1,0 +1,182 @@
+---
+import { readFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import repoIndex from '../../data/design-repository/index.json';
+import type { DesignRepoIndex, DesignRepoEntry, DesignRepoTokens } from '../../data/design-repository.types';
+import DesignRepoTypography from '../../components/design-repository/DesignRepoTypography.astro';
+import DesignRepoPlayground from '../../components/design-repository/DesignRepoPlayground.astro';
+import '../../styles/design-repository.css';
+
+const catalog = repoIndex as DesignRepoIndex;
+
+export function getStaticPaths() {
+  const data = repoIndex as DesignRepoIndex;
+  return data.entries.map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry },
+  }));
+}
+
+interface Props {
+  entry: DesignRepoEntry;
+}
+
+const { entry } = Astro.props;
+const { slug } = Astro.params;
+
+const designPath = fileURLToPath(
+  new URL(`../../../public/design-repository/${slug}/DESIGN.md`, import.meta.url)
+);
+const tokensPath = fileURLToPath(
+  new URL(`../../../public/design-repository/${slug}/tokens.json`, import.meta.url)
+);
+
+let designPreview = '';
+let tokens: DesignRepoTokens | null = null;
+
+try {
+  const raw = readFileSync(designPath, 'utf-8');
+  designPreview = raw.split('\n').slice(0, 80).join('\n');
+  if (raw.split('\n').length > 80) designPreview += '\n…';
+} catch {
+  designPreview = 'preview unavailable.';
+}
+
+try {
+  tokens = JSON.parse(readFileSync(tokensPath, 'utf-8')) as DesignRepoTokens;
+} catch {
+  tokens = null;
+}
+
+const upstreamUrl = `${catalog.source.url}/tree/main/${entry.sourcePath.replace('/DESIGN.md', '')}`;
+const downloadUrl = `/design-repository/${slug}/DESIGN.md`;
+const previewUrl = entry.hasPreview ? `/design-repository/${slug}/preview.html` : null;
+const primaryColorEntries = Object.entries(entry.primaryColors);
+---
+
+<BaseLayout
+  title={`${entry.displayName} · design repository`}
+  description={entry.description}
+>
+  <section class="dr-detail-hero" style={`--brand: ${entry.primaryColor}`} aria-labelledby="design-detail-heading">
+    <div class="dr-detail-hero__band" aria-hidden="true"></div>
+    <div class="dr-detail-hero__grid" aria-hidden="true"></div>
+    <div class="container">
+      <a href="/design-repository" class="dr-detail-hero__back">← design repository</a>
+
+      <div class="dr-detail-hero__main">
+        <div class="dr-detail-hero__logo-frame">
+          {entry.logo ? (
+            <img
+              src={entry.logo}
+              alt=""
+              class="dr-detail-hero__logo"
+              width="52"
+              height="52"
+              loading="eager"
+            />
+          ) : (
+            <span class="dr-detail-hero__logo-fallback" aria-hidden="true">
+              {entry.displayName.charAt(0)}
+            </span>
+          )}
+        </div>
+        <div>
+          <span class="eyebrow dr-detail-hero__eyebrow">{entry.category.toLowerCase()}</span>
+          <h1 class="dr-detail-hero__title" id="design-detail-heading">{entry.displayName}</h1>
+        </div>
+
+        <p class="body-lg dr-detail-hero__desc">{entry.description}</p>
+
+        <div class="dr-detail-hero__pills">
+          <span class="dr-pill">{entry.primaryColor}</span>
+          <span class="dr-pill">{entry.colorFamily} family</span>
+          {entry.hasPreview && <span class="dr-pill">has preview</span>}
+        </div>
+
+        <div class="dr-detail-hero__actions">
+          <a href={downloadUrl} class="btn-primary btn--sm" download>download design.md</a>
+          <a href={upstreamUrl} class="btn-secondary btn--sm" target="_blank" rel="noopener noreferrer">view upstream</a>
+          <a href={entry.visitUrl} class="btn-secondary btn--sm" target="_blank" rel="noopener noreferrer">
+            visit site →
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider" role="separator"></div>
+
+  <section class="section--neutral dr-detail-body" aria-label="design tokens">
+    <div class="container">
+      <div class="dr-detail-layout">
+        <div class="dr-detail-panel">
+          <div class="dr-panel-head">
+            <h2 class="dr-panel-head__title">colors</h2>
+            <span class="dr-panel-head__meta">{primaryColorEntries.length} primary tokens</span>
+          </div>
+          <div class="dr-swatches">
+            {primaryColorEntries.map(([name, hex]) => (
+              <div class="dr-swatch">
+                <div class="dr-swatch__chip" style={`background: ${hex}`}></div>
+                <span class="dr-swatch__name">{name}</span>
+                <code class="dr-swatch__hex">{hex}</code>
+              </div>
+            ))}
+          </div>
+
+          {tokens && tokens.fonts.length > 0 && (
+            <>
+              <div class="dr-panel-head" style="margin-top: var(--sp-lg);">
+                <h2 class="dr-panel-head__title">typography</h2>
+                <span class="dr-panel-head__meta">{tokens.fonts.length} families</span>
+              </div>
+              <DesignRepoTypography fonts={tokens.fonts} typography={tokens.typography} />
+            </>
+          )}
+
+          {previewUrl && (
+            <>
+              <div class="dr-panel-head" style="margin-top: var(--sp-lg);">
+                <h2 class="dr-panel-head__title">live preview</h2>
+                <span class="dr-panel-head__meta">upstream html</span>
+              </div>
+              <div class="design-repo-preview">
+                <iframe
+                  class="design-repo-preview__frame"
+                  src={previewUrl}
+                  title={`${entry.displayName} preview`}
+                  loading="lazy"
+                ></iframe>
+              </div>
+            </>
+          )}
+
+          <details class="dr-source">
+            <summary class="dr-source__summary">design.md source</summary>
+            <div class="dr-source__body">
+              <pre class="design-repo-source" aria-label="design.md excerpt">{designPreview}</pre>
+            </div>
+          </details>
+        </div>
+
+        {tokens?.playground && (
+          <div class="dr-detail-panel dr-detail-layout__playground">
+            <div class="dr-panel-head">
+              <h2 class="dr-panel-head__title">components</h2>
+              <span class="dr-panel-head__meta">live tokens</span>
+            </div>
+            <DesignRepoPlayground playground={tokens.playground} brandName={entry.displayName} />
+          </div>
+        )}
+      </div>
+
+      <p class="design-repo-attribution">
+        extracted from publicly visible design tokens. sourced via
+        <a href={catalog.source.url} target="_blank" rel="noopener noreferrer">{catalog.source.repo}</a>.
+        no ownership claim on {entry.displayName}'s visual identity.
+      </p>
+    </div>
+  </section>
+</BaseLayout>

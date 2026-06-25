@@ -1,0 +1,81 @@
+<div class="join-modal-overlay" id="join-modal" aria-hidden="true" role="dialog" aria-labelledby="join-modal-title">
+  <div class="join-modal">
+    <div class="join-modal__header">
+      <div>
+        <h2 class="join-modal__title" id="join-modal-title">apply to join</h2>
+        <p class="join-modal__desc">tell us who you are and what you're building. we review every application manually.</p>
+      </div>
+      <button type="button" class="join-modal__close" data-join-modal-close aria-label="close registration form">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+          <path d="M18 6L6 18M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+
+    <form class="community-form" id="community-registration-form" aria-label="community registration form" novalidate>
+      <fieldset class="community-fieldset">
+        <legend class="eyebrow">your details</legend>
+
+        <label class="community-label">
+          <span class="heading">name</span>
+          <input type="text" name="name" class="community-input" required autocomplete="name" />
+        </label>
+
+        <label class="community-label">
+          <span class="heading">email</span>
+          <input type="email" name="email" class="community-input" required autocomplete="email" />
+        </label>
+
+        <label class="community-label">
+          <span class="heading">phone number</span>
+          <input type="tel" name="phone" class="community-input" required autocomplete="tel" />
+        </label>
+
+        <label class="community-label">
+          <span class="heading">linkedin profile</span>
+          <input type="url" name="linkedin" class="community-input" required placeholder="https://linkedin.com/in/..." />
+        </label>
+
+        <label class="community-label">
+          <span class="heading">github profile <span class="community-label__optional">(optional)</span></span>
+          <input type="url" name="github" class="community-input" placeholder="https://github.com/..." />
+        </label>
+      </fieldset>
+
+      <fieldset class="community-fieldset">
+        <legend class="eyebrow">terms and conditions</legend>
+
+        <div class="community-terms" tabindex="0" aria-label="community terms and conditions">
+          <p class="body-md">by joining ai builders network, you agree to the following:</p>
+          <ul class="community-terms__list">
+            <li>membership is reviewed manually. we aim to respond within 24 hours.</li>
+            <li>this is a community of builders who contribute — not spectators.</li>
+            <li>no spam, drive-by self-promotion, or unsolicited pitches.</li>
+            <li>respect your peers. rough ideas and work-in-progress are welcome.</li>
+            <li>your contact info is used only for membership review and community communication.</li>
+            <li>we may decline applications or remove members who violate these norms.</li>
+          </ul>
+        </div>
+
+        <label class="community-checkbox">
+          <input type="checkbox" name="terms" required />
+          <span class="body-md">i agree to the terms and conditions</span>
+        </label>
+      </fieldset>
+
+      <p class="community-form__error body-md" id="community-form-error" role="alert" hidden></p>
+
+      <div class="join-modal__actions">
+        <button type="button" class="btn-secondary" data-join-modal-close>cancel</button>
+        <button type="submit" class="btn-primary btn--sm" id="community-form-submit">apply now</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+  import { initCommunityRegistration } from '../../scripts/community/registration';
+
+  initCommunityRegistration();
+  document.addEventListener('astro:page-load', initCommunityRegistration);
+</script>

@@ -1,0 +1,235 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { getEventSlug } from '../utils/eventSlug';
+
+interface Props {
+  event: CollectionEntry<'events'>;
+}
+
+const { event } = Astro.props;
+const {
+  title,
+  description,
+  eventDate,
+  format,
+  location,
+  venue,
+  duration,
+  price,
+  hosts,
+  ticketUrl,
+  status,
+} = event.data;
+
+const day = eventDate.toLocaleDateString('en-US', { day: 'numeric' });
+const month = eventDate.toLocaleDateString('en-US', { month: 'short' });
+const weekday = eventDate.toLocaleDateString('en-US', { weekday: 'long' });
+const year = eventDate.getFullYear();
+const isLive = status === 'live';
+---
+
+<article class:list={['event-featured', isLive && 'event-featured--live']}>
+  {isLive && (
+    <div class="event-featured__live-badge" role="status">
+      <span class="event-featured__live-dot" aria-hidden="true"></span>
+      happening now
+    </div>
+  )}
+
+  <div class="event-featured__grid">
+    <div class="event-featured__main">
+      <p class="eyebrow event-featured__format">{format}</p>
+      <h2 class="display-l event-featured__title">
+        <a href={`/events/${getEventSlug(event)}`}>{title}</a>
+      </h2>
+      <p class="body-lg event-featured__desc">{description}</p>
+
+      <div class="event-featured__hosts">
+        <span class="eyebrow">led by</span>
+        <p class="heading">{hosts.join(' · ')}</p>
+      </div>
+
+      {duration && (
+        <p class="body-md event-featured__duration">{duration} · {weekday}</p>
+      )}
+    </div>
+
+    <div class="event-featured__aside">
+      <div class="event-featured__date-block">
+        <span class="event-featured__date-day">{day}</span>
+        <span class="event-featured__date-month">{month}</span>
+        <span class="eyebrow event-featured__date-year">{year}</span>
+      </div>
+
+      <div class="event-featured__details">
+        <div class="event-featured__detail">
+          <span class="eyebrow">where</span>
+          <span class="body-md">{location}</span>
+          {venue && <span class="body-md event-featured__venue">{venue}</span>}
+        </div>
+        <div class="event-featured__detail">
+          <span class="eyebrow">price</span>
+          <span class="heading">{price}</span>
+        </div>
+      </div>
+
+      <div class="event-featured__actions">
+        <a href={ticketUrl} class="btn-primary" target="_blank" rel="noopener noreferrer">
+          reserve your seat
+        </a>
+        <a href={`/events/${getEventSlug(event)}`} class="btn-secondary btn--sm">full details</a>
+      </div>
+    </div>
+  </div>
+</article>
+
+<style>
+  .event-featured {
+    background: var(--c-surface);
+    border: 1px solid rgba(26, 26, 26, 0.12);
+    border-radius: var(--r-md);
+    overflow: hidden;
+    position: relative;
+  }
+  .event-featured--live {
+    border-color: rgba(199, 62, 34, 0.35);
+    box-shadow: 0 0 0 1px rgba(199, 62, 34, 0.08);
+  }
+  .event-featured__live-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--f-mono);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--c-primary);
+    background: rgba(199, 62, 34, 0.08);
+    padding: 8px var(--sp-md);
+    border-bottom: 1px solid rgba(199, 62, 34, 0.12);
+    width: 100%;
+  }
+  .event-featured__live-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 1px;
+    background: var(--c-primary);
+    animation: live-pulse 2s ease-in-out infinite;
+  }
+  @keyframes live-pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.35; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .event-featured__live-dot { animation: none; }
+  }
+
+  .event-featured__grid {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 1px;
+    background: rgba(26, 26, 26, 0.1);
+  }
+  .event-featured__main,
+  .event-featured__aside {
+    background: var(--c-surface);
+    padding: var(--sp-lg);
+  }
+  .event-featured__format {
+    color: var(--c-primary);
+    margin-bottom: var(--sp-sm);
+  }
+  .event-featured__title {
+    margin-bottom: var(--sp-md);
+    max-width: 18ch;
+  }
+  .event-featured__title a:hover {
+    color: var(--c-primary);
+  }
+  .event-featured__desc {
+    color: var(--c-muted);
+    max-width: 52ch;
+    margin-bottom: var(--sp-md);
+  }
+  .event-featured__hosts {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding-top: var(--sp-md);
+    border-top: 1px solid rgba(26, 26, 26, 0.08);
+    margin-bottom: var(--sp-sm);
+  }
+  .event-featured__duration {
+    color: var(--c-muted);
+  }
+
+  .event-featured__aside {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-md);
+    background: var(--c-neutral);
+  }
+  .event-featured__date-block {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-bottom: var(--sp-md);
+    border-bottom: 1px solid rgba(26, 26, 26, 0.1);
+  }
+  .event-featured__date-day {
+    font-family: var(--f-display);
+    font-size: 3.5rem;
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    color: var(--c-ink);
+  }
+  .event-featured__date-month {
+    font-family: var(--f-display);
+    font-size: 1.25rem;
+    font-weight: 500;
+    text-transform: lowercase;
+    color: var(--c-ink);
+    margin-top: 2px;
+  }
+  .event-featured__date-year {
+    margin-top: 4px;
+    color: var(--c-muted);
+  }
+  .event-featured__details {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-md);
+    flex: 1;
+  }
+  .event-featured__detail {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .event-featured__detail .body-md {
+    color: var(--c-muted);
+  }
+  .event-featured__venue {
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+  .event-featured__actions {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-sm);
+    margin-top: auto;
+  }
+  .event-featured__actions .btn-primary,
+  .event-featured__actions .btn-secondary {
+    text-align: center;
+    width: 100%;
+  }
+
+  @media (max-width: 800px) {
+    .event-featured__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
