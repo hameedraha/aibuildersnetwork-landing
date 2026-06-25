@@ -7,8 +7,8 @@ Static site for [AI Builders Network](https://aibuildersnetwork.com), built with
 | Command | Action |
 | :------ | :----- |
 | `npm install` | Install dependencies |
-| `npm run dev` | Dev server at `localhost:4321` |
-| `npm run build` | Production build to `./dist/` |
+| `npm run dev` | Dev server at `localhost:4321` (runs certificate CSV build via `predev`) |
+| `npm run build` | Production build to `./dist/` (runs certificate CSV build via `prebuild`) |
 | `npm run preview` | Preview the production build |
 | `npm run design-repo:update` | Sync the design repository catalog (see below) |
 
@@ -36,7 +36,50 @@ For production, set the same variable in your hosting provider’s environment s
 - **Build output directory:** `dist`
 - **Environment variable:** `COMMUNITY_REGISTRATION_WEBHOOK_URL` in Pages → Settings → Environment variables
 
-The `functions/` directory provides `/api/community-registration` on Cloudflare. Do not use an Astro server adapter — static output must deploy from `dist/` directly.
+The `functions/` directory provides Cloudflare Pages Functions:
+
+- `/api/community-registration` — community signup proxy
+- `/api/workshop-certificate` — certificate verification lookup
+
+Do not use an Astro server adapter — static output must deploy from `dist/` directly.
+
+## Workshop certificate verification
+
+Public verifier at **`/certificate`**. Third parties enter a certificate number; valid IDs show a diploma-style credential with the holder's name. Invalid numbers show a generic error and a contact link — the page does not reveal certificate format hints.
+
+### Certificate data (CSV)
+
+Copy the example and add your attendee rows before building or deploying:
+
+```sh
+cp data/workshop-certificates.example.csv data/workshop-certificates.csv
+```
+
+| Column | Description |
+| :----- | :---------- |
+| `name` | Certificate holder name (shown when verified) |
+| `phone` | Stored for records; never shown on the verification page |
+| `certificate_id` | Format `CERT/AIBN/2026/W01/1` through `CERT/AIBN/2026/W01/50` |
+
+`npm run build` and `npm run dev` run `scripts/build-certificates.mjs`, which validates the CSV and writes `src/data/workshop-certificates.json`. That registry is bundled into `functions/api/workshop-certificate.ts` on Cloudflare Pages.
+
+- **Real CSV:** `data/workshop-certificates.csv` (gitignored — add on your machine or in CI before build)
+- **Example CSV:** `data/workshop-certificates.example.csv` (committed)
+
+Locally, `npm run dev` serves `POST /api/workshop-certificate` via middleware in `astro.config.mjs` using the generated JSON.
+
+Invalid or unknown certificates prompt contact at [ceo@icrewsystems.com](mailto:ceo@icrewsystems.com).
+
+### Certificate files
+
+| File | Role |
+| :--- | :--- |
+| `src/pages/certificate.astro` | Verification portal + diploma success UI |
+| `src/scripts/certificate-verify.ts` | Form handling, API call, result states |
+| `src/styles/certificate.css` | Certificate page styles |
+| `lib/certificate-verification.ts` | ID validation + registry lookup (shared by API and dev middleware) |
+| `functions/api/workshop-certificate.ts` | Cloudflare Pages Function for production |
+| `scripts/build-certificates.mjs` | CSV → JSON build step |
 
 ## Design repository
 
@@ -106,13 +149,16 @@ Token resolution (`scripts/lib/resolve-tokens.mjs`) dereferences `{colors.*}`, `
 
 ```text
 /
+├── data/                    # workshop-certificates CSV (real file gitignored)
+├── functions/api/           # Cloudflare Pages Functions (registration + certificates)
+├── lib/                     # Shared server logic (registration, certificate verification)
 ├── public/                  # Static assets + synced design-repo files
-├── scripts/                 # Design repo sync + token resolution
+├── scripts/                 # Design repo sync, certificate CSV build, token resolution
 ├── src/
 │   ├── components/
 │   ├── content/             # Events, resources (markdown)
-│   ├── data/                # workshop.json, design-repository index
-│   ├── pages/               # Routes
+│   ├── data/                # workshop.json, design-repository index, generated certificates JSON
+│   ├── pages/               # Routes (including /certificate)
 │   └── styles/
 ├── vendor/awesome-design-md # Gitignored upstream clone
 ├── DESIGN.md                # aibn styleguide
@@ -125,5 +171,6 @@ Token resolution (`scripts/lib/resolve-tokens.mjs`) dereferences `{colors.*}`, `
 - `/events` — events
 - `/resources` — guides, prompts, workflows
 - `/workshop` — members-only workshop prompts (OTP-gated)
+- `/certificate` — workshop credential verification
 - `/community` — community signup
 - `/resources/design-generator` — design.md generator tool

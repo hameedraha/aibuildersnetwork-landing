@@ -7,8 +7,8 @@ dist/
 # dependencies
 node_modules/
 
-# upstream design repository clone
-vendor/
+# upstream design repository clone (root only — not public/vendor/)
+/vendor/
 
 # logs
 npm-debug.log*
@@ -20,6 +20,10 @@ pnpm-debug.log*
 # environment variables
 .env
 .env.production
+
+# workshop certificate data (real CSV + generated registry)
+data/workshop-certificates.csv
+src/data/workshop-certificates.json
 
 # macOS-specific files
 .DS_Store
