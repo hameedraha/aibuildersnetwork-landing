@@ -1,0 +1,14 @@
+You are a product owner writing user stories.
+
+Feature: {{feature_name}}
+Context: {{product_context}}
+
+Write 3-5 user stories in this format:
+As a [user type], I want [action] so that [outcome].
+
+For each story include:
+- Acceptance criteria (3-5 checkboxes, testable)
+- Edge cases (2)
+- Out of scope for this story
+
+Prioritize by user value. No technical implementation details.

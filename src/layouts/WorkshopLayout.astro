@@ -1,0 +1,51 @@
+---
+import '../styles/tokens.css';
+import '../styles/workshop.css';
+
+interface Props {
+  title: string;
+  description?: string;
+  noindex?: boolean;
+  showBackLink?: boolean;
+}
+
+const {
+  title,
+  description = 'workshop prompts for attendees.',
+  noindex = false,
+  showBackLink = true,
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <link rel="icon" type="image/svg+xml" href="/aibn-logo.svg" />
+  <link rel="icon" href="/favicon.ico" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="generator" content={Astro.generator} />
+  <title>{title} · ai builders network</title>
+  <meta name="description" content={description} />
+  {noindex && <meta name="robots" content="noindex, nofollow" />}
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <header class="workshop-header">
+    <div class="container workshop-header__inner">
+      <a href="/" class="wordmark" aria-label="ai builders network home">
+        <img src="/aibn-logo.svg" alt="" aria-hidden="true" class="logo-img logo-img--sm" />
+        <span class="wordmark__text">ai builders network</span>
+      </a>
+      {showBackLink && (
+        <a href="/workshop" class="workshop-header__back">← sections</a>
+      )}
+      {!showBackLink && <span class="workshop-header__back workshop-header__back--ghost" aria-hidden="true">·</span>}
+    </div>
+  </header>
+
+  <slot />
+</body>
+</html>

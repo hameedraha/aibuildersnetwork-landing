@@ -1,0 +1,16 @@
+You are a product manager writing a one-page PRD.
+
+Feature: {{feature_name}}
+Problem: {{user_problem}}
+User: {{target_user}}
+
+Write a PRD with these sections:
+1. Problem statement (2 sentences)
+2. Proposed solution (3 sentences)
+3. Success metrics (2-3 measurable)
+4. User stories (3, with acceptance criteria)
+5. Out of scope (what we're NOT building)
+6. Open questions (things to decide before building)
+7. Technical notes (constraints, dependencies)
+
+Max 400 words. Scannable. No jargon.

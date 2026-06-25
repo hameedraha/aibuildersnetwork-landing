@@ -1,0 +1,174 @@
+---
+import type { DesignRepoPlayground } from '../../data/design-repository.types';
+import { isLightColor, normalizePlayground, styleToCss } from '../../lib/design-repository/styles';
+
+interface Props {
+  playground: DesignRepoPlayground;
+  brandName: string;
+}
+
+const { playground: raw, brandName } = Astro.props;
+const playground = normalizePlayground(raw);
+
+const canvasStyle = styleToCss({
+  backgroundColor: playground.canvas,
+  color: playground.ink,
+});
+
+const btnPrimaryStyle = styleToCss(playground.buttonPrimary);
+const btnSecondaryStyle = styleToCss(playground.buttonSecondary);
+const bodyStyle = styleToCss(playground.body);
+const headlineStyle = styleToCss(playground.headline);
+const labelStyle = styleToCss(playground.label);
+const cardStyle = styleToCss(playground.card);
+const inputStyle = styleToCss(playground.input);
+const badgeStyle = styleToCss(playground.badge);
+const linkStyle = styleToCss(playground.link);
+const navBarStyle = styleToCss(playground.nav.bar);
+const navLinkStyle = styleToCss(playground.nav.link);
+const navLinkActiveStyle = styleToCss(playground.nav.linkActive);
+const tabActiveStyle = styleToCss(playground.tabActive);
+const tabInactiveStyle = styleToCss(playground.tabInactive);
+const alertStyle = styleToCss(playground.alert);
+const codeStyle = styleToCss(playground.code);
+const accordionStyle = styleToCss({
+  backgroundColor: playground.accordion.backgroundColor,
+  border: playground.accordion.border,
+  borderRadius: playground.accordion.borderRadius,
+  color: playground.accordion.color,
+});
+const summaryStyle = styleToCss(playground.accordion.summaryStyle ?? {
+  color: playground.accordion.summaryColor,
+});
+const mutedStyle = styleToCss({ color: playground.accordion.mutedColor });
+const lightCanvas = isLightColor(playground.canvas);
+---
+
+<div
+  class:list={['design-repo-playground', lightCanvas && 'design-repo-playground--light']}
+  style={canvasStyle}
+  aria-label={`${brandName} component playground`}
+>
+  <div class="design-repo-playground__row">
+    <span class="design-repo-playground__label">type scale</span>
+    <div class="design-repo-playground__type-scale">
+      <span class="design-repo-playground__eyebrow" style={labelStyle}>eyebrow label</span>
+      <h3 class="design-repo-playground__headline" style={headlineStyle}>display headline</h3>
+      <p class="design-repo-playground__body" style={bodyStyle}>
+        body copy from {brandName} tokens — the default reading size for paragraphs and ui descriptions.
+      </p>
+    </div>
+  </div>
+
+  <div class="design-repo-playground__row">
+    <span class="design-repo-playground__label">links & badges</span>
+    <div class="design-repo-playground__cluster design-repo-playground__cluster--align-center">
+      <span class="design-repo-playground__badge" style={badgeStyle}>new</span>
+      <span class="design-repo-playground__badge" style={badgeStyle}>beta</span>
+      <a href="#" class="design-repo-playground__link" style={linkStyle} onclick="return false">learn more →</a>
+    </div>
+  </div>
+
+  <div class="design-repo-playground__row">
+    <span class="design-repo-playground__label">navigation</span>
+    <nav class="design-repo-playground__nav" style={navBarStyle} aria-label="sample navigation">
+      <span style={navLinkActiveStyle}>product</span>
+      <span style={navLinkStyle}>pricing</span>
+      <span style={navLinkStyle}>docs</span>
+      <span style={navLinkStyle}>blog</span>
+    </nav>
+  </div>
+
+  <div class="design-repo-playground__row">
+    <span class="design-repo-playground__label">tabs</span>
+    <div class="design-repo-playground__tabs" role="tablist" aria-label="sample tabs">
+      <span class="design-repo-playground__tab" style={tabActiveStyle} role="tab" aria-selected="true">monthly</span>
+      <span class="design-repo-playground__tab" style={tabInactiveStyle} role="tab" aria-selected="false">annual</span>
+      <span class="design-repo-playground__tab" style={tabInactiveStyle} role="tab" aria-selected="false">enterprise</span>
+    </div>
+  </div>
+
+  <div class="design-repo-playground__row">
+    <span class="design-repo-playground__label">buttons</span>
+    <div class="design-repo-playground__cluster">
+      <button type="button" class="design-repo-playground__btn design-repo-playground__btn--primary" style={btnPrimaryStyle}>
+        primary action
+      </button>
+      <button type="button" class="design-repo-playground__btn design-repo-playground__btn--secondary" style={btnSecondaryStyle}>
+        secondary
+      </button>
+    </div>
+  </div>
+
+  <div class="design-repo-playground__row">
+    <span class="design-repo-playground__label">card</span>
+    <div class="design-repo-playground__card" style={cardStyle}>
+      <h3 class="design-repo-playground__card-title" style={headlineStyle}>feature headline</h3>
+      <p class="design-repo-playground__card-body" style={bodyStyle}>
+        a sample card surface with heading and body copy styled from component tokens.
+      </p>
+    </div>
+  </div>
+
+  <div class="design-repo-playground__row">
+    <span class="design-repo-playground__label">alert</span>
+    <div class="design-repo-playground__alert" style={alertStyle} role="status">
+      <strong style={headlineStyle}>heads up.</strong>
+      <span style={bodyStyle}> tokens synced from publicly visible brand styles — verify before shipping production ui.</span>
+    </div>
+  </div>
+
+  <div class="design-repo-playground__row">
+    <span class="design-repo-playground__label">accordion</span>
+    <details class="design-repo-playground__accordion" style={accordionStyle} open>
+      <summary class="design-repo-playground__accordion-summary" style={summaryStyle}>
+        what is in this design system?
+      </summary>
+      <p class="design-repo-playground__accordion-body" style={mutedStyle}>
+        colors, typography, spacing, and component patterns sourced from publicly visible brand tokens.
+      </p>
+    </details>
+  </div>
+
+  <div class="design-repo-playground__row">
+    <span class="design-repo-playground__label">form</span>
+    <form class="design-repo-playground__form" onsubmit="return false">
+      <label class="design-repo-playground__label-field" style={bodyStyle}>
+        email address
+        <input
+          type="email"
+          class="design-repo-playground__input"
+          style={inputStyle}
+          placeholder="you@company.com"
+          readonly
+        />
+      </label>
+      <label class="design-repo-playground__label-field" style={bodyStyle}>
+        message
+        <textarea
+          class="design-repo-playground__textarea"
+          style={inputStyle}
+          rows="3"
+          placeholder="tell us about your project"
+          readonly
+        ></textarea>
+      </label>
+      <div class="design-repo-playground__form-actions">
+        <button type="button" class="design-repo-playground__btn design-repo-playground__btn--primary" style={btnPrimaryStyle}>
+          submit
+        </button>
+        <button type="button" class="design-repo-playground__btn design-repo-playground__btn--secondary" style={btnSecondaryStyle}>
+          cancel
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <div class="design-repo-playground__row">
+    <span class="design-repo-playground__label">code</span>
+    <pre class="design-repo-playground__code" style={codeStyle}><code>const theme = &#123;
+  primary: "{playground.buttonPrimary.backgroundColor ?? '#000'}",
+  font: "{playground.body.fontFamily ?? 'system-ui'}",
+&#125;;</code></pre>
+  </div>
+</div>

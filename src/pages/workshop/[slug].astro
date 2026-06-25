@@ -1,0 +1,71 @@
+---
+import WorkshopLayout from '../../layouts/WorkshopLayout.astro';
+import WorkshopAccordion from '../../components/workshop/WorkshopAccordion.astro';
+import CopyModal from '../../components/workshop/CopyModal.astro';
+import workshopData from '../../data/workshop.json';
+import repoIndex from '../../data/design-repository/index.json';
+import type { DesignRepoIndex } from '../../data/design-repository.types';
+import type { WorkshopConfig } from '../../data/workshop.types';
+
+export function getStaticPaths() {
+  const config = workshopData as WorkshopConfig;
+  return config.cards.map((card) => ({
+    params: { slug: card.slug },
+    props: {
+      section: config.sections[card.slug],
+      variables: config.variables,
+    },
+  }));
+}
+
+interface Props {
+  section: WorkshopConfig['sections'][string];
+  variables: WorkshopConfig['variables'];
+}
+
+const { slug } = Astro.params;
+const { section, variables } = Astro.props;
+const designSystemCount = (repoIndex as DesignRepoIndex).entries.length;
+---
+
+<WorkshopLayout title={section.title} description={section.eyebrow}>
+  <script id="workshop-vars-data" type="application/json" set:html={JSON.stringify(variables)} />
+
+  <main class="workshop-section" data-section-slug={slug}>
+    <div class="container">
+      <div class="workshop-section__intro">
+        <span class="eyebrow">{section.eyebrow}</span>
+        <h1 class="display-l">{section.title}</h1>
+      </div>
+
+      <div class="prompt-list">
+        {section.items.map((item) => (
+          <WorkshopAccordion item={item} designSystemCount={designSystemCount} />
+        ))}
+      </div>
+    </div>
+  </main>
+
+  <CopyModal />
+</WorkshopLayout>
+
+<script>
+  import { isUnlocked } from '../../scripts/workshop/unlock';
+  import { initWorkshopAccordions } from '../../scripts/workshop/accordion';
+
+  function guardSection() {
+    const main = document.querySelector<HTMLElement>('[data-section-slug]');
+    const slug = main?.dataset.sectionSlug;
+    if (!slug || !isUnlocked(slug)) {
+      window.location.replace('/workshop');
+    }
+  }
+
+  function init() {
+    guardSection();
+    initWorkshopAccordions();
+  }
+
+  init();
+  document.addEventListener('astro:page-load', init);
+</script>

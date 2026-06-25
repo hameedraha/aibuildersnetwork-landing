@@ -1,0 +1,45 @@
+---
+import EventLayout from '../../layouts/EventLayout.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const events = await getCollection('events');
+  return events
+    .map((event) => {
+      const slug = event.data.slug ?? event.id;
+      if (!slug) return null;
+      return {
+        params: { slug },
+        props: { event },
+      };
+    })
+    .filter((entry) => entry !== null);
+}
+
+const { event } = Astro.props;
+const { Content, headings } = await render(event);
+const { title, description, eventDate, format, location, city, venue, duration, price, hosts, ticketUrl, status } =
+  event.data;
+
+const tocHeadings = (headings ?? [])
+  .filter((h) => h.depth >= 2 && h.depth <= 3)
+  .map((h) => ({ depth: h.depth, text: h.text, slug: h.slug }));
+---
+
+<EventLayout
+  title={title}
+  description={description}
+  eventDate={eventDate}
+  format={format}
+  location={location}
+  city={city}
+  venue={venue}
+  duration={duration}
+  price={price}
+  hosts={hosts}
+  ticketUrl={ticketUrl}
+  status={status}
+  headings={tocHeadings}
+>
+  <Content />
+</EventLayout>

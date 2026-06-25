@@ -6,6 +6,9 @@ dist/
 # dependencies
 node_modules/
 
+# upstream design repository clone
+vendor/
+
 # logs
 npm-debug.log*
 yarn-debug.log*

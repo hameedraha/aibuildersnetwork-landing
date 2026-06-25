@@ -1,0 +1,45 @@
+---
+import WorkshopLayout from '../../layouts/WorkshopLayout.astro';
+import LockedCard from '../../components/workshop/LockedCard.astro';
+import OtpModal from '../../components/workshop/OtpModal.astro';
+import workshopData from '../../data/workshop.json';
+import type { WorkshopConfig } from '../../data/workshop.types';
+
+const config = workshopData as WorkshopConfig;
+---
+
+<WorkshopLayout
+  title={config.hub.title}
+  description={config.hub.about ?? config.hub.subtitle}
+  noindex={true}
+  showBackLink={false}
+>
+  <section class="workshop-vault section--ink" aria-label="attendee access">
+    <div class="container workshop-vault__inner">
+      {config.hub.meta && (
+        <span class="eyebrow eyebrow--on-ink">{config.hub.meta}</span>
+      )}
+      <h1 class="workshop-vault__title">{config.hub.title}</h1>
+      <p class="body-md workshop-vault__subtitle">{config.hub.subtitle}</p>
+    </div>
+  </section>
+
+  <div class="section-divider" role="separator"></div>
+
+  <main class="workshop-hub">
+    <div class="container">
+      <div class="workshop-hub__label">
+        <span class="eyebrow">sections</span>
+        <p class="body-md">tap a locked card and enter the code from the room.</p>
+      </div>
+
+      <div class="workshop-grid">
+        {config.cards.map((card) => (
+          <LockedCard card={card} />
+        ))}
+      </div>
+    </div>
+  </main>
+
+  <OtpModal />
+</WorkshopLayout>

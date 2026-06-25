@@ -1,43 +1,121 @@
-# Astro Starter Kit: Minimal
+# AI Builders Network — landing site
+
+Static site for [AI Builders Network](https://aibuildersnetwork.com), built with Astro. Visual identity follows [`DESIGN.md`](./DESIGN.md).
+
+## Commands
+
+| Command | Action |
+| :------ | :----- |
+| `npm install` | Install dependencies |
+| `npm run dev` | Dev server at `localhost:4321` |
+| `npm run build` | Production build to `./dist/` |
+| `npm run preview` | Preview the production build |
+| `npm run design-repo:update` | Sync the design repository catalog (see below) |
+
+Requires **Node.js ≥ 22.12**.
+
+## Environment variables
+
+Copy `.env.example` to `.env` and set your values before running locally or deploying:
 
 ```sh
-npm create astro@latest -- --template minimal
+cp .env.example .env
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+| Variable | Purpose |
+| :------- | :------ |
+| `PUBLIC_COMMUNITY_REGISTRATION_WEBHOOK_URL` | n8n webhook URL for `/community` registration form submissions |
 
-## 🚀 Project Structure
+The community signup form on `/community` posts to this webhook. Without it configured, submissions will fail in the browser.
 
-Inside of your Astro project, you'll see the following folders and files:
+For production, set the same variable in your hosting provider’s environment settings (not only in a local `.env` file).
+
+## Design repository
+
+Browse real brand design systems at **`/design-repository`**.
+
+The catalog syncs from [VoltAgent/awesome-design-md](https://github.com/VoltAgent/awesome-design-md). Each entry includes:
+
+- **Local logos** — fetched at sync time to `public/design-repository/logos/` (no runtime third-party logo URLs in the built site)
+- **Primary colors only** on cards and detail swatches
+- **Typography** — Google Fonts loaded when available; custom/proprietary fonts labeled honestly
+- **Component playground** — live previews styled from parsed `DESIGN.md` tokens:
+  - type scale (eyebrow, headline, body)
+  - links & badges
+  - navigation
+  - tabs
+  - primary & secondary buttons
+  - card
+  - alert
+  - accordion
+  - form (inputs + actions)
+  - code block
+- **Visit site** link with UTM params on each detail page
+- **Download** `design.md` and view upstream on GitHub
+
+The aibn design system (this site’s own tokens) lives separately at **`/resources/design-repository`**.
+
+### Sync pipeline
+
+```sh
+npm run design-repo:update
+```
+
+This script:
+
+1. Pulls `vendor/awesome-design-md` (cloned on first run)
+2. Runs `scripts/build-design-index.mjs`, which:
+   - Parses YAML frontmatter from each `DESIGN.md`
+   - **Skips** entries without structured tokens (no `colors.primary`, typography, etc.) — prose-only analyses are excluded
+   - Fetches logos from [apistemic](https://logos.apistemic.com/) server-side only
+   - Writes `public/design-repository/{slug}/tokens.json` per brand
+   - Writes `src/data/design-repository/index.json` for the catalog
+
+### Generated assets
+
+| Path | Purpose |
+| :--- | :------ |
+| `src/data/design-repository/index.json` | Catalog metadata (61 entries after validation) |
+| `public/design-repository/logos/{slug}.webp` | Cached brand logos |
+| `public/design-repository/{slug}/tokens.json` | Resolved colors, typography, components, playground |
+| `public/design-repository/{slug}/DESIGN.md` | Copy of upstream design file |
+
+Token resolution (`scripts/lib/resolve-tokens.mjs`) dereferences `{colors.*}`, `{spacing.*}`, and `{typography.*}` refs and applies fallbacks when values are missing or unresolved — so playgrounds stay usable even when upstream tokens are incomplete.
+
+### Key files
+
+| File | Role |
+| :--- | :--- |
+| `scripts/update-design-repository.sh` | Clone/pull vendor + run indexer |
+| `scripts/build-design-index.mjs` | Index builder, logo fetch, validation |
+| `scripts/lib/resolve-tokens.mjs` | Token parsing, playground assembly, fallbacks |
+| `scripts/lib/resolve-fonts.mjs` | Google Fonts matching |
+| `scripts/lib/domains.mjs` | Site URLs + UTM visit links |
+| `src/pages/design-repository/` | Catalog + detail pages |
+| `src/components/design-repository/` | Cards, toolbar, typography, playground |
+
+## Project structure
 
 ```text
 /
-├── public/
+├── public/                  # Static assets + synced design-repo files
+├── scripts/                 # Design repo sync + token resolution
 ├── src/
-│   └── pages/
-│       └── index.astro
+│   ├── components/
+│   ├── content/             # Events, resources (markdown)
+│   ├── data/                # workshop.json, design-repository index
+│   ├── pages/               # Routes
+│   └── styles/
+├── vendor/awesome-design-md # Gitignored upstream clone
+├── DESIGN.md                # aibn styleguide
 └── package.json
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## Other routes
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+- `/` — home
+- `/events` — events
+- `/resources` — guides, prompts, workflows
+- `/workshop` — members-only workshop prompts (OTP-gated)
+- `/community` — community signup
+- `/resources/design-generator` — design.md generator tool

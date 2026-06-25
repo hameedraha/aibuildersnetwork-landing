@@ -1,0 +1,75 @@
+---
+import type { WorkshopCard } from '../../data/workshop.types';
+
+interface Props {
+  card: WorkshopCard;
+}
+
+const { card } = Astro.props;
+---
+
+<div
+  class="locked-card locked-card--locked"
+  data-locked-card
+  data-slug={card.slug}
+  data-otp={card.otp}
+  data-title={card.title}
+  data-description={card.description}
+  role="button"
+  tabindex="0"
+  aria-label={`unlock ${card.title}`}
+>
+  <div class="locked-card__lock-badge" aria-hidden="true">
+    <svg class="locked-card__lock-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+      <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+    </svg>
+  </div>
+
+  <span class="eyebrow eyebrow--on-ink locked-card__status" data-lock-status>locked</span>
+
+  <div class="locked-card__header">
+    <span class="locked-card__title">{card.title}</span>
+  </div>
+
+  <p class="locked-card__desc locked-card__desc--gated">{card.description}</p>
+
+  <span class="locked-card__hint" data-lock-hint>enter 4-digit code</span>
+</div>
+
+<script>
+  import { isUnlocked } from '../../scripts/workshop/unlock';
+
+  function buildUnlockedCard(slug: string, title: string, description: string): HTMLAnchorElement {
+    const anchor = document.createElement('a');
+    anchor.href = `/workshop/${slug}`;
+    anchor.className = 'locked-card locked-card--unlocked';
+    anchor.setAttribute('aria-label', `open ${title}`);
+
+    anchor.innerHTML = `
+      <span class="eyebrow locked-card__status locked-card__status--open">unlocked</span>
+      <div class="locked-card__header">
+        <span class="dot-bullet" aria-hidden="true"><span></span><span></span><span class="accent"></span><span></span></span>
+        <span class="locked-card__title">${title}</span>
+      </div>
+      <p class="locked-card__desc">${description}</p>
+      <span class="locked-card__hint locked-card__hint--open">open section →</span>
+    `;
+
+    return anchor;
+  }
+
+  function initLockedCards() {
+    document.querySelectorAll<HTMLElement>('[data-locked-card]').forEach((el) => {
+      const slug = el.dataset.slug;
+      const title = el.dataset.title ?? slug ?? '';
+      const description = el.dataset.description ?? '';
+      if (!slug || !isUnlocked(slug)) return;
+
+      el.replaceWith(buildUnlockedCard(slug, title, description));
+    });
+  }
+
+  initLockedCards();
+  document.addEventListener('astro:page-load', initLockedCards);
+</script>

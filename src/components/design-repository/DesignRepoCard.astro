@@ -1,0 +1,56 @@
+---
+import type { DesignRepoEntry } from '../../data/design-repository.types';
+import DesignRepoColorChips from './DesignRepoColorChips.astro';
+
+interface Props {
+  entry: DesignRepoEntry;
+}
+
+const { entry } = Astro.props;
+const searchText = `${entry.displayName} ${entry.name} ${entry.description} ${entry.category} ${entry.colorFamily}`.toLowerCase();
+const chipColors = Object.fromEntries(Object.entries(entry.primaryColors).slice(0, 4));
+---
+
+<a
+  href={`/design-repository/${entry.slug}`}
+  class="design-repo-card"
+  data-design-repo-item
+  data-search={searchText}
+  data-category={entry.category}
+  data-color-family={entry.colorFamily}
+  style={`--card-accent: ${entry.primaryColor}`}
+>
+  <div class="design-repo-card__accent"></div>
+  <div class="design-repo-card__inner">
+    <div class="design-repo-card__top">
+      <div class="design-repo-card__logo-wrap">
+        {entry.logo ? (
+          <img
+            src={entry.logo}
+            alt=""
+            class="design-repo-card__logo"
+            width="48"
+            height="48"
+            loading="lazy"
+            decoding="async"
+          />
+        ) : (
+          <span class="design-repo-card__logo-fallback" aria-hidden="true">
+            {entry.displayName.charAt(0)}
+          </span>
+        )}
+      </div>
+      <div class="design-repo-card__meta">
+        <span class="eyebrow design-repo-card__category">{entry.category}</span>
+        <span class="design-repo-card__family">{entry.colorFamily}</span>
+      </div>
+    </div>
+
+    <h2 class="design-repo-card__title">{entry.displayName}</h2>
+    <p class="design-repo-card__desc">{entry.description}</p>
+
+    <div class="design-repo-card__footer">
+      <DesignRepoColorChips colors={chipColors} variant="strip" />
+    </div>
+  </div>
+</a>

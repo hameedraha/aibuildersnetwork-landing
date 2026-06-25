@@ -1,0 +1,113 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ResourceCard from '../../components/ResourceCard.astro';
+import { getCollection } from 'astro:content';
+import { RESOURCE_CATEGORIES } from '../../content.config';
+
+const resources = (await getCollection('resources') ?? []).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+
+const counts = Object.fromEntries(
+  RESOURCE_CATEGORIES.map((cat) => [
+    cat,
+    resources.filter((r) => (r.data.category ?? 'guides') === cat).length,
+  ])
+) as Record<string, number>;
+---
+
+<BaseLayout
+  title="resources · ai builders network"
+  description="guides, prompts, workflows, and references for builders shipping AI solutions."
+>
+  <section class="page-hero section--neutral" aria-labelledby="resources-heading">
+    <div class="container">
+      <span class="eyebrow">library</span>
+      <h1 class="display-l" id="resources-heading">resources for builders.</h1>
+      <p class="body-lg page-hero__desc">
+        guides, prompt packs, n8n workflows, and references. filter by category, grab what you need.
+      </p>
+    </div>
+  </section>
+
+  <div class="section-divider" role="separator"></div>
+
+  <div class="section-divider" role="separator"></div>
+
+  <section class="section--neutral" style="padding-block: clamp(24px, 4vw, 48px);" aria-label="design tools">
+    <div class="container">
+      <span class="eyebrow">design tools</span>
+      <div class="resource-grid" style="margin-top: var(--sp-md);">
+        <a href="/design-repository" class="resource-card">
+          <div class="resource-card__meta">
+            <span class="eyebrow resource-card__tag">library</span>
+          </div>
+          <h2 class="heading">design repository</h2>
+          <p class="body-md">brand design systems from awesome-design-md. browse by card, list, color, or category.</p>
+        </a>
+        <a href="/resources/design-repository" class="resource-card">
+          <div class="resource-card__meta">
+            <span class="eyebrow resource-card__tag">reference</span>
+          </div>
+          <h2 class="heading">aibn design system</h2>
+          <p class="body-md">the aibn visual identity — colors, typography, components, and downloadable design.md.</p>
+        </a>
+        <a href="/resources/design-generator" class="resource-card">
+          <div class="resource-card__meta">
+            <span class="eyebrow resource-card__tag">tool</span>
+          </div>
+          <h2 class="heading">design.md generator</h2>
+          <p class="body-md">generate a styleguide for your product. feed it to ai coding tools for on-brand output.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider" role="separator"></div>
+
+  <section class="section--neutral" style="padding-block: clamp(32px, 6vw, 64px);" aria-label="all resources">
+    <div class="container">
+      <nav class="resource-filters" aria-label="filter by category">
+        <button type="button" class="resource-filter is-active" data-filter="all">
+          all · {resources.length}
+        </button>
+        {RESOURCE_CATEGORIES.map((cat) => (
+          counts[cat] > 0 && (
+            <button type="button" class="resource-filter" data-filter={cat}>
+              {cat} · {counts[cat]}
+            </button>
+          )
+        ))}
+      </nav>
+
+      <div class="resource-grid" id="resource-grid">
+        {resources.map((resource) => (
+          <ResourceCard resource={resource} />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <script>
+    function initFilters() {
+      const buttons = document.querySelectorAll<HTMLButtonElement>('.resource-filter');
+      const cards = document.querySelectorAll<HTMLElement>('.resource-card');
+      if (buttons.length === 0) return;
+
+      buttons.forEach((btn) => {
+        if (btn.dataset.bound) return;
+        btn.dataset.bound = 'true';
+        btn.addEventListener('click', () => {
+          const filter = btn.dataset.filter ?? 'all';
+          buttons.forEach((b) => b.classList.toggle('is-active', b === btn));
+          cards.forEach((card) => {
+            const show = filter === 'all' || card.dataset.category === filter;
+            card.style.display = show ? '' : 'none';
+          });
+        });
+      });
+    }
+    initFilters();
+    document.addEventListener('astro:page-load', initFilters);
+  </script>
+</BaseLayout>

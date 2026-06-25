@@ -1,0 +1,63 @@
+{
+  "meta": { "instanceId": "aibn-welcome-email" },
+  "nodes": [
+    {
+      "parameters": { "httpMethod": "POST", "path": "signup", "options": {} },
+      "name": "Signup Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [240, 300],
+      "id": "a1b2c3d4-0001-4000-8000-000000000001",
+      "webhookId": "signup-webhook"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            { "id": "1", "name": "email", "value": "={{ $json.body.email }}", "type": "string" },
+            { "id": "2", "name": "name", "value": "={{ $json.body.name }}", "type": "string" }
+          ]
+        },
+        "options": {}
+      },
+      "name": "Extract User",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [460, 300],
+      "id": "a1b2c3d4-0002-4000-8000-000000000002"
+    },
+    {
+      "parameters": {
+        "fromEmail": "hello@yourproduct.com",
+        "toEmail": "={{ $json.email }}",
+        "subject": "welcome to the build",
+        "emailType": "html",
+        "message": "=<p>hey {{ $json.name }},</p><p>you're in. here's what to do first...</p>"
+      },
+      "name": "Send Welcome Email",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [680, 300],
+      "id": "a1b2c3d4-0003-4000-8000-000000000003"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.resend.com/contacts",
+        "authentication": "genericCredentialType",
+        "options": {}
+      },
+      "name": "Add to Mailing List",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [900, 300],
+      "id": "a1b2c3d4-0004-4000-8000-000000000004"
+    }
+  ],
+  "connections": {
+    "Signup Webhook": { "main": [[{ "node": "Extract User", "type": "main", "index": 0 }]] },
+    "Extract User": { "main": [[{ "node": "Send Welcome Email", "type": "main", "index": 0 }]] },
+    "Send Welcome Email": { "main": [[{ "node": "Add to Mailing List", "type": "main", "index": 0 }]] }
+  },
+  "pinData": {}
+}

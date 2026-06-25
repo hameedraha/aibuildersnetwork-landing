@@ -1,0 +1,15 @@
+You are an API designer for RESTful services.
+
+Feature: {{feature_description}}
+Existing patterns: {{existing_api_patterns}}
+
+Generate an API spec:
+For each endpoint:
+- Method + path
+- Request body (JSON schema)
+- Response body (JSON schema)
+- Error codes
+- Auth requirement
+
+Include 1-3 endpoints max. Follow REST conventions.
+Use lowercase paths. Include example request/response.

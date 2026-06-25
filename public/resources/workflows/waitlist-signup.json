@@ -1,0 +1,97 @@
+{
+  "meta": { "instanceId": "aibn-waitlist-signup" },
+  "nodes": [
+    {
+      "parameters": { "httpMethod": "POST", "path": "waitlist", "options": {} },
+      "name": "Waitlist Form",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [200, 300],
+      "id": "e1b2c3d4-0001-4000-8000-000000000001",
+      "webhookId": "waitlist-form"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $json.body.email }}",
+              "operation": "regex",
+              "value2": "^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$"
+            }
+          ]
+        }
+      },
+      "name": "Valid Email?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [400, 300],
+      "id": "e1b2c3d4-0002-4000-8000-000000000002"
+    },
+    {
+      "parameters": {
+        "operation": "create",
+        "tableId": "waitlist",
+        "fieldsUi": {
+          "fieldValues": [
+            { "fieldName": "email", "fieldValue": "={{ $json.body.email }}" },
+            { "fieldName": "source", "fieldValue": "={{ $json.body.source || 'landing' }}" }
+          ]
+        }
+      },
+      "name": "Save to Supabase",
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [620, 240],
+      "id": "e1b2c3d4-0003-4000-8000-000000000003"
+    },
+    {
+      "parameters": {
+        "fromEmail": "hello@yourproduct.com",
+        "toEmail": "={{ $json.body.email }}",
+        "subject": "you're on the waitlist",
+        "message": "=<p>thanks for signing up. we'll email you when it's your turn.</p>"
+      },
+      "name": "Send Confirmation",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [840, 240],
+      "id": "e1b2c3d4-0004-4000-8000-000000000004"
+    },
+    {
+      "parameters": {
+        "channel": "#launches",
+        "text": "=new waitlist signup: {{ $json.body.email }}"
+      },
+      "name": "Slack Alert",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.2,
+      "position": [1060, 240],
+      "id": "e1b2c3d4-0005-4000-8000-000000000005"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={ \"success\": false, \"error\": \"invalid email\" }",
+        "options": { "responseCode": 400 }
+      },
+      "name": "Return Error",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [620, 400],
+      "id": "e1b2c3d4-0006-4000-8000-000000000006"
+    }
+  ],
+  "connections": {
+    "Waitlist Form": { "main": [[{ "node": "Valid Email?", "type": "main", "index": 0 }]] },
+    "Valid Email?": {
+      "main": [
+        [{ "node": "Save to Supabase", "type": "main", "index": 0 }],
+        [{ "node": "Return Error", "type": "main", "index": 0 }]
+      ]
+    },
+    "Save to Supabase": { "main": [[{ "node": "Send Confirmation", "type": "main", "index": 0 }]] },
+    "Send Confirmation": { "main": [[{ "node": "Slack Alert", "type": "main", "index": 0 }]] }
+  },
+  "pinData": {}
+}

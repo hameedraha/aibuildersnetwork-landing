@@ -1,0 +1,2060 @@
+{
+  "source": {
+    "repo": "VoltAgent/awesome-design-md",
+    "url": "https://github.com/VoltAgent/awesome-design-md",
+    "syncedAt": "2026-06-25T14:02:02.134Z"
+  },
+  "categories": [
+    "AI & LLM Platforms",
+    "Automotive",
+    "Backend, Database & DevOps",
+    "Design & Creative Tools",
+    "Developer Tools & IDEs",
+    "E-commerce & Retail",
+    "Fintech & Crypto",
+    "Media & Consumer Tech",
+    "Productivity & SaaS",
+    "Retro Web · DESIGN.md Nostalgia",
+    "Uncategorized"
+  ],
+  "colorFamilies": [
+    "red",
+    "orange",
+    "yellow",
+    "green",
+    "cyan",
+    "blue",
+    "purple",
+    "pink",
+    "neutral"
+  ],
+  "entries": [
+    {
+      "slug": "airbnb",
+      "name": "Airbnb-design-analysis",
+      "displayName": "airbnb",
+      "description": "A warm, generous consumer marketplace anchored on a clean white canvas and Airbnb Rausch (#ff385c), the single brand voltage that carries every primary CTA, search-button orb, and rating dot. Type runs Airbnb Cereal VF at modest weights — display sits at 22–28px in weight 500/600",
+      "category": "E-commerce & Retail",
+      "primaryColor": "#ff385c",
+      "primaryColors": {
+        "primary": "#ff385c",
+        "primary-active": "#e00b41",
+        "primary-disabled": "#ffd1da",
+        "primary-error-text": "#c13515",
+        "primary-error-text-hover": "#b32505",
+        "on-primary": "#ffffff"
+      },
+      "colorFamily": "red",
+      "logo": "/design-repository/logos/airbnb.webp",
+      "siteUrl": "https://airbnb.com",
+      "visitUrl": "https://airbnb.com/?utm_source=aibuildersnetwork&utm_medium=design-repository&utm_campaign=airbnb",
+      "fonts": [
+        {
+          "name": "'Airbnb Cereal VF', Circular, -apple-system, system-ui, Roboto, 'Helvetica Neue', sans-serif",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        },
+        {
+          "name": "'Airbnb Cereal VF', Circular, sans-serif",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        }
+      ],
+      "hasPreview": false,
+      "sourcePath": "design-md/airbnb/DESIGN.md"
+    },
+    {
+      "slug": "airtable",
+      "name": "Airtable-design-analysis",
+      "displayName": "airtable",
+      "description": "A sober, editorial workflow-software interface anchored on white canvas and dark-ink type, where brand voltage comes from full-bleed signature cards in coral, dark green, peach, and dark navy that punctuate long-scroll explainer pages. Primary actions use a near-black pill CTA; s",
+      "category": "Design & Creative Tools",
+      "primaryColor": "#181d26",
+      "primaryColors": {
+        "primary": "#181d26",
+        "primary-active": "#0d1218",
+        "on-primary": "#ffffff"
+      },
+      "colorFamily": "blue",
+      "logo": "/design-repository/logos/airtable.webp",
+      "siteUrl": "https://airtable.com",
+      "visitUrl": "https://airtable.com/?utm_source=aibuildersnetwork&utm_medium=design-repository&utm_campaign=airtable",
+      "fonts": [
+        {
+          "name": "Haas Groot Disp, Haas, sans-serif",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        },
+        {
+          "name": "Haas, sans-serif",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        },
+        {
+          "name": "Inter Display, system-ui, sans-serif",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        }
+      ],
+      "hasPreview": false,
+      "sourcePath": "design-md/airtable/DESIGN.md"
+    },
+    {
+      "slug": "apple",
+      "name": "Apple-design-analysis",
+      "displayName": "apple",
+      "description": "A photography-first interface that turns marketing into a museum gallery. Edge-to-edge product tiles alternate light and dark canvases, framed by SF Pro Display headlines with negative letter-spacing and a single Action Blue (#0066cc) interactive color. UI chrome recedes so the p",
+      "category": "Media & Consumer Tech",
+      "primaryColor": "#0066cc",
+      "primaryColors": {
+        "primary": "#0066cc",
+        "primary-focus": "#0071e3",
+        "primary-on-dark": "#2997ff",
+        "on-primary": "#ffffff"
+      },
+      "colorFamily": "blue",
+      "logo": "/design-repository/logos/apple.webp",
+      "siteUrl": "https://apple.com",
+      "visitUrl": "https://apple.com/?utm_source=aibuildersnetwork&utm_medium=design-repository&utm_campaign=apple",
+      "fonts": [
+        {
+          "name": "SF Pro Display, system-ui, -apple-system, sans-serif",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        },
+        {
+          "name": "SF Pro Text, system-ui, -apple-system, sans-serif",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        }
+      ],
+      "hasPreview": false,
+      "sourcePath": "design-md/apple/DESIGN.md"
+    },
+    {
+      "slug": "binance",
+      "name": "Binance-design-analysis",
+      "displayName": "binance",
+      "description": "A confident financial-platform interface anchored on a deep near-black canvas, where Binance's iconic yellow (#FCD535) carries every primary CTA, brand accent, and value-claim moment. Type runs Binance's custom BinanceNova / BinancePlex stack at modest weights — the system trusts",
+      "category": "Fintech & Crypto",
+      "primaryColor": "#fcd535",
+      "primaryColors": {
+        "primary": "#fcd535",
+        "primary-active": "#f0b90b",
+        "primary-disabled": "#3a3a1f",
+        "on-primary": "#181a20"
+      },
+      "colorFamily": "yellow",
+      "logo": "/design-repository/logos/binance.webp",
+      "siteUrl": "https://binance.com",
+      "visitUrl": "https://binance.com/?utm_source=aibuildersnetwork&utm_medium=design-repository&utm_campaign=binance",
+      "fonts": [
+        {
+          "name": "BinanceNova, -apple-system, BlinkMacSystemFont, sans-serif",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        },
+        {
+          "name": "BinanceNova, sans-serif",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        },
+        {
+          "name": "BinancePlex, BinanceNova, sans-serif",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        }
+      ],
+      "hasPreview": false,
+      "sourcePath": "design-md/binance/DESIGN.md"
+    },
+    {
+      "slug": "bmw",
+      "name": "BMW-design-analysis",
+      "displayName": "bmw",
+      "description": "BMW's corporate site — distinct from BMW M's motorsport-bombastic variant, this is a measured and settled corporate-automotive interface. On a light (cream-tinted white) canvas, BMW corporate blue (#1c69d4) carries every primary CTA; dark navy hero bands frame model photography. ",
+      "category": "Automotive",
+      "primaryColor": "#1c69d4",
+      "primaryColors": {
+        "primary": "#1c69d4",
+        "primary-active": "#0653b6",
+        "primary-disabled": "#d6d6d6",
+        "on-primary": "#ffffff"
+      },
+      "colorFamily": "blue",
+      "logo": "/design-repository/logos/bmw.webp",
+      "siteUrl": "https://bmw.com",
+      "visitUrl": "https://bmw.com/?utm_source=aibuildersnetwork&utm_medium=design-repository&utm_campaign=bmw",
+      "fonts": [
+        {
+          "name": "'BMW Type Next Latin', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        },
+        {
+          "name": "'BMW Type Next Latin', sans-serif",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        }
+      ],
+      "hasPreview": false,
+      "sourcePath": "design-md/bmw/DESIGN.md"
+    },
+    {
+      "slug": "bmw-m",
+      "name": "BMW-M-design-analysis",
+      "displayName": "bmw m",
+      "description": "A motorsport-engineering interface anchored on a near-black canvas with white BMW Type Next Latin display headlines in confident UPPERCASE. The brand carries no decorative voltage — its energy comes from full-bleed automotive photography (cars on tracks, driver-cockpit shots, car",
+      "category": "Automotive",
+      "primaryColor": "#ffffff",
+      "primaryColors": {
+        "primary": "#ffffff",
+        "on-primary": "#000000"
+      },
+      "colorFamily": "neutral",
+      "logo": "/design-repository/logos/bmw-m.webp",
+      "siteUrl": "https://bmw.com",
+      "visitUrl": "https://bmw.com/?utm_source=aibuildersnetwork&utm_medium=design-repository&utm_campaign=bmw-m",
+      "fonts": [
+        {
+          "name": "BMWTypeNextLatin, sans-serif",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        },
+        {
+          "name": "BMWTypeNextLatin Light, BMWTypeNextLatin, sans-serif",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        },
+        {
+          "name": "BMWTypeNextLatin Light, sans-serif",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        }
+      ],
+      "hasPreview": false,
+      "sourcePath": "design-md/bmw-m/DESIGN.md"
+    },
+    {
+      "slug": "bugatti",
+      "name": "Bugatti-design-analysis",
+      "displayName": "bugatti",
+      "description": "An austere luxury-automotive interface that uses near-pure black canvas, white uppercase letterspaced display, and full-bleed automotive photography as the only voltage. The system runs three custom Bugatti typefaces — Bugatti Display, Bugatti Text Regular, and Bugatti Monospace ",
+      "category": "Automotive",
+      "primaryColor": "#ffffff",
+      "primaryColors": {
+        "primary": "#ffffff",
+        "on-primary": "#000000"
+      },
+      "colorFamily": "neutral",
+      "logo": "/design-repository/logos/bugatti.webp",
+      "siteUrl": "https://bugatti.com",
+      "visitUrl": "https://bugatti.com/?utm_source=aibuildersnetwork&utm_medium=design-repository&utm_campaign=bugatti",
+      "fonts": [
+        {
+          "name": "Bugatti Display, sans-serif",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        },
+        {
+          "name": "Bugatti Display, serif",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        },
+        {
+          "name": "Bugatti Monospace, ui-monospace, monospace",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        },
+        {
+          "name": "Bugatti Text Regular, serif",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        }
+      ],
+      "hasPreview": false,
+      "sourcePath": "design-md/bugatti/DESIGN.md"
+    },
+    {
+      "slug": "cal",
+      "name": "Cal.com-design-analysis",
+      "displayName": "cal",
+      "description": "A clean, calendar-software-first interface anchored on white canvas with black primary CTAs and custom Cal Sans display typography. The system reads as friendly modern SaaS — generous whitespace, soft-rounded cards (~12px), product UI fragments shown directly inside cards, and a ",
+      "category": "Productivity & SaaS",
+      "primaryColor": "#111111",
+      "primaryColors": {
+        "primary": "#111111",
+        "primary-active": "#242424",
+        "primary-disabled": "#e5e7eb",
+        "on-primary": "#ffffff"
+      },
+      "colorFamily": "neutral",
+      "logo": "/design-repository/logos/cal.webp",
+      "siteUrl": "https://cal.com",
+      "visitUrl": "https://cal.com/?utm_source=aibuildersnetwork&utm_medium=design-repository&utm_campaign=cal",
+      "fonts": [
+        {
+          "name": "Cal Sans, Inter, sans-serif",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        },
+        {
+          "name": "Inter, sans-serif",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        },
+        {
+          "name": "JetBrains Mono, ui-monospace, monospace",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        }
+      ],
+      "hasPreview": false,
+      "sourcePath": "design-md/cal/DESIGN.md"
+    },
+    {
+      "slug": "claude",
+      "name": "Claude-design-analysis",
+      "displayName": "claude",
+      "description": "A warm-canvas editorial interface for Anthropic's Claude product. The system anchors on a tinted cream canvas with serif display headlines, warm coral CTAs, and dark navy product surfaces (code editor mockups, model showcase cards). Brand voltage comes from the cream/coral pairin",
+      "category": "AI & LLM Platforms",
+      "primaryColor": "#cc785c",
+      "primaryColors": {
+        "primary": "#cc785c",
+        "primary-active": "#a9583e",
+        "primary-disabled": "#e6dfd8",
+        "on-primary": "#ffffff"
+      },
+      "colorFamily": "orange",
+      "logo": "/design-repository/logos/claude.webp",
+      "siteUrl": "https://claude.com",
+      "visitUrl": "https://claude.com/?utm_source=aibuildersnetwork&utm_medium=design-repository&utm_campaign=claude",
+      "fonts": [
+        {
+          "name": "Copernicus, Tiempos Headline, serif",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        },
+        {
+          "name": "StyreneB, Inter, sans-serif",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        },
+        {
+          "name": "JetBrains Mono, ui-monospace, monospace",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        }
+      ],
+      "hasPreview": false,
+      "sourcePath": "design-md/claude/DESIGN.md"
+    },
+    {
+      "slug": "clay",
+      "name": "Clay-design-analysis",
+      "displayName": "clay",
+      "description": "A vibrant claymation-meets-data interface for Clay.com (GTM data-orchestration platform). Anchors on white canvas with dark-navy primary CTAs, custom rounded display type, and saturated single-color feature cards — hot pink, deep teal, lavender, peach, ochre — that punctuate long",
+      "category": "Design & Creative Tools",
+      "primaryColor": "#0a0a0a",
+      "primaryColors": {
+        "primary": "#0a0a0a",
+        "primary-active": "#1f1f1f",
+        "primary-disabled": "#e5e5e5",
+        "on-primary": "#ffffff"
+      },
+      "colorFamily": "neutral",
+      "logo": "/design-repository/logos/clay.webp",
+      "siteUrl": "https://clay.com",
+      "visitUrl": "https://clay.com/?utm_source=aibuildersnetwork&utm_medium=design-repository&utm_campaign=clay",
+      "fonts": [
+        {
+          "name": "Plain Black, Inter, sans-serif",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        },
+        {
+          "name": "Inter, sans-serif",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        }
+      ],
+      "hasPreview": false,
+      "sourcePath": "design-md/clay/DESIGN.md"
+    },
+    {
+      "slug": "clickhouse",
+      "name": "ClickHouse-design-analysis",
+      "displayName": "clickhouse",
+      "description": "A high-performance database interface anchored on near-pure black canvas with electric yellow as the brand voltage. White typography in confident sans, yellow CTAs, and yellow-text stat numbers carry the brand voice across every page. Code blocks and product UI fragments embed di",
+      "category": "Backend, Database & DevOps",
+      "primaryColor": "#faff69",
+      "primaryColors": {
+        "primary": "#faff69",
+        "primary-active": "#e6eb52",
+        "primary-disabled": "#3a3a1f",
+        "on-primary": "#0a0a0a"
+      },
+      "colorFamily": "yellow",
+      "logo": "/design-repository/logos/clickhouse.webp",
+      "siteUrl": "https://clickhouse.com",
+      "visitUrl": "https://clickhouse.com/?utm_source=aibuildersnetwork&utm_medium=design-repository&utm_campaign=clickhouse",
+      "fonts": [
+        {
+          "name": "Inter, sans-serif",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        },
+        {
+          "name": "JetBrains Mono, ui-monospace, monospace",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        }
+      ],
+      "hasPreview": false,
+      "sourcePath": "design-md/clickhouse/DESIGN.md"
+    },
+    {
+      "slug": "cohere",
+      "name": "Cohere-design-analysis",
+      "displayName": "cohere",
+      "description": "Cohere's 2026 web system is a controlled enterprise AI interface built from stark white editorial space, deep green-black product bands, soft mineral surfaces, rounded media cards, and a distinctive type split between monospaced-feeling display headlines and precise Unica77 UI te",
+      "category": "AI & LLM Platforms",
+      "primaryColor": "#17171c",
+      "primaryColors": {
+        "primary": "#17171c",
+        "on-primary": "#ffffff"
+      },
+      "colorFamily": "neutral",
+      "logo": "/design-repository/logos/cohere.webp",
+      "siteUrl": "https://cohere.com",
+      "visitUrl": "https://cohere.com/?utm_source=aibuildersnetwork&utm_medium=design-repository&utm_campaign=cohere",
+      "fonts": [
+        {
+          "name": "CohereText",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        },
+        {
+          "name": "Unica77 Cohere Web",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        },
+        {
+          "name": "CohereMono",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        }
+      ],
+      "hasPreview": false,
+      "sourcePath": "design-md/cohere/DESIGN.md"
+    },
+    {
+      "slug": "coinbase",
+      "name": "Coinbase-design-analysis",
+      "displayName": "coinbase",
+      "description": "An institutional-grade crypto exchange whose marketing surfaces read like a quietly-confident financial-services brand. The base canvas is pure white; Coinbase Blue (`#0052ff`) is the single brand voltage, used scarcely on primary CTAs, signature glyphs, and inline accent moments",
+      "category": "Fintech & Crypto",
+      "primaryColor": "#0052ff",
+      "primaryColors": {
+        "primary": "#0052ff",
+        "primary-active": "#003ecc",
+        "primary-disabled": "#a8b8cc",
+        "on-primary": "#ffffff"
+      },
+      "colorFamily": "blue",
+      "logo": "/design-repository/logos/coinbase.webp",
+      "siteUrl": "https://coinbase.com",
+      "visitUrl": "https://coinbase.com/?utm_source=aibuildersnetwork&utm_medium=design-repository&utm_campaign=coinbase",
+      "fonts": [
+        {
+          "name": "'Coinbase Display', -apple-system, system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        },
+        {
+          "name": "'Coinbase Display', sans-serif",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        },
+        {
+          "name": "'Coinbase Sans', sans-serif",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        },
+        {
+          "name": "'Coinbase Mono', 'Coinbase Sans', monospace",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        }
+      ],
+      "hasPreview": false,
+      "sourcePath": "design-md/coinbase/DESIGN.md"
+    },
+    {
+      "slug": "composio",
+      "name": "Composio-design-analysis",
+      "displayName": "composio",
+      "description": "A developer-tools brand for AI-agent tool integration whose marketing surfaces lean into a dark, technical aesthetic with a single deep-electric-blue voltage (`#0007cd`). The page floor is near-black (`#0f0f0f`); cards float above on subtle gray-tinted surfaces. abcDiatype carrie",
+      "category": "Backend, Database & DevOps",
+      "primaryColor": "#0007cd",
+      "primaryColors": {
+        "primary": "#0007cd",
+        "primary-active": "#0005a3",
+        "primary-glow": "#1a26ff",
+        "on-primary": "#ffffff"
+      },
+      "colorFamily": "blue",
+      "logo": "/design-repository/logos/composio.webp",
+      "siteUrl": "https://composio.com",
+      "visitUrl": "https://composio.com/?utm_source=aibuildersnetwork&utm_medium=design-repository&utm_campaign=composio",
+      "fonts": [
+        {
+          "name": "'abcDiatype', ui-sans-serif, system-ui, sans-serif",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        },
+        {
+          "name": "'JetBrains Mono', 'Fira Code', monospace",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        }
+      ],
+      "hasPreview": false,
+      "sourcePath": "design-md/composio/DESIGN.md"
+    },
+    {
+      "slug": "cursor",
+      "name": "Cursor-design-analysis",
+      "displayName": "cursor",
+      "description": "An AI-first code editor whose marketing site reads like a quietly-confident developer-tools brand with a warm-cream editorial canvas (`#f7f7f4`) instead of the typical dark IDE atmosphere. Near-black warm ink (`#26251e`) carries body and display alike — display sits at weight 400",
+      "category": "Developer Tools & IDEs",
+      "primaryColor": "#f54e00",
+      "primaryColors": {
+        "primary": "#f54e00",
+        "primary-active": "#d04200",
+        "on-primary": "#ffffff"
+      },
+      "colorFamily": "orange",
+      "logo": "/design-repository/logos/cursor.webp",
+      "siteUrl": "https://cursor.com",
+      "visitUrl": "https://cursor.com/?utm_source=aibuildersnetwork&utm_medium=design-repository&utm_campaign=cursor",
+      "fonts": [
+        {
+          "name": "'CursorGothic', system-ui, 'Helvetica Neue', Helvetica, Arial, sans-serif",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        },
+        {
+          "name": "'CursorGothic', sans-serif",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        },
+        {
+          "name": "'JetBrains Mono', 'Fira Code', monospace",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        }
+      ],
+      "hasPreview": false,
+      "sourcePath": "design-md/cursor/DESIGN.md"
+    },
+    {
+      "slug": "dell-1996",
+      "name": "Dell 1996 Inspired",
+      "displayName": "dell 1996",
+      "description": "An inspired interpretation of Dell.com's 1996 design language — a catalog-era enterprise web design built around a literal black page frame, vivid flat color-block \"ribbon cards\" tinted in sage, salmon, periwinkle, sky, peach and lime, chunky Helvetica-Black display titles, Times",
+      "category": "Retro Web · DESIGN.md Nostalgia",
+      "primaryColor": "#e91d2a",
+      "primaryColors": {
+        "primary": "#e91d2a",
+        "on-primary": "#ffffff"
+      },
+      "colorFamily": "red",
+      "logo": "/design-repository/logos/dell-1996.webp",
+      "siteUrl": "https://dell.com",
+      "visitUrl": "https://dell.com/?utm_source=aibuildersnetwork&utm_medium=design-repository&utm_campaign=dell-1996",
+      "fonts": [
+        {
+          "name": "Arial Black",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        },
+        {
+          "name": "Helvetica",
+          "source": "google",
+          "googleFamily": "Helvetica",
+          "cssUrl": "https://fonts.googleapis.com/css2?family=Helvetica:wght@300;400;500;600;700&display=swap"
+        },
+        {
+          "name": "Times New Roman",
+          "source": "google",
+          "googleFamily": "Times New Roman",
+          "cssUrl": "https://fonts.googleapis.com/css2?family=Times+New+Roman:wght@300;400;500;600;700&display=swap"
+        }
+      ],
+      "hasPreview": false,
+      "sourcePath": "design-md/dell-1996/DESIGN.md"
+    },
+    {
+      "slug": "expo",
+      "name": "Expo-design-analysis",
+      "displayName": "expo",
+      "description": "A React Native developer-platform whose marketing site reads like a quietly-confident infrastructure brand. The base canvas is pure white with a soft sky-blue gradient atmospheric wash behind the hero; near-black ink (`#171717`) carries body and display alike. The single brand vo",
+      "category": "Developer Tools & IDEs",
+      "primaryColor": "#000000",
+      "primaryColors": {
+        "primary": "#000000",
+        "primary-active": "#1a1a1a",
+        "on-primary": "#ffffff"
+      },
+      "colorFamily": "neutral",
+      "logo": "/design-repository/logos/expo.webp",
+      "siteUrl": "https://expo.com",
+      "visitUrl": "https://expo.com/?utm_source=aibuildersnetwork&utm_medium=design-repository&utm_campaign=expo",
+      "fonts": [
+        {
+          "name": "'Inter', -apple-system, system-ui, sans-serif",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        },
+        {
+          "name": "'Inter', sans-serif",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        },
+        {
+          "name": "'JetBrains Mono', 'Fira Code', monospace",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        }
+      ],
+      "hasPreview": false,
+      "sourcePath": "design-md/expo/DESIGN.md"
+    },
+    {
+      "slug": "ferrari",
+      "name": "Ferrari-design-analysis",
+      "displayName": "ferrari",
+      "description": "A luxury-automotive brand whose marketing surfaces read as cinematic editorial. The base canvas is **near-black** (`#181818`) holding pure white display type; white-canvas bands appear only inside specific editorial contexts (preowned listings, pricing tables). The single brand v",
+      "category": "Automotive",
+      "primaryColor": "#da291c",
+      "primaryColors": {
+        "primary": "#da291c",
+        "primary-active": "#b01e0a",
+        "primary-hover": "#9d2211",
+        "on-primary": "#ffffff"
+      },
+      "colorFamily": "red",
+      "logo": "/design-repository/logos/ferrari.webp",
+      "siteUrl": "https://ferrari.com",
+      "visitUrl": "https://ferrari.com/?utm_source=aibuildersnetwork&utm_medium=design-repository&utm_campaign=ferrari",
+      "fonts": [
+        {
+          "name": "'FerrariSans', -apple-system, system-ui, sans-serif",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        },
+        {
+          "name": "'FerrariSans', sans-serif",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        }
+      ],
+      "hasPreview": false,
+      "sourcePath": "design-md/ferrari/DESIGN.md"
+    },
+    {
+      "slug": "figma",
+      "name": "Figma-design-analysis",
+      "displayName": "figma",
+      "description": "A confident black-and-white editorial frame interrupted by oversized, hand-cut pastel color blocks. The marketing canvas is rigorously monochrome — figmaSans variable type, pure white surfaces, pure black ink, pill-shaped CTAs — while each story section drops the page into a satu",
+      "category": "Design & Creative Tools",
+      "primaryColor": "#000000",
+      "primaryColors": {
+        "primary": "#000000",
+        "on-primary": "#ffffff"
+      },
+      "colorFamily": "neutral",
+      "logo": "/design-repository/logos/figma.webp",
+      "siteUrl": "https://figma.com",
+      "visitUrl": "https://figma.com/?utm_source=aibuildersnetwork&utm_medium=design-repository&utm_campaign=figma",
+      "fonts": [
+        {
+          "name": "figmaSans",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        },
+        {
+          "name": "figmaMono",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        }
+      ],
+      "hasPreview": false,
+      "sourcePath": "design-md/figma/DESIGN.md"
+    },
+    {
+      "slug": "framer",
+      "name": "Framer-design-analysis",
+      "displayName": "framer",
+      "description": "A confident dark-canvas builder marketing site that treats the page like a working artboard — pure black surfaces, white display type set in GT Walsheim Medium with aggressive negative tracking, and a single confident blue (#0099ff) reserved for hyperlinks and selection states. T",
+      "category": "Design & Creative Tools",
+      "primaryColor": "#ffffff",
+      "primaryColors": {
+        "primary": "#ffffff",
+        "on-primary": "#000000"
+      },
+      "colorFamily": "neutral",
+      "logo": "/design-repository/logos/framer.webp",
+      "siteUrl": "https://framer.com",
+      "visitUrl": "https://framer.com/?utm_source=aibuildersnetwork&utm_medium=design-repository&utm_campaign=framer",
+      "fonts": [
+        {
+          "name": "GT Walsheim Framer Medium",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        },
+        {
+          "name": "GT Walsheim Medium",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        },
+        {
+          "name": "Inter",
+          "source": "google",
+          "googleFamily": "Inter",
+          "cssUrl": "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+        },
+        {
+          "name": "Inter Variable",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        }
+      ],
+      "hasPreview": false,
+      "sourcePath": "design-md/framer/DESIGN.md"
+    },
+    {
+      "slug": "hashicorp",
+      "name": "HashiCorp-design-analysis",
+      "displayName": "hashicorp",
+      "description": "An enterprise-infrastructure marketing canvas built around a near-black ground (#000000) and a system of per-product accent colors — Terraform purple, Vault yellow, Consul pink, Waypoint cyan, Vagrant blue — that act as identity tokens rather than decorative palette. Display type",
+      "category": "Backend, Database & DevOps",
+      "primaryColor": "#000000",
+      "primaryColors": {
+        "primary": "#000000",
+        "on-primary": "#ffffff"
+      },
+      "colorFamily": "neutral",
+      "logo": "/design-repository/logos/hashicorp.webp",
+      "siteUrl": "https://hashicorp.com",
+      "visitUrl": "https://hashicorp.com/?utm_source=aibuildersnetwork&utm_medium=design-repository&utm_campaign=hashicorp",
+      "fonts": [
+        {
+          "name": "hashicorpSans",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        }
+      ],
+      "hasPreview": false,
+      "sourcePath": "design-md/hashicorp/DESIGN.md"
+    },
+    {
+      "slug": "hp",
+      "name": "HP-design-analysis",
+      "displayName": "hp",
+      "description": "An inspired interpretation of HP's design language — a white-paper enterprise-consumer system anchored by HP Electric Blue (`#024ad8`) as the lone signal CTA, near-black ink (`#1a1a1a`) for headlines, geometric Forma-DJR sans throughout, and angular blue-chevron decorations that ",
+      "category": "Media & Consumer Tech",
+      "primaryColor": "#024ad8",
+      "primaryColors": {
+        "primary": "#024ad8",
+        "primary-bright": "#296ef9",
+        "primary-deep": "#0e3191",
+        "primary-soft": "#c9e0fc",
+        "on-primary": "#ffffff"
+      },
+      "colorFamily": "blue",
+      "logo": "/design-repository/logos/hp.webp",
+      "siteUrl": "https://hp.com",
+      "visitUrl": "https://hp.com/?utm_source=aibuildersnetwork&utm_medium=design-repository&utm_campaign=hp",
+      "fonts": [
+        {
+          "name": "Forma DJR Micro",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        }
+      ],
+      "hasPreview": false,
+      "sourcePath": "design-md/hp/DESIGN.md"
+    },
+    {
+      "slug": "ibm",
+      "name": "IBM-design-analysis",
+      "displayName": "ibm",
+      "description": "An enterprise-marketing canvas faithful to Carbon Design System: white surfaces, charcoal type, IBM Blue (#0f62fe) as the single confident accent, and a deliberately flat-square aesthetic where corners stay at 0–4px. Type runs IBM Plex Sans at light weight 300 for display sizes (",
+      "category": "Media & Consumer Tech",
+      "primaryColor": "#0f62fe",
+      "primaryColors": {
+        "primary": "#0f62fe",
+        "on-primary": "#ffffff"
+      },
+      "colorFamily": "blue",
+      "logo": "/design-repository/logos/ibm.webp",
+      "siteUrl": "https://ibm.com",
+      "visitUrl": "https://ibm.com/?utm_source=aibuildersnetwork&utm_medium=design-repository&utm_campaign=ibm",
+      "fonts": [
+        {
+          "name": "IBM Plex Sans",
+          "source": "google",
+          "googleFamily": "IBM Plex Sans",
+          "cssUrl": "https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap"
+        }
+      ],
+      "hasPreview": false,
+      "sourcePath": "design-md/ibm/DESIGN.md"
+    },
+    {
+      "slug": "intercom",
+      "name": "Intercom-design-analysis",
+      "displayName": "intercom",
+      "description": "An editorial customer-service marketing canvas built around a soft cream-white ground, charcoal type set in Saans (Intercom's proprietary geometric sans), and a single confident Fin Orange (#ff5600) reserved for the Fin AI brand. Cards live as floating white tiles with thin hairl",
+      "category": "Productivity & SaaS",
+      "primaryColor": "#111111",
+      "primaryColors": {
+        "primary": "#111111",
+        "on-primary": "#ffffff"
+      },
+      "colorFamily": "neutral",
+      "logo": "/design-repository/logos/intercom.webp",
+      "siteUrl": "https://intercom.com",
+      "visitUrl": "https://intercom.com/?utm_source=aibuildersnetwork&utm_medium=design-repository&utm_campaign=intercom",
+      "fonts": [
+        {
+          "name": "Saans",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        },
+        {
+          "name": "SaansMono",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        }
+      ],
+      "hasPreview": false,
+      "sourcePath": "design-md/intercom/DESIGN.md"
+    },
+    {
+      "slug": "linear.app",
+      "name": "Linear-design-analysis",
+      "displayName": "linear",
+      "description": "A near-black product-focused marketing canvas built around #010102 (the deepest dark surface of any tool in this collection), light gray text (#f7f8f8), and the signature Linear lavender-blue (#5e6ad2) used as the single chromatic accent. The system reads as software-craft docume",
+      "category": "Productivity & SaaS",
+      "primaryColor": "#5e6ad2",
+      "primaryColors": {
+        "primary": "#5e6ad2",
+        "on-primary": "#ffffff",
+        "primary-hover": "#828fff",
+        "primary-focus": "#5e69d1"
+      },
+      "colorFamily": "blue",
+      "logo": "/design-repository/logos/linear.app.webp",
+      "siteUrl": "https://linear.app",
+      "visitUrl": "https://linear.app/?utm_source=aibuildersnetwork&utm_medium=design-repository&utm_campaign=linear.app",
+      "fonts": [
+        {
+          "name": "Linear Display",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        },
+        {
+          "name": "Linear Text",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        },
+        {
+          "name": "Linear Mono",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        }
+      ],
+      "hasPreview": false,
+      "sourcePath": "design-md/linear.app/DESIGN.md"
+    },
+    {
+      "slug": "meta",
+      "name": "Meta-design-analysis",
+      "displayName": "meta",
+      "description": "Meta's design system spans hardware commerce (Quest VR, Ray-Ban Meta AI glasses) and brand surfaces with a confident product-merchandising voice. The system pairs a stark white canvas with full-bleed photographic product cards, a confident Optimistic VF wordmark/headline face, du",
+      "category": "E-commerce & Retail",
+      "primaryColor": "#0064e0",
+      "primaryColors": {
+        "primary": "#0064e0",
+        "primary-deep": "#0457cb",
+        "primary-soft": "#0091ff",
+        "on-primary": "#ffffff"
+      },
+      "colorFamily": "blue",
+      "logo": "/design-repository/logos/meta.webp",
+      "siteUrl": "https://meta.com",
+      "visitUrl": "https://meta.com/?utm_source=aibuildersnetwork&utm_medium=design-repository&utm_campaign=meta",
+      "fonts": [
+        {
+          "name": "Optimistic VF",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        }
+      ],
+      "hasPreview": false,
+      "sourcePath": "design-md/meta/DESIGN.md"
+    },
+    {
+      "slug": "minimax",
+      "name": "MiniMax-design-analysis",
+      "displayName": "minimax",
+      "description": "MiniMax presents itself as a premium AI infrastructure brand through a striking duality — bold black-pill CTAs and stark white canvas for marketing, paired with vibrant gradient product cards (orange-red, magenta-pink, purple, blue) that turn each model release into a distinctive",
+      "category": "AI & LLM Platforms",
+      "primaryColor": "#0a0a0a",
+      "primaryColors": {
+        "primary": "#0a0a0a",
+        "on-primary": "#ffffff",
+        "primary-soft": "#181e25"
+      },
+      "colorFamily": "neutral",
+      "logo": "/design-repository/logos/minimax.webp",
+      "siteUrl": "https://minimax.com",
+      "visitUrl": "https://minimax.com/?utm_source=aibuildersnetwork&utm_medium=design-repository&utm_campaign=minimax",
+      "fonts": [
+        {
+          "name": "DM Sans",
+          "source": "google",
+          "googleFamily": "DM Sans",
+          "cssUrl": "https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&display=swap"
+        }
+      ],
+      "hasPreview": false,
+      "sourcePath": "design-md/minimax/DESIGN.md"
+    },
+    {
+      "slug": "mintlify",
+      "name": "Mintlify-design-analysis",
+      "displayName": "mintlify",
+      "description": "Mintlify presents documentation infrastructure with a dual-mode aesthetic — atmospheric sky-gradient marketing heroes (cloud illustration backdrops, soft cream-to-blue washes) paired with dense developer-grade documentation surfaces. The system uses Inter for UI prose, Geist Mono",
+      "category": "Productivity & SaaS",
+      "primaryColor": "#0a0a0a",
+      "primaryColors": {
+        "primary": "#0a0a0a",
+        "on-primary": "#ffffff"
+      },
+      "colorFamily": "neutral",
+      "logo": "/design-repository/logos/mintlify.webp",
+      "siteUrl": "https://mintlify.com",
+      "visitUrl": "https://mintlify.com/?utm_source=aibuildersnetwork&utm_medium=design-repository&utm_campaign=mintlify",
+      "fonts": [
+        {
+          "name": "Inter",
+          "source": "google",
+          "googleFamily": "Inter",
+          "cssUrl": "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+        },
+        {
+          "name": "Geist Mono",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        }
+      ],
+      "hasPreview": false,
+      "sourcePath": "design-md/mintlify/DESIGN.md"
+    },
+    {
+      "slug": "miro",
+      "name": "Miro-design-analysis",
+      "displayName": "miro",
+      "description": "Miro presents itself as the AI-powered visual workspace through a confident, almost playful brand voice — anchored by its signature canary yellow ({colors.brand-yellow}) wordmark over white canvas, broken open by colorful pastel feature tints (rose, teal, coral, orange, mint) tha",
+      "category": "Design & Creative Tools",
+      "primaryColor": "#1c1c1e",
+      "primaryColors": {
+        "primary": "#1c1c1e",
+        "on-primary": "#ffffff"
+      },
+      "colorFamily": "neutral",
+      "logo": "/design-repository/logos/miro.webp",
+      "siteUrl": "https://miro.com",
+      "visitUrl": "https://miro.com/?utm_source=aibuildersnetwork&utm_medium=design-repository&utm_campaign=miro",
+      "fonts": [
+        {
+          "name": "Roobert PRO",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        }
+      ],
+      "hasPreview": false,
+      "sourcePath": "design-md/miro/DESIGN.md"
+    },
+    {
+      "slug": "mistral.ai",
+      "name": "Mistral-AI-design-analysis",
+      "displayName": "mistral",
+      "description": "Mistral AI brands itself with a singular signature — atmospheric sunset gradients (mustard, orange, deep red) layered over photography of mountains, plus a horizontal \"sunset stripe\" bar that closes every page. The system pairs warm cream-yellow surfaces ({colors.cream}) with a s",
+      "category": "AI & LLM Platforms",
+      "primaryColor": "#fa520f",
+      "primaryColors": {
+        "primary": "#fa520f",
+        "primary-deep": "#cc3a05",
+        "on-primary": "#ffffff"
+      },
+      "colorFamily": "orange",
+      "logo": "/design-repository/logos/mistral.ai.webp",
+      "siteUrl": "https://mistral.ai",
+      "visitUrl": "https://mistral.ai/?utm_source=aibuildersnetwork&utm_medium=design-repository&utm_campaign=mistral.ai",
+      "fonts": [
+        {
+          "name": "PP Editorial Old",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        },
+        {
+          "name": "Inter",
+          "source": "google",
+          "googleFamily": "Inter",
+          "cssUrl": "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+        },
+        {
+          "name": "JetBrains Mono",
+          "source": "google",
+          "googleFamily": "JetBrains Mono",
+          "cssUrl": "https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap"
+        }
+      ],
+      "hasPreview": false,
+      "sourcePath": "design-md/mistral.ai/DESIGN.md"
+    },
+    {
+      "slug": "mongodb",
+      "name": "MongoDB-design-analysis",
+      "displayName": "mongodb",
+      "description": "MongoDB carries a strong dual-mode visual identity — dark deep-teal hero bands with bright MongoDB green ({colors.brand-green}) CTAs paired with stark white documentation surfaces. The signature green pill button is unmistakable across product, pricing, learning, and AI use-case ",
+      "category": "Backend, Database & DevOps",
+      "primaryColor": "#00ed64",
+      "primaryColors": {
+        "primary": "#00ed64",
+        "primary-deep": "#00b545",
+        "primary-pressed": "#008c34",
+        "on-primary": "#001e2b"
+      },
+      "colorFamily": "green",
+      "logo": "/design-repository/logos/mongodb.webp",
+      "siteUrl": "https://mongodb.com",
+      "visitUrl": "https://mongodb.com/?utm_source=aibuildersnetwork&utm_medium=design-repository&utm_campaign=mongodb",
+      "fonts": [
+        {
+          "name": "Euclid Circular A",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        },
+        {
+          "name": "Source Code Pro",
+          "source": "google",
+          "googleFamily": "Source Code Pro",
+          "cssUrl": "https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@300;400;500;600;700&display=swap"
+        }
+      ],
+      "hasPreview": false,
+      "sourcePath": "design-md/mongodb/DESIGN.md"
+    },
+    {
+      "slug": "nike",
+      "name": "Nike-design-analysis",
+      "displayName": "nike",
+      "description": "A photography-first commerce system built on extreme typographic contrast — towering uppercase Futura display lockups burned into editorial campaign imagery, sitting above a dense, neutral, near-monochrome retail chrome of pill-shaped black CTAs, gray search and tag pills, and ti",
+      "category": "E-commerce & Retail",
+      "primaryColor": "#111111",
+      "primaryColors": {
+        "primary": "#111111",
+        "on-primary": "#ffffff"
+      },
+      "colorFamily": "neutral",
+      "logo": "/design-repository/logos/nike.webp",
+      "siteUrl": "https://nike.com",
+      "visitUrl": "https://nike.com/?utm_source=aibuildersnetwork&utm_medium=design-repository&utm_campaign=nike",
+      "fonts": [
+        {
+          "name": "Nike Futura ND",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        },
+        {
+          "name": "Helvetica Now Display Medium",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        },
+        {
+          "name": "Helvetica Now Text",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        },
+        {
+          "name": "Helvetica Now Text Medium",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        },
+        {
+          "name": "Helvetica Neue",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        }
+      ],
+      "hasPreview": false,
+      "sourcePath": "design-md/nike/DESIGN.md"
+    },
+    {
+      "slug": "nintendo-2001",
+      "name": "Nintendo.com (2001) Analysis",
+      "displayName": "nintendo 2001",
+      "description": "An analysis of Nintendo.com's 2001 design language — a brushed-periwinkle \"console chrome\" interface where every panel is a beveled metal plate, navigation glows amber over a halftone-dotted carbon bar, and bold outlined display type sits on circuit-board hero fields. A Y2K hardw",
+      "category": "Retro Web · DESIGN.md Nostalgia",
+      "primaryColor": "#e60012",
+      "primaryColors": {
+        "primary": "#e60012",
+        "on-primary": "#ffffff"
+      },
+      "colorFamily": "red",
+      "logo": "/design-repository/logos/nintendo-2001.webp",
+      "siteUrl": "https://nintendo.com",
+      "visitUrl": "https://nintendo.com/?utm_source=aibuildersnetwork&utm_medium=design-repository&utm_campaign=nintendo-2001",
+      "fonts": [
+        {
+          "name": "Arial",
+          "source": "google",
+          "googleFamily": "Arial",
+          "cssUrl": "https://fonts.googleapis.com/css2?family=Arial:wght@300;400;500;600;700&display=swap"
+        },
+        {
+          "name": "Arial Black",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        }
+      ],
+      "hasPreview": false,
+      "sourcePath": "design-md/nintendo-2001/DESIGN.md"
+    },
+    {
+      "slug": "notion",
+      "name": "Notion-design-analysis",
+      "displayName": "notion",
+      "description": "Notion presents itself as the all-in-one workspace through a confident, illustration-rich brand voice — anchored by a deep navy hero band ({colors.brand-navy}) decorated with brand-colored sticky-note dots and mesh wire illustrations, a signature purple pill primary CTA ({colors.",
+      "category": "Productivity & SaaS",
+      "primaryColor": "#5645d4",
+      "primaryColors": {
+        "primary": "#5645d4",
+        "primary-pressed": "#4534b3",
+        "primary-deep": "#3a2a99",
+        "on-primary": "#ffffff"
+      },
+      "colorFamily": "blue",
+      "logo": "/design-repository/logos/notion.webp",
+      "siteUrl": "https://notion.so",
+      "visitUrl": "https://notion.so/?utm_source=aibuildersnetwork&utm_medium=design-repository&utm_campaign=notion",
+      "fonts": [
+        {
+          "name": "Notion Sans",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        }
+      ],
+      "hasPreview": false,
+      "sourcePath": "design-md/notion/DESIGN.md"
+    },
+    {
+      "slug": "nvidia",
+      "name": "NVIDIA-design-analysis",
+      "displayName": "nvidia",
+      "description": "An engineering-grade marketing system organized around two surface modes — a deep black canvas for hero and footer chapters and a flat paper-white canvas for body content — connected by a single, almost violently saturated NVIDIA Green accent that carries every CTA, every active ",
+      "category": "Media & Consumer Tech",
+      "primaryColor": "#76b900",
+      "primaryColors": {
+        "primary": "#76b900",
+        "on-primary": "#000000",
+        "primary-dark": "#5a8d00"
+      },
+      "colorFamily": "green",
+      "logo": "/design-repository/logos/nvidia.webp",
+      "siteUrl": "https://nvidia.com",
+      "visitUrl": "https://nvidia.com/?utm_source=aibuildersnetwork&utm_medium=design-repository&utm_campaign=nvidia",
+      "fonts": [
+        {
+          "name": "NVIDIA-EMEA",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        }
+      ],
+      "hasPreview": false,
+      "sourcePath": "design-md/nvidia/DESIGN.md"
+    },
+    {
+      "slug": "ollama",
+      "name": "Ollama-design-analysis",
+      "displayName": "ollama",
+      "description": "An almost defiantly minimal documentation-first system that treats the home page like a Markdown README — paper-white canvas, 36px center-aligned heading, a single black pill CTA, an inline terminal install snippet, and a hand-drawn llama mascot as the only ornamental element. No",
+      "category": "AI & LLM Platforms",
+      "primaryColor": "#000000",
+      "primaryColors": {
+        "primary": "#000000",
+        "on-primary": "#ffffff"
+      },
+      "colorFamily": "neutral",
+      "logo": "/design-repository/logos/ollama.webp",
+      "siteUrl": "https://ollama.com",
+      "visitUrl": "https://ollama.com/?utm_source=aibuildersnetwork&utm_medium=design-repository&utm_campaign=ollama",
+      "fonts": [
+        {
+          "name": "SF Pro Rounded",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        },
+        {
+          "name": "ui-sans-serif",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        },
+        {
+          "name": "ui-monospace",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        }
+      ],
+      "hasPreview": false,
+      "sourcePath": "design-md/ollama/DESIGN.md"
+    },
+    {
+      "slug": "opencode.ai",
+      "name": "OpenCode-design-analysis",
+      "displayName": "opencode",
+      "description": "A terminal-native marketing system rendered entirely in Berkeley Mono — every word on the page, from the hero headline down to the footer fine print, is monospaced. The page itself reads like a manpage or a static-site README: warm cream canvas (`#fdfcfc`), nearly-black ink (`#20",
+      "category": "AI & LLM Platforms",
+      "primaryColor": "#201d1d",
+      "primaryColors": {
+        "primary": "#201d1d",
+        "on-primary": "#fdfcfc"
+      },
+      "colorFamily": "neutral",
+      "logo": "/design-repository/logos/opencode.ai.webp",
+      "siteUrl": "https://opencode.ai",
+      "visitUrl": "https://opencode.ai/?utm_source=aibuildersnetwork&utm_medium=design-repository&utm_campaign=opencode.ai",
+      "fonts": [
+        {
+          "name": "Berkeley Mono",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        }
+      ],
+      "hasPreview": false,
+      "sourcePath": "design-md/opencode.ai/DESIGN.md"
+    },
+    {
+      "slug": "pinterest",
+      "name": "Pinterest-design-analysis",
+      "displayName": "pinterest",
+      "description": "A photography-first discovery system organized around the Pinterest Red CTA, the masonry pin grid, and a soft warm-cream chrome that gets out of the imagery's way. The home page is a content-discovery tool wearing the chrome of a magazine publisher: 70px display headlines, friend",
+      "category": "Media & Consumer Tech",
+      "primaryColor": "#e60023",
+      "primaryColors": {
+        "primary": "#e60023",
+        "on-primary": "#ffffff",
+        "primary-pressed": "#cc001f"
+      },
+      "colorFamily": "red",
+      "logo": "/design-repository/logos/pinterest.webp",
+      "siteUrl": "https://pinterest.com",
+      "visitUrl": "https://pinterest.com/?utm_source=aibuildersnetwork&utm_medium=design-repository&utm_campaign=pinterest",
+      "fonts": [
+        {
+          "name": "Pin Sans",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        }
+      ],
+      "hasPreview": false,
+      "sourcePath": "design-md/pinterest/DESIGN.md"
+    },
+    {
+      "slug": "playstation",
+      "name": "PlayStation-design-analysis",
+      "displayName": "playstation",
+      "description": "A three-surface marketing system organized around alternating black, white, and PlayStation Blue chapters that scroll past the viewer like a console launch trailer. Each section has a single editorial purpose — hero photography, console product render, PS Plus tier callout, news ",
+      "category": "Media & Consumer Tech",
+      "primaryColor": "#0070d1",
+      "primaryColors": {
+        "primary": "#0070d1",
+        "primary-pressed": "#0064b7",
+        "primary-active": "#004d8d",
+        "on-primary": "#ffffff"
+      },
+      "colorFamily": "blue",
+      "logo": "/design-repository/logos/playstation.webp",
+      "siteUrl": "https://playstation.com",
+      "visitUrl": "https://playstation.com/?utm_source=aibuildersnetwork&utm_medium=design-repository&utm_campaign=playstation",
+      "fonts": [
+        {
+          "name": "PlayStation SST",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        }
+      ],
+      "hasPreview": false,
+      "sourcePath": "design-md/playstation/DESIGN.md"
+    },
+    {
+      "slug": "posthog",
+      "name": "PostHog-design-analysis",
+      "displayName": "posthog",
+      "description": "A playful developer-tools system rendered on a warm cream canvas with hand-drawn hedgehog mascots dotted across every page like marginalia in a sketchbook. The chrome reads like a friendly engineering blog: olive-gray ink (#4d4f46) for body, deep olive-charcoal (#23251d) for head",
+      "category": "Backend, Database & DevOps",
+      "primaryColor": "#f7a501",
+      "primaryColors": {
+        "primary": "#f7a501",
+        "primary-pressed": "#dd9001",
+        "primary-active": "#b17816",
+        "on-primary": "#23251d"
+      },
+      "colorFamily": "orange",
+      "logo": "/design-repository/logos/posthog.webp",
+      "siteUrl": "https://posthog.com",
+      "visitUrl": "https://posthog.com/?utm_source=aibuildersnetwork&utm_medium=design-repository&utm_campaign=posthog",
+      "fonts": [
+        {
+          "name": "IBM Plex Sans Variable",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        },
+        {
+          "name": "ui-monospace",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        },
+        {
+          "name": "Source Code Pro",
+          "source": "google",
+          "googleFamily": "Source Code Pro",
+          "cssUrl": "https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@300;400;500;600;700&display=swap"
+        }
+      ],
+      "hasPreview": false,
+      "sourcePath": "design-md/posthog/DESIGN.md"
+    },
+    {
+      "slug": "renault",
+      "name": "Renault-design-analysis",
+      "displayName": "renault",
+      "description": "Renault's web presence pairs the freshly-modernised Renault diamond (the 2021 flat-line rhombus mark) with a stark black-and-white canvas, a signature Sunlight Yellow accent, and the proprietary NouvelR display typeface. The system reads as confident, photography-first automotive",
+      "category": "Automotive",
+      "primaryColor": "#ffed00",
+      "primaryColors": {
+        "primary": "#ffed00",
+        "primary-deep": "#e6d200",
+        "on-primary": "#000000"
+      },
+      "colorFamily": "yellow",
+      "logo": "/design-repository/logos/renault.webp",
+      "siteUrl": "https://renault.com",
+      "visitUrl": "https://renault.com/?utm_source=aibuildersnetwork&utm_medium=design-repository&utm_campaign=renault",
+      "fonts": [
+        {
+          "name": "NouvelR",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        }
+      ],
+      "hasPreview": false,
+      "sourcePath": "design-md/renault/DESIGN.md"
+    },
+    {
+      "slug": "replicate",
+      "name": "Replicate-design-analysis",
+      "displayName": "replicate",
+      "description": "Replicate's marketing surfaces pair the warm-cream developer-tools aesthetic of an indie ML playground with a confident hot-orange brand accent and a signature display typeface (rb-freigeist-neue) sized aggressively large at 72px+. The system reads as \"AI lab notebook crossed wit",
+      "category": "AI & LLM Platforms",
+      "primaryColor": "#ea2804",
+      "primaryColors": {
+        "primary": "#ea2804",
+        "primary-deep": "#c01f00",
+        "on-primary": "#ffffff"
+      },
+      "colorFamily": "red",
+      "logo": "/design-repository/logos/replicate.webp",
+      "siteUrl": "https://replicate.com",
+      "visitUrl": "https://replicate.com/?utm_source=aibuildersnetwork&utm_medium=design-repository&utm_campaign=replicate",
+      "fonts": [
+        {
+          "name": "rb-freigeist-neue",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        },
+        {
+          "name": "basier-square",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        },
+        {
+          "name": "jetbrains-mono",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        }
+      ],
+      "hasPreview": false,
+      "sourcePath": "design-md/replicate/DESIGN.md"
+    },
+    {
+      "slug": "resend",
+      "name": "Resend-design-analysis",
+      "displayName": "resend",
+      "description": "Resend's marketing surfaces sit on a near-pure black canvas with off-white text and a single signature color — the deep editorial-serif Domaine Display headline mark — that gives an otherwise utilitarian developer-tool brand its print-magazine confidence. The system pairs Domaine",
+      "category": "Productivity & SaaS",
+      "primaryColor": "#fcfdff",
+      "primaryColors": {
+        "primary": "#fcfdff",
+        "primary-on": "#000000"
+      },
+      "colorFamily": "neutral",
+      "logo": "/design-repository/logos/resend.webp",
+      "siteUrl": "https://resend.com",
+      "visitUrl": "https://resend.com/?utm_source=aibuildersnetwork&utm_medium=design-repository&utm_campaign=resend",
+      "fonts": [
+        {
+          "name": "Domaine Display",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        },
+        {
+          "name": "ABC Favorit",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        },
+        {
+          "name": "Inter",
+          "source": "google",
+          "googleFamily": "Inter",
+          "cssUrl": "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+        },
+        {
+          "name": "Helvetica",
+          "source": "google",
+          "googleFamily": "Helvetica",
+          "cssUrl": "https://fonts.googleapis.com/css2?family=Helvetica:wght@300;400;500;600;700&display=swap"
+        },
+        {
+          "name": "Geist Mono",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        }
+      ],
+      "hasPreview": false,
+      "sourcePath": "design-md/resend/DESIGN.md"
+    },
+    {
+      "slug": "revolut",
+      "name": "Revolut-design-analysis",
+      "displayName": "revolut",
+      "description": "Revolut's marketing surfaces pair a stark black canvas with the brand's cobalt-violet (`#494fdf`) and a wide accent palette of deep, fully-saturated product colours — teal, light-blue, deep pink, light-green, warning orange. The system reads as fintech-meets-product-brochure: ove",
+      "category": "Fintech & Crypto",
+      "primaryColor": "#494fdf",
+      "primaryColors": {
+        "primary": "#494fdf",
+        "primary-bright": "#4f55f1",
+        "primary-deep": "#3a40c4",
+        "on-primary": "#ffffff"
+      },
+      "colorFamily": "blue",
+      "logo": "/design-repository/logos/revolut.webp",
+      "siteUrl": "https://revolut.com",
+      "visitUrl": "https://revolut.com/?utm_source=aibuildersnetwork&utm_medium=design-repository&utm_campaign=revolut",
+      "fonts": [
+        {
+          "name": "Aeonik Pro",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        },
+        {
+          "name": "Inter",
+          "source": "google",
+          "googleFamily": "Inter",
+          "cssUrl": "https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+        }
+      ],
+      "hasPreview": false,
+      "sourcePath": "design-md/revolut/DESIGN.md"
+    },
+    {
+      "slug": "sentry",
+      "name": "Sentri-Inspired-design-analysis",
+      "displayName": "sentry",
+      "description": "An inspired interpretation of Sentri's design language — a developer-tools brand built on a deep purple-violet midnight canvas, electric lime accents, and a slightly subversive illustrated personality. The system pairs a custom display sans (chunky, playful, near-condensed) with ",
+      "category": "Backend, Database & DevOps",
+      "primaryColor": "#150f23",
+      "primaryColors": {
+        "primary": "#150f23",
+        "on-primary": "#ffffff"
+      },
+      "colorFamily": "purple",
+      "logo": "/design-repository/logos/sentry.webp",
+      "siteUrl": "https://sentry.com",
+      "visitUrl": "https://sentry.com/?utm_source=aibuildersnetwork&utm_medium=design-repository&utm_campaign=sentry",
+      "fonts": [
+        {
+          "name": "Sentri Display, Rubik, system-ui, sans-serif",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        },
+        {
+          "name": "Rubik, -apple-system, system-ui, Segoe UI, Helvetica, Arial, sans-serif",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        },
+        {
+          "name": "Rubik, -apple-system, system-ui, sans-serif",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        },
+        {
+          "name": "Monaco, Menlo, Ubuntu Mono, monospace",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        }
+      ],
+      "hasPreview": false,
+      "sourcePath": "design-md/sentry/DESIGN.md"
+    },
+    {
+      "slug": "shopify",
+      "name": "Shopifi-Inspired-design-analysis",
+      "displayName": "shopify",
+      "description": "An inspired interpretation of Shopifi's design language — a cinematic commerce platform that runs two parallel design tracks. The marketing-hero and product-narrative pages live on near-black canvases with full-bleed photography of merchants, giant Neue Haas Grotesk display type ",
+      "category": "E-commerce & Retail",
+      "primaryColor": "#000000",
+      "primaryColors": {
+        "primary": "#000000",
+        "on-primary": "#ffffff"
+      },
+      "colorFamily": "neutral",
+      "logo": "/design-repository/logos/shopify.webp",
+      "siteUrl": "https://shopify.com",
+      "visitUrl": "https://shopify.com/?utm_source=aibuildersnetwork&utm_medium=design-repository&utm_campaign=shopify",
+      "fonts": [
+        {
+          "name": "NeueHaasGrotesk Display, Helvetica, Arial, sans-serif",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        },
+        {
+          "name": "Inter Variable, Inter, Helvetica, Arial, sans-serif",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        },
+        {
+          "name": "ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        }
+      ],
+      "hasPreview": false,
+      "sourcePath": "design-md/shopify/DESIGN.md"
+    },
+    {
+      "slug": "slack",
+      "name": "Slacc-Inspired-design-analysis",
+      "displayName": "slack",
+      "description": "An inspired interpretation of Slacc's design language — a workplace messaging brand built on a deep aubergine primary, with cream-lavender hero gradients, blue inline links, and pill CTAs. The system pairs a proprietary humanist sans for display with a separate utility sans for b",
+      "category": "Uncategorized",
+      "primaryColor": "#4a154b",
+      "primaryColors": {
+        "primary": "#4a154b",
+        "primary-deep": "#481a54",
+        "primary-press": "#611f69",
+        "primary-tint": "#592466",
+        "on-primary": "#ffffff"
+      },
+      "colorFamily": "pink",
+      "logo": "/design-repository/logos/slack.webp",
+      "siteUrl": "https://slack.com",
+      "visitUrl": "https://slack.com/?utm_source=aibuildersnetwork&utm_medium=design-repository&utm_campaign=slack",
+      "fonts": [
+        {
+          "name": "Salesforce-Avant-Garde, system-ui, -apple-system, BlinkMacSystemFont, sans-serif",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        },
+        {
+          "name": "Salesforce-Sans, system-ui, -apple-system, sans-serif",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        }
+      ],
+      "hasPreview": false,
+      "sourcePath": "design-md/slack/DESIGN.md"
+    },
+    {
+      "slug": "spacex",
+      "name": "Spacex-Inspired-design-analysis",
+      "displayName": "spacex",
+      "description": "An inspired interpretation of Spasex's design language — a mission-oriented aerospace brand built on pure black canvas, full-bleed photographic and video heroes of rockets and Mars landscapes, and uppercase D-DIN display type set in tight vertical leading. UI chrome is intentiona",
+      "category": "Media & Consumer Tech",
+      "primaryColor": "#000000",
+      "primaryColors": {
+        "primary": "#000000",
+        "on-primary": "#ffffff"
+      },
+      "colorFamily": "neutral",
+      "logo": "/design-repository/logos/spacex.webp",
+      "siteUrl": "https://spacex.com",
+      "visitUrl": "https://spacex.com/?utm_source=aibuildersnetwork&utm_medium=design-repository&utm_campaign=spacex",
+      "fonts": [
+        {
+          "name": "D-DIN-Bold, Arial Narrow, Arial, Verdana, sans-serif",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        },
+        {
+          "name": "D-DIN, Arial, Verdana, sans-serif",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        }
+      ],
+      "hasPreview": false,
+      "sourcePath": "design-md/spacex/DESIGN.md"
+    },
+    {
+      "slug": "stripe",
+      "name": "Stripi-Inspired-design-analysis",
+      "displayName": "stripe",
+      "description": "An inspired interpretation of Stripi's design language — a financial-infrastructure brand built on a deep navy ink, an electric indigo primary, and a recurring atmospheric gradient mesh that occupies the upper third of nearly every marketing page. The system pairs the proprietary",
+      "category": "Fintech & Crypto",
+      "primaryColor": "#533afd",
+      "primaryColors": {
+        "primary": "#533afd",
+        "primary-deep": "#4434d4",
+        "primary-press": "#2e2b8c",
+        "primary-soft": "#665efd",
+        "primary-bg-subdued-hover": "#b9b9f9",
+        "on-primary": "#ffffff"
+      },
+      "colorFamily": "blue",
+      "logo": "/design-repository/logos/stripe.webp",
+      "siteUrl": "https://stripe.com",
+      "visitUrl": "https://stripe.com/?utm_source=aibuildersnetwork&utm_medium=design-repository&utm_campaign=stripe",
+      "fonts": [
+        {
+          "name": "sohne-var, 'SF Pro Display', system-ui, -apple-system, sans-serif",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        }
+      ],
+      "hasPreview": false,
+      "sourcePath": "design-md/stripe/DESIGN.md"
+    },
+    {
+      "slug": "superhuman",
+      "name": "Superhumon-Inspired-design-analysis",
+      "displayName": "superhuman",
+      "description": "An inspired interpretation of Superhumon's design language — a fast-email productivity brand split between an editorial dark hero (deep indigo navy with violet-sky atmospheric backdrop and a portrait subject) and a quiet white content body with off-warm-grey ink. The system uses ",
+      "category": "Developer Tools & IDEs",
+      "primaryColor": "#1b1938",
+      "primaryColors": {
+        "primary": "#1b1938",
+        "primary-deep": "#0e0c1f",
+        "on-primary": "#ffffff"
+      },
+      "colorFamily": "blue",
+      "logo": "/design-repository/logos/superhuman.webp",
+      "siteUrl": "https://superhuman.com",
+      "visitUrl": "https://superhuman.com/?utm_source=aibuildersnetwork&utm_medium=design-repository&utm_campaign=superhuman",
+      "fonts": [
+        {
+          "name": "'Super Sans VF', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        }
+      ],
+      "hasPreview": false,
+      "sourcePath": "design-md/superhuman/DESIGN.md"
+    },
+    {
+      "slug": "together.ai",
+      "name": "Together-AI-Inspired-design-analysis",
+      "displayName": "together",
+      "description": "An inspired interpretation of Together AI's design language — an AI infrastructure platform whose surface alternates between near-black hero bands (with a three-color orange-magenta-periwinkle gradient as the single piece of brand chrome) and bright white research / pricing / doc",
+      "category": "AI & LLM Platforms",
+      "primaryColor": "#000000",
+      "primaryColors": {
+        "primary": "#000000",
+        "on-primary": "#ffffff"
+      },
+      "colorFamily": "neutral",
+      "logo": "/design-repository/logos/together.ai.webp",
+      "siteUrl": "https://together.ai",
+      "visitUrl": "https://together.ai/?utm_source=aibuildersnetwork&utm_medium=design-repository&utm_campaign=together.ai",
+      "fonts": [
+        {
+          "name": "The Future, Inter, Helvetica Neue, Arial, sans-serif",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        },
+        {
+          "name": "PP Neue Montreal Mono, ui-monospace, SF Mono, Menlo, monospace",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        }
+      ],
+      "hasPreview": false,
+      "sourcePath": "design-md/together.ai/DESIGN.md"
+    },
+    {
+      "slug": "uber",
+      "name": "Uber-Inspired-design-analysis",
+      "displayName": "uber",
+      "description": "An inspired interpretation of Uber's design language — a transportation-and-delivery super-app brand whose web surface is a black-and-white duet, framed by a custom geometric display sans, accented by a single signature pill shape (radius 999px) on every interactive element, and ",
+      "category": "Media & Consumer Tech",
+      "primaryColor": "#000000",
+      "primaryColors": {
+        "primary": "#000000",
+        "on-primary": "#ffffff"
+      },
+      "colorFamily": "neutral",
+      "logo": "/design-repository/logos/uber.webp",
+      "siteUrl": "https://uber.com",
+      "visitUrl": "https://uber.com/?utm_source=aibuildersnetwork&utm_medium=design-repository&utm_campaign=uber",
+      "fonts": [
+        {
+          "name": "UberMove, UberMoveText, system-ui, Helvetica Neue, Arial, sans-serif",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        },
+        {
+          "name": "UberMoveText, system-ui, Helvetica Neue, Arial, sans-serif",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        }
+      ],
+      "hasPreview": false,
+      "sourcePath": "design-md/uber/DESIGN.md"
+    },
+    {
+      "slug": "vercel",
+      "name": "Vercel-Inspired-design-analysis",
+      "displayName": "vercel",
+      "description": "An inspired interpretation of Vercel's design language — a developer-platform brand whose surface is a stark black-and-ink duet on near-white canvas, broken at hero scale by a multi-color mesh gradient (cyan / blue / magenta / amber) that acts as the entire decorative system, pai",
+      "category": "Developer Tools & IDEs",
+      "primaryColor": "#171717",
+      "primaryColors": {
+        "primary": "#171717",
+        "on-primary": "#ffffff"
+      },
+      "colorFamily": "neutral",
+      "logo": "/design-repository/logos/vercel.webp",
+      "siteUrl": "https://vercel.com",
+      "visitUrl": "https://vercel.com/?utm_source=aibuildersnetwork&utm_medium=design-repository&utm_campaign=vercel",
+      "fonts": [
+        {
+          "name": "Geist, Inter, system-ui, -apple-system, sans-serif",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        },
+        {
+          "name": "Geist Mono, ui-monospace, SFMono-Regular, Menlo, Monaco, monospace",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        }
+      ],
+      "hasPreview": false,
+      "sourcePath": "design-md/vercel/DESIGN.md"
+    },
+    {
+      "slug": "vodafone",
+      "name": "Vodafone-Inspired-design-analysis",
+      "displayName": "vodafone",
+      "description": "An inspired interpretation of Vodafone's design language — a telecom super-brand whose web surface alternates between editorial photography hero bands with massive uppercase display headlines and clean white content bands, anchored by the company's signature scarlet red CTA and t",
+      "category": "Media & Consumer Tech",
+      "primaryColor": "#e60000",
+      "primaryColors": {
+        "primary": "#e60000",
+        "on-primary": "#ffffff"
+      },
+      "colorFamily": "red",
+      "logo": "/design-repository/logos/vodafone.webp",
+      "siteUrl": "https://vodafone.com",
+      "visitUrl": "https://vodafone.com/?utm_source=aibuildersnetwork&utm_medium=design-repository&utm_campaign=vodafone",
+      "fonts": [
+        {
+          "name": "Vodafone, Vodafone Rg, Helvetica Neue, Arial, sans-serif",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        }
+      ],
+      "hasPreview": false,
+      "sourcePath": "design-md/vodafone/DESIGN.md"
+    },
+    {
+      "slug": "voltagent",
+      "name": "Voltagent-Inspired-design-analysis",
+      "displayName": "voltagent",
+      "description": "An inspired interpretation of Voltagent's design language — a developer-focused AI agent engineering platform whose surface is an unrelenting near-black canvas broken only by a single electric-green brand accent, code-editor mockups inside the hero, and a precise grid of dark fea",
+      "category": "AI & LLM Platforms",
+      "primaryColor": "#00d992",
+      "primaryColors": {
+        "primary": "#00d992",
+        "primary-soft": "#2fd6a1",
+        "primary-deep": "#10b981",
+        "on-primary": "#101010"
+      },
+      "colorFamily": "cyan",
+      "logo": "/design-repository/logos/voltagent.webp",
+      "siteUrl": "https://voltagent.dev",
+      "visitUrl": "https://voltagent.dev/?utm_source=aibuildersnetwork&utm_medium=design-repository&utm_campaign=voltagent",
+      "fonts": [
+        {
+          "name": "Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        },
+        {
+          "name": "Inter, system-ui, -apple-system, sans-serif",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        },
+        {
+          "name": "SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, monospace",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        },
+        {
+          "name": "SFMono-Regular, Menlo, Monaco, Consolas, monospace",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        }
+      ],
+      "hasPreview": false,
+      "sourcePath": "design-md/voltagent/DESIGN.md"
+    },
+    {
+      "slug": "warp",
+      "name": "Warp-Inspired-design-analysis",
+      "displayName": "warp",
+      "description": "An inspired interpretation of Warp's design language — an agentic terminal-and-development-environment brand whose surface is a warm near-charcoal canvas (a tint warmer than pure black), broken only by clean Inter typography, the occasional Instrument Serif italic moment, and den",
+      "category": "Developer Tools & IDEs",
+      "primaryColor": "#f7f5f0",
+      "primaryColors": {
+        "primary": "#f7f5f0",
+        "on-primary": "#2b2622"
+      },
+      "colorFamily": "neutral",
+      "logo": "/design-repository/logos/warp.webp",
+      "siteUrl": "https://warp.com",
+      "visitUrl": "https://warp.com/?utm_source=aibuildersnetwork&utm_medium=design-repository&utm_campaign=warp",
+      "fonts": [
+        {
+          "name": "Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        },
+        {
+          "name": "Inter, system-ui, -apple-system, sans-serif",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        },
+        {
+          "name": "Instrument Serif, Georgia, \"Times New Roman\", serif",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        },
+        {
+          "name": "DM Mono, ui-monospace, SFMono-Regular, Menlo, monospace",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        }
+      ],
+      "hasPreview": false,
+      "sourcePath": "design-md/warp/DESIGN.md"
+    },
+    {
+      "slug": "webflow",
+      "name": "Webflow-Inspired-design-analysis",
+      "displayName": "webflow",
+      "description": "An inspired interpretation of Webflow's design language — a visual web development platform whose surface contrasts a deep near-black `#080808` primary against a generous white canvas, broken by a five-stop chromatic accent system (purple / pink / blue / orange / green) that maps",
+      "category": "Design & Creative Tools",
+      "primaryColor": "#080808",
+      "primaryColors": {
+        "primary": "#080808",
+        "on-primary": "#ffffff"
+      },
+      "colorFamily": "neutral",
+      "logo": "/design-repository/logos/webflow.webp",
+      "siteUrl": "https://webflow.com",
+      "visitUrl": "https://webflow.com/?utm_source=aibuildersnetwork&utm_medium=design-repository&utm_campaign=webflow",
+      "fonts": [
+        {
+          "name": "WF Visual Sans Variable, Inter, system-ui, -apple-system, sans-serif",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        },
+        {
+          "name": "WF Visual Sans Variable, Inter, system-ui, sans-serif",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        },
+        {
+          "name": "WFVisualSans-Mono, Inconsolata, ui-monospace, SFMono-Regular, Menlo, monospace",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        }
+      ],
+      "hasPreview": false,
+      "sourcePath": "design-md/webflow/DESIGN.md"
+    },
+    {
+      "slug": "wired",
+      "name": "Wired-Inspired-design-analysis",
+      "displayName": "wired",
+      "description": "An inspired interpretation of Wired's design language — a flagship technology-magazine brand whose surface is a strict editorial duet of stark black wordmark on white canvas, anchored by a tall narrow custom display serif for hero headlines, a humanist serif body face for long-fo",
+      "category": "Media & Consumer Tech",
+      "primaryColor": "#000000",
+      "primaryColors": {
+        "primary": "#000000",
+        "on-primary": "#ffffff"
+      },
+      "colorFamily": "neutral",
+      "logo": "/design-repository/logos/wired.webp",
+      "siteUrl": "https://wired.com",
+      "visitUrl": "https://wired.com/?utm_source=aibuildersnetwork&utm_medium=design-repository&utm_campaign=wired",
+      "fonts": [
+        {
+          "name": "WiredDisplay, \"Times New Roman\", Georgia, serif",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        },
+        {
+          "name": "Apercu, \"Helvetica Neue\", Helvetica, Arial, sans-serif",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        },
+        {
+          "name": "BreveText, Georgia, \"Times New Roman\", serif",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        }
+      ],
+      "hasPreview": false,
+      "sourcePath": "design-md/wired/DESIGN.md"
+    },
+    {
+      "slug": "wise",
+      "name": "Wise-Inspired-design-analysis",
+      "displayName": "wise",
+      "description": "An inspired interpretation of Wise's design language — a global money-transfer brand whose surface combines an unusually heavy near-black display sans (weight 900 at 64–126 px) with a vivid lime-green brand accent, sage-tinted surface neutrals, and rounded white cards on a pale g",
+      "category": "Fintech & Crypto",
+      "primaryColor": "#9fe870",
+      "primaryColors": {
+        "primary": "#9fe870",
+        "on-primary": "#0e0f0c",
+        "primary-active": "#cdffad",
+        "primary-neutral": "#c5edab",
+        "primary-pale": "#e2f6d5"
+      },
+      "colorFamily": "green",
+      "logo": "/design-repository/logos/wise.webp",
+      "siteUrl": "https://wise.com",
+      "visitUrl": "https://wise.com/?utm_source=aibuildersnetwork&utm_medium=design-repository&utm_campaign=wise",
+      "fonts": [
+        {
+          "name": "Wise Sans, Inter, system-ui, -apple-system, sans-serif",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        },
+        {
+          "name": "Wise Sans, Inter, system-ui, sans-serif",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        },
+        {
+          "name": "Inter, system-ui, sans-serif",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        }
+      ],
+      "hasPreview": false,
+      "sourcePath": "design-md/wise/DESIGN.md"
+    },
+    {
+      "slug": "x.ai",
+      "name": "xAI-Inspired-design-analysis",
+      "displayName": "x",
+      "description": "An inspired interpretation of xAI's design language — Elon Musk's frontier-AI company whose web surface is a strict near-black canvas broken only by white pill outlines, occasional warm sunset / dusk gradient accents, a custom geometric sans (Universal Sans) for display, and an u",
+      "category": "AI & LLM Platforms",
+      "primaryColor": "#ffffff",
+      "primaryColors": {
+        "primary": "#ffffff",
+        "on-primary": "#0a0a0a"
+      },
+      "colorFamily": "neutral",
+      "logo": "/design-repository/logos/x.ai.webp",
+      "siteUrl": "https://x.ai",
+      "visitUrl": "https://x.ai/?utm_source=aibuildersnetwork&utm_medium=design-repository&utm_campaign=x.ai",
+      "fonts": [
+        {
+          "name": "universalSans, Inter, system-ui, -apple-system, sans-serif",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        },
+        {
+          "name": "universalSans, Inter, system-ui, sans-serif",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        },
+        {
+          "name": "GeistMono, ui-monospace, SFMono-Regular, Menlo, Monaco, monospace",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        },
+        {
+          "name": "GeistMono, ui-monospace, SFMono-Regular, Menlo, monospace",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        }
+      ],
+      "hasPreview": false,
+      "sourcePath": "design-md/x.ai/DESIGN.md"
+    },
+    {
+      "slug": "zapier",
+      "name": "Zapier-Inspired-design-analysis",
+      "displayName": "zapier",
+      "description": "An inspired interpretation of Zapier's design language — a workflow-automation platform whose surface combines warm-cream neutrals (`#fffefb` canvas, `#f8f4f0` soft cream) with deep coffee ink (`#201515`) and a single saturated orange CTA accent (`#ff4f00`); typography pairs the ",
+      "category": "Productivity & SaaS",
+      "primaryColor": "#ff4f00",
+      "primaryColors": {
+        "primary": "#ff4f00",
+        "on-primary": "#fffefb"
+      },
+      "colorFamily": "orange",
+      "logo": "/design-repository/logos/zapier.webp",
+      "siteUrl": "https://zapier.com",
+      "visitUrl": "https://zapier.com/?utm_source=aibuildersnetwork&utm_medium=design-repository&utm_campaign=zapier",
+      "fonts": [
+        {
+          "name": "Degular Display, Inter, system-ui, -apple-system, sans-serif",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        },
+        {
+          "name": "Degular Display, Inter, system-ui, sans-serif",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        },
+        {
+          "name": "Inter, system-ui, sans-serif",
+          "source": "custom",
+          "note": "proprietary or not available on google fonts"
+        }
+      ],
+      "hasPreview": false,
+      "sourcePath": "design-md/zapier/DESIGN.md"
+    }
+  ]
+}

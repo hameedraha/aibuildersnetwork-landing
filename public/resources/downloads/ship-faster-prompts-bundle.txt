@@ -1,0 +1,5 @@
+Ship Faster Prompt Pack — AI Builders Network
+Download individual prompts from /resources/prompts/
+- mvp-scope.txt
+- landing-page-copy.txt
+- feature-prioritization.txt

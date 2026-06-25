@@ -1,0 +1,42 @@
+---
+import type { DesignRepoView } from '../../data/design-repository.types';
+
+interface Props {
+  count: number;
+}
+
+const { count } = Astro.props;
+const views: { id: DesignRepoView; label: string }[] = [
+  { id: 'cards', label: 'cards' },
+  { id: 'list', label: 'list' },
+  { id: 'colors', label: 'colors' },
+  { id: 'brands', label: 'brands' },
+];
+---
+
+<div class="design-repo-toolbar">
+  <div class="design-repo-toolbar__views" role="tablist" aria-label="catalog view">
+    {views.map((view) => (
+      <button
+        type="button"
+        class:list={['design-repo-view-btn', { 'is-active': view.id === 'cards' }]}
+        data-view={view.id}
+        role="tab"
+        aria-selected={view.id === 'cards'}
+      >
+        {view.label}
+      </button>
+    ))}
+  </div>
+  <label class="design-repo-search">
+    <span class="sr-only">search design systems</span>
+    <input
+      type="search"
+      class="design-repo-search__input"
+      placeholder="search brands…"
+      data-design-repo-search
+      autocomplete="off"
+    />
+  </label>
+  <p class="eyebrow design-repo-toolbar__count" data-design-repo-count>{count} systems</p>
+</div>

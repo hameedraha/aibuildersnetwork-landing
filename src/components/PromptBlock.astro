@@ -1,0 +1,98 @@
+---
+interface Props {
+  id: string;
+  title: string;
+  description?: string;
+  content: string;
+}
+
+const { id, title, description, content } = Astro.props;
+---
+
+<section class="prompt-block" id={`prompt-${id}`} aria-labelledby={`prompt-title-${id}`}>
+  <div class="prompt-block__header">
+    <h2 class="heading" id={`prompt-title-${id}`}>{title}</h2>
+    {description && <p class="body-md prompt-block__desc">{description}</p>}
+  </div>
+
+  <div class="prompt-block__body">
+    <pre class="prompt-block__content" data-prompt-content>{content}</pre>
+    <button type="button" class="btn-secondary btn--sm prompt-block__copy" data-copy-prompt>
+      copy prompt
+    </button>
+  </div>
+
+  <div class="prompt-block__footer">
+    <a href={`/resources/prompts/${id}.txt`} class="btn-secondary btn--sm" download>
+      download .txt
+    </a>
+  </div>
+</section>
+
+<script>
+  function initPromptCopy() {
+    document.querySelectorAll<HTMLButtonElement>('[data-copy-prompt]').forEach((btn) => {
+      if (btn.dataset.bound) return;
+      btn.dataset.bound = 'true';
+      btn.addEventListener('click', async () => {
+        const pre = btn.closest('.prompt-block')?.querySelector<HTMLElement>('[data-prompt-content]');
+        if (!pre?.textContent) return;
+        await navigator.clipboard.writeText(pre.textContent);
+        const original = btn.textContent;
+        btn.textContent = 'copied';
+        setTimeout(() => { btn.textContent = original; }, 1500);
+      });
+    });
+  }
+  initPromptCopy();
+  document.addEventListener('astro:page-load', initPromptCopy);
+</script>
+
+<style>
+  .prompt-block {
+    margin-top: var(--sp-lg);
+    padding-top: var(--sp-lg);
+    border-top: 1px solid rgba(26, 26, 26, 0.1);
+    scroll-margin-top: 96px;
+  }
+  .prompt-block__header {
+    margin-bottom: var(--sp-md);
+  }
+  .prompt-block__desc {
+    color: var(--c-muted);
+    margin-top: var(--sp-xs);
+    max-width: 58ch;
+  }
+  .prompt-block__body {
+    position: relative;
+    background: var(--c-ink);
+    border-radius: var(--r-md);
+    padding: var(--sp-md) var(--sp-lg);
+    border: 1px solid rgba(26, 26, 26, 0.12);
+  }
+  .prompt-block__content {
+    font-family: var(--f-mono);
+    font-size: 0.8125rem;
+    line-height: 1.65;
+    color: var(--c-on-ink);
+    white-space: pre-wrap;
+    word-break: break-word;
+    margin: 0;
+    padding-right: 120px;
+  }
+  .prompt-block__copy {
+    position: absolute;
+    top: var(--sp-md);
+    right: var(--sp-md);
+  }
+  .prompt-block__footer {
+    margin-top: var(--sp-md);
+  }
+  @media (max-width: 640px) {
+    .prompt-block__content { padding-right: 0; padding-bottom: var(--sp-lg); }
+    .prompt-block__copy {
+      position: static;
+      margin-top: var(--sp-sm);
+    }
+  }
+</style>

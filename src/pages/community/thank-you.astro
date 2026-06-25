@@ -1,0 +1,38 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="registration received · ai builders network"
+  description="your community registration has been received. we'll be in touch within 24 hours."
+>
+  <section class="thank-you section--neutral" aria-labelledby="thank-you-heading">
+    <div class="container thank-you__inner">
+      <span class="eyebrow">registration received</span>
+      <h1 class="display-l" id="thank-you-heading">we've received your registration.</h1>
+      <p class="body-lg thank-you__desc">
+        give us up to 24 hours — one of our team will get back to you. meanwhile, take a look at our resources.
+      </p>
+      <a href="/resources" class="btn-primary">take a look at our resources</a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .thank-you {
+    padding-block: clamp(80px, 14vw, 160px);
+    flex: 1;
+    display: flex;
+    align-items: center;
+  }
+  .thank-you__inner {
+    max-width: 560px;
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-md);
+  }
+  .thank-you__desc {
+    color: var(--c-muted);
+    max-width: 48ch;
+  }
+</style>

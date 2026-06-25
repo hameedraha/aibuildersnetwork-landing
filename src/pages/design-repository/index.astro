@@ -1,0 +1,131 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import DesignRepoToolbar from '../../components/design-repository/DesignRepoToolbar.astro';
+import DesignRepoCard from '../../components/design-repository/DesignRepoCard.astro';
+import DesignRepoListRow from '../../components/design-repository/DesignRepoListRow.astro';
+import DesignRepoSection from '../../components/design-repository/DesignRepoSection.astro';
+import repoIndex from '../../data/design-repository/index.json';
+import type { DesignRepoIndex } from '../../data/design-repository.types';
+import '../../styles/design-repository.css';
+
+const catalog = repoIndex as DesignRepoIndex;
+
+const byColorFamily = Object.fromEntries(
+  catalog.colorFamilies.map((family) => [
+    family,
+    catalog.entries.filter((e) => e.colorFamily === family),
+  ])
+);
+
+const byCategory = Object.fromEntries(
+  catalog.categories.map((category) => [
+    category,
+    catalog.entries.filter((e) => e.category === category),
+  ])
+);
+
+const mosaicColors = catalog.entries
+  .map((e) => e.primaryColor)
+  .filter((c, i, arr) => arr.indexOf(c) === i)
+  .slice(0, 48);
+---
+
+<BaseLayout
+  title="design repository · ai builders network"
+  description="browse curated DESIGN.md files from real brand design systems — list, card, color, and category views."
+>
+  <section class="dr-hero section--neutral" aria-labelledby="design-repo-heading">
+    <div class="container">
+      <a href="/resources" class="dr-hero__back">← resources</a>
+      <span class="eyebrow">library</span>
+      <h1 class="display-l" id="design-repo-heading">design repository.</h1>
+      <p class="body-lg dr-hero__desc">
+        real brand design systems as design.md files. grab tokens, preview components, ship on-brand ui with your ai agent.
+      </p>
+
+      <div class="dr-hero__stats">
+        <div class="dr-stat">
+          <span class="dr-stat__num">{catalog.entries.length}</span>
+          <span class="dr-stat__label">systems</span>
+        </div>
+        <div class="dr-stat">
+          <span class="dr-stat__num">{catalog.categories.length}</span>
+          <span class="dr-stat__label">categories</span>
+        </div>
+        <div class="dr-stat">
+          <span class="dr-stat__num">{catalog.colorFamilies.length}</span>
+          <span class="dr-stat__label">color families</span>
+        </div>
+      </div>
+
+      <div class="dr-mosaic" aria-hidden="true">
+        {mosaicColors.map((hex) => (
+          <span class="dr-mosaic__cell" style={`background: ${hex}`}></span>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider" role="separator"></div>
+
+  <section class="section--neutral dr-catalog" aria-label="design systems catalog">
+    <div class="container" data-design-repo-catalog>
+      <DesignRepoToolbar count={catalog.entries.length} />
+
+      <div data-design-repo-panel="cards">
+        <div class="design-repo-grid" id="design-repo-cards">
+          {catalog.entries.map((entry) => (
+            <DesignRepoCard entry={entry} />
+          ))}
+        </div>
+      </div>
+
+      <div data-design-repo-panel="list" hidden>
+        <div class="design-repo-list">
+          {catalog.entries.map((entry) => (
+            <DesignRepoListRow entry={entry} />
+          ))}
+        </div>
+      </div>
+
+      <div data-design-repo-panel="colors" hidden>
+        <div class="design-repo-grouped">
+          {catalog.colorFamilies.map((family) => (
+            byColorFamily[family]?.length > 0 && (
+              <DesignRepoSection title={family} eyebrow="color family">
+                {byColorFamily[family].map((entry) => (
+                  <DesignRepoCard entry={entry} />
+                ))}
+              </DesignRepoSection>
+            )
+          ))}
+        </div>
+      </div>
+
+      <div data-design-repo-panel="brands" hidden>
+        <div class="design-repo-grouped">
+          {catalog.categories.map((category) => (
+            byCategory[category]?.length > 0 && (
+              <DesignRepoSection title={category.toLowerCase()} eyebrow="category">
+                {byCategory[category].map((entry) => (
+                  <DesignRepoCard entry={entry} />
+                ))}
+              </DesignRepoSection>
+            )
+          ))}
+        </div>
+      </div>
+
+      <p class="design-repo-attribution">
+        sourced from <a href={catalog.source.url} target="_blank" rel="noopener noreferrer">{catalog.source.repo}</a> (MIT).
+        logos by <a href="https://logos.apistemic.com" target="_blank" rel="noopener noreferrer">apistemic logos</a>.
+        last synced {new Date(catalog.source.syncedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}.
+        run <code>npm run design-repo:update</code> to refresh.
+      </p>
+    </div>
+  </section>
+
+  <script>
+    import '../../scripts/design-repository/catalog.ts';
+  </script>
+</BaseLayout>

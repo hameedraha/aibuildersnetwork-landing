@@ -1,0 +1,107 @@
+<div class="modal-overlay" id="otp-modal" aria-hidden="true" role="dialog" aria-labelledby="otp-modal-title">
+  <div class="modal">
+    <h2 class="modal__title" id="otp-modal-title">enter code</h2>
+    <p class="modal__desc">enter the 4-digit code to unlock this section.</p>
+    <div class="otp-inputs" data-otp-container>
+      <input class="otp-input" type="text" inputmode="numeric" maxlength="1" data-otp-digit autocomplete="one-time-code" aria-label="digit 1" />
+      <input class="otp-input" type="text" inputmode="numeric" maxlength="1" data-otp-digit aria-label="digit 2" />
+      <input class="otp-input" type="text" inputmode="numeric" maxlength="1" data-otp-digit aria-label="digit 3" />
+      <input class="otp-input" type="text" inputmode="numeric" maxlength="1" data-otp-digit aria-label="digit 4" />
+    </div>
+    <p class="modal__error" id="otp-error" role="alert"></p>
+    <div class="modal__actions">
+      <button type="button" class="btn-secondary" data-otp-cancel>cancel</button>
+      <button type="button" class="btn-primary btn--sm" data-otp-submit>unlock</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  import { setUnlocked } from '../../scripts/workshop/unlock';
+  import { wireOtpInputs, getOtpValue, clearOtpInputs } from '../../scripts/workshop/otp-input';
+
+  let activeSlug = '';
+  let activeOtp = '';
+
+  const modal = document.getElementById('otp-modal')!;
+  const errorEl = document.getElementById('otp-error')!;
+  const container = modal.querySelector<HTMLElement>('[data-otp-container]')!;
+  const inputs = wireOtpInputs(container);
+
+  function openOtpModal(slug: string, otp: string) {
+    activeSlug = slug;
+    activeOtp = otp;
+    errorEl.textContent = '';
+    clearOtpInputs(inputs);
+    modal.classList.add('is-open');
+    modal.setAttribute('aria-hidden', 'false');
+    inputs[0]?.focus();
+  }
+
+  function closeOtpModal() {
+    modal.classList.remove('is-open');
+    modal.setAttribute('aria-hidden', 'true');
+    activeSlug = '';
+    activeOtp = '';
+    errorEl.textContent = '';
+    clearOtpInputs(inputs);
+  }
+
+  function handleSubmit() {
+    const entered = getOtpValue(inputs);
+    if (entered.length < 4) {
+      errorEl.textContent = 'enter all 4 digits.';
+      return;
+    }
+    if (entered !== activeOtp) {
+      errorEl.textContent = 'incorrect code. try again.';
+      clearOtpInputs(inputs);
+      return;
+    }
+    setUnlocked(activeSlug);
+    const slug = activeSlug;
+    closeOtpModal();
+    window.location.href = `/workshop/${slug}`;
+  }
+
+  modal.querySelector('[data-otp-submit]')?.addEventListener('click', handleSubmit);
+  modal.querySelector('[data-otp-cancel]')?.addEventListener('click', closeOtpModal);
+
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) closeOtpModal();
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (!modal.classList.contains('is-open')) return;
+    if (e.key === 'Escape') closeOtpModal();
+    if (e.key === 'Enter') handleSubmit();
+  });
+
+  function handleCardClick(e: Event) {
+    const target = e.target as HTMLElement;
+    const card = target.closest<HTMLElement>('[data-locked-card]');
+    if (!card || card.classList.contains('locked-card--unlocked')) return;
+
+    const slug = card.dataset.slug;
+    const otp = card.dataset.otp;
+    if (slug && otp) openOtpModal(slug, otp);
+  }
+
+  function handleCardKeydown(e: KeyboardEvent) {
+    if (e.key !== 'Enter' && e.key !== ' ') return;
+    const target = e.target as HTMLElement;
+    const card = target.closest<HTMLElement>('[data-locked-card]');
+    if (!card) return;
+    e.preventDefault();
+    handleCardClick(e);
+  }
+
+  document.addEventListener('click', handleCardClick);
+  document.addEventListener('keydown', handleCardKeydown);
+
+  document.addEventListener('astro:page-load', () => {
+    wireOtpInputs(container);
+  });
+
+  // OTPs are client-side only — intentional for workshop handout, not real access control.
+</script>
