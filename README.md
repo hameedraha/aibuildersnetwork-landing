@@ -26,9 +26,17 @@ cp .env.example .env
 | :------- | :------ |
 | `COMMUNITY_REGISTRATION_WEBHOOK_URL` | n8n webhook URL for `/community` signups (server-side only; proxied via `/api/community-registration` to avoid CORS) |
 
-The community signup form posts to `/api/community-registration` on the same origin. The API route forwards submissions to this webhook. Without it configured, submissions will fail.
+The community signup form posts to `/api/community-registration` on the same origin. In production on Cloudflare Pages, `functions/api/community-registration.ts` forwards submissions to the webhook. Locally, `npm run dev` proxies the same path via `astro.config.mjs` when `COMMUNITY_REGISTRATION_WEBHOOK_URL` is set.
 
-For production, set the same variable in your hosting provider’s environment settings (not only in a local `.env` file). The site uses the Astro Node adapter — run the built server (`node ./dist/server/entry.mjs`) or deploy to a Node-compatible host.
+For production, set the same variable in your hosting provider’s environment settings (not only in a local `.env` file).
+
+### Cloudflare Pages
+
+- **Build command:** `npm run build`
+- **Build output directory:** `dist`
+- **Environment variable:** `COMMUNITY_REGISTRATION_WEBHOOK_URL` in Pages → Settings → Environment variables
+
+The `functions/` directory provides `/api/community-registration` on Cloudflare. Do not use an Astro server adapter — static output must deploy from `dist/` directly.
 
 ## Design repository
 
