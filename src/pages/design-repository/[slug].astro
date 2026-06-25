@@ -1,6 +1,6 @@
 ---
 import { readFileSync } from 'node:fs';
-import { fileURLToPath } from 'node:url';
+import { join } from 'node:path';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import repoIndex from '../../data/design-repository/index.json';
 import type { DesignRepoIndex, DesignRepoEntry, DesignRepoTokens } from '../../data/design-repository.types';
@@ -25,12 +25,8 @@ interface Props {
 const { entry } = Astro.props;
 const { slug } = Astro.params;
 
-const designPath = fileURLToPath(
-  new URL(`../../../public/design-repository/${slug}/DESIGN.md`, import.meta.url)
-);
-const tokensPath = fileURLToPath(
-  new URL(`../../../public/design-repository/${slug}/tokens.json`, import.meta.url)
-);
+const designPath = join(process.cwd(), 'public/design-repository', slug!, 'DESIGN.md');
+const tokensPath = join(process.cwd(), 'public/design-repository', slug!, 'tokens.json');
 
 let designPreview = '';
 let tokens: DesignRepoTokens | null = null;

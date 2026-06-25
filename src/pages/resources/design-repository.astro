@@ -1,12 +1,9 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { readFileSync } from 'node:fs';
-import { fileURLToPath } from 'node:url';
+import { join } from 'node:path';
 
-const designMd = readFileSync(
-  fileURLToPath(new URL('../../../DESIGN.md', import.meta.url)),
-  'utf-8'
-);
+const designMd = readFileSync(join(process.cwd(), 'DESIGN.md'), 'utf-8');
 
 const colors = [
   { name: 'primary', hex: '#C73E22', role: 'vermilion — buttons, accents' },
