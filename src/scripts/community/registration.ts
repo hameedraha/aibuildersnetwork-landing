@@ -100,7 +100,6 @@ export function initCommunityRegistration() {
   const submitBtn = document.getElementById('community-form-submit') as HTMLButtonElement | null;
   if (!errorEl || !submitBtn) return;
 
-  const webhookUrl = import.meta.env.PUBLIC_COMMUNITY_REGISTRATION_WEBHOOK_URL as string | undefined;
   const defaultLabel = submitBtn.textContent ?? 'apply now';
 
   form.addEventListener('submit', async (e) => {
@@ -110,11 +109,6 @@ export function initCommunityRegistration() {
     const validationError = validateForm(form);
     if (validationError) {
       showError(errorEl, validationError);
-      return;
-    }
-
-    if (!webhookUrl) {
-      showError(errorEl, 'registration is temporarily unavailable. please try again later.');
       return;
     }
 
@@ -134,7 +128,7 @@ export function initCommunityRegistration() {
     submitBtn.textContent = 'sending…';
 
     try {
-      const res = await fetch(webhookUrl, {
+      const res = await fetch('/api/community-registration', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),

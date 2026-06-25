@@ -24,11 +24,11 @@ cp .env.example .env
 
 | Variable | Purpose |
 | :------- | :------ |
-| `PUBLIC_COMMUNITY_REGISTRATION_WEBHOOK_URL` | n8n webhook URL for `/community` registration form submissions |
+| `COMMUNITY_REGISTRATION_WEBHOOK_URL` | n8n webhook URL for `/community` signups (server-side only; proxied via `/api/community-registration` to avoid CORS) |
 
-The community signup form on `/community` posts to this webhook. Without it configured, submissions will fail in the browser.
+The community signup form posts to `/api/community-registration` on the same origin. The API route forwards submissions to this webhook. Without it configured, submissions will fail.
 
-For production, set the same variable in your hosting provider’s environment settings (not only in a local `.env` file).
+For production, set the same variable in your hosting provider’s environment settings (not only in a local `.env` file). The site uses the Astro Node adapter — run the built server (`node ./dist/server/entry.mjs`) or deploy to a Node-compatible host.
 
 ## Design repository
 

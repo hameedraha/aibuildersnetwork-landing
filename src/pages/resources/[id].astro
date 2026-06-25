@@ -2,10 +2,10 @@
 import ResourceLayout from '../../layouts/ResourceLayout.astro';
 import { getCollection, render } from 'astro:content';
 import { readFileSync } from 'node:fs';
-import { fileURLToPath } from 'node:url';
+import { join } from 'node:path';
 
 function loadAsset(relativePath: string): string {
-  return readFileSync(fileURLToPath(new URL(relativePath, import.meta.url)), 'utf-8');
+  return readFileSync(join(process.cwd(), 'public', relativePath), 'utf-8');
 }
 
 export async function getStaticPaths() {
@@ -41,12 +41,12 @@ const tocHeadings = (headings ?? [])
 
 const workflowBlocks = workflows.map((w) => ({
   ...w,
-  workflow: loadAsset(`../../../public/resources/workflows/${w.id}.json`),
+  workflow: loadAsset(`resources/workflows/${w.id}.json`),
 }));
 
 const promptBlocks = prompts.map((p) => ({
   ...p,
-  content: loadAsset(`../../../public/resources/prompts/${p.id}.txt`),
+  content: loadAsset(`resources/prompts/${p.id}.txt`),
 }));
 
 const formattedDate = pubDate.toLocaleDateString('en-US', {
