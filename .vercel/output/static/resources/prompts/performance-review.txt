@@ -1,0 +1,15 @@
+You are a performance engineer reviewing application code.
+
+Stack: {{tech_stack}}
+Code:
+{{code_or_diff}}
+
+Find:
+- N+1 database queries
+- Missing indexes (suggest which columns)
+- Unnecessary re-renders (if frontend)
+- Blocking operations in hot paths
+- Missing caching opportunities
+- Large payload transfers
+
+Output prioritized list: issue, impact, suggested fix, effort (low/medium/high).

@@ -1,0 +1,125 @@
+{
+  "meta": { "instanceId": "aibn-otp-verification" },
+  "nodes": [
+    {
+      "parameters": { "httpMethod": "POST", "path": "auth/request-otp", "options": {} },
+      "name": "Request OTP",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [200, 300],
+      "id": "b1b2c3d4-0001-4000-8000-000000000001",
+      "webhookId": "request-otp"
+    },
+    {
+      "parameters": {
+        "jsCode": "const otp = Math.floor(100000 + Math.random() * 900000).toString();\nconst phone = $input.first().json.body.phone;\nreturn [{ json: { phone, otp, expiresAt: Date.now() + 300000 } }];"
+      },
+      "name": "Generate OTP",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [420, 300],
+      "id": "b1b2c3d4-0002-4000-8000-000000000002"
+    },
+    {
+      "parameters": {
+        "operation": "set",
+        "key": "={{ 'otp:' + $json.phone }}",
+        "value": "={{ $json.otp }}",
+        "expire": true,
+        "ttl": 300
+      },
+      "name": "Store in Redis",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [640, 300],
+      "id": "b1b2c3d4-0003-4000-8000-000000000003"
+    },
+    {
+      "parameters": {
+        "from": "+1234567890",
+        "to": "={{ $json.phone }}",
+        "message": "=your code: {{ $json.otp }}. expires in 5 minutes."
+      },
+      "name": "Send SMS",
+      "type": "n8n-nodes-base.twilio",
+      "typeVersion": 1,
+      "position": [860, 300],
+      "id": "b1b2c3d4-0004-4000-8000-000000000004"
+    },
+    {
+      "parameters": { "httpMethod": "POST", "path": "auth/verify-otp", "options": {} },
+      "name": "Verify OTP",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [200, 520],
+      "id": "b1b2c3d4-0005-4000-8000-000000000005",
+      "webhookId": "verify-otp"
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "key": "={{ 'otp:' + $json.body.phone }}"
+      },
+      "name": "Lookup OTP",
+      "type": "n8n-nodes-base.redis",
+      "typeVersion": 1,
+      "position": [420, 520],
+      "id": "b1b2c3d4-0006-4000-8000-000000000006"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $json.value }}",
+              "operation": "equals",
+              "value2": "={{ $('Verify OTP').item.json.body.otp }}"
+            }
+          ]
+        }
+      },
+      "name": "OTP Valid?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [640, 520],
+      "id": "b1b2c3d4-0007-4000-8000-000000000007"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={ \"token\": \"jwt-here\", \"success\": true }"
+      },
+      "name": "Return Session",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [860, 460],
+      "id": "b1b2c3d4-0008-4000-8000-000000000008"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={ \"success\": false, \"error\": \"invalid code\" }",
+        "options": { "responseCode": 401 }
+      },
+      "name": "Reject",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [860, 580],
+      "id": "b1b2c3d4-0009-4000-8000-000000000009"
+    }
+  ],
+  "connections": {
+    "Request OTP": { "main": [[{ "node": "Generate OTP", "type": "main", "index": 0 }]] },
+    "Generate OTP": { "main": [[{ "node": "Store in Redis", "type": "main", "index": 0 }]] },
+    "Store in Redis": { "main": [[{ "node": "Send SMS", "type": "main", "index": 0 }]] },
+    "Verify OTP": { "main": [[{ "node": "Lookup OTP", "type": "main", "index": 0 }]] },
+    "Lookup OTP": { "main": [[{ "node": "OTP Valid?", "type": "main", "index": 0 }]] },
+    "OTP Valid?": {
+      "main": [
+        [{ "node": "Return Session", "type": "main", "index": 0 }],
+        [{ "node": "Reject", "type": "main", "index": 0 }]
+      ]
+    }
+  },
+  "pinData": {}
+}

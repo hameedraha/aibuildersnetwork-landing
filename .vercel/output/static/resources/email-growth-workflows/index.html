@@ -1,0 +1,169 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/aibn-logo.svg"><link rel="icon" href="/favicon.ico"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="generator" content="Astro v6.4.8"><title>email &amp; growth workflows · ai builders network</title><meta name="description" content="n8n workflows for welcome emails and waitlist signups — the first automations every launch needs."><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Inter:wght@400;500&display=swap" rel="stylesheet"><link rel="stylesheet" href="/_astro/BaseLayout.ClQcFuqr.css"><link rel="stylesheet" href="/_astro/_id_.Cml_Unyd.css"></head> <body> <header class="header"> <div class="container header__inner"> <a href="/" class="wordmark" aria-label="ai builders network home"> <img src="/aibn-logo.svg" alt="" aria-hidden="true" class="logo-img logo-img--sm"> <span class="wordmark__text">ai builders network</span> </a> <nav class="header__nav" aria-label="main"> <a href="/events" class="header__link">events</a> <a href="/resources" class="header__link" aria-current="page">resources</a> <a href="/design-repository" class="header__link">design</a> </nav> <div class="header__actions"> <a href="/community" class="btn-primary btn--sm">join</a> </div> </div> </header> <main>  <article class="resource-article" data-astro-cid-zbxwrzqb> <header class="resource-hero section--ink" aria-labelledby="resource-title" data-astro-cid-zbxwrzqb> <div class="container resource-hero__inner" data-astro-cid-zbxwrzqb> <a href="/resources" class="back-link back-link--on-ink" data-astro-cid-zbxwrzqb>← all resources</a> <div class="resource-hero__meta" data-astro-cid-zbxwrzqb> <span class="eyebrow eyebrow--on-ink resource-hero__tag" data-astro-cid-zbxwrzqb>workflows</span> <span class="eyebrow eyebrow--on-ink" data-astro-cid-zbxwrzqb>June 24, 2026</span> </div> <h1 class="display-l" id="resource-title" data-astro-cid-zbxwrzqb>email &amp; growth workflows</h1> <p class="body-lg resource-hero__desc" data-astro-cid-zbxwrzqb>n8n workflows for welcome emails and waitlist signups — the first automations every launch needs.</p> <div class="resource-hero__tags" data-astro-cid-zbxwrzqb> <span class="resource-tag resource-tag--on-ink" data-astro-cid-zbxwrzqb>n8n</span><span class="resource-tag resource-tag--on-ink" data-astro-cid-zbxwrzqb>email</span><span class="resource-tag resource-tag--on-ink" data-astro-cid-zbxwrzqb>growth</span><span class="resource-tag resource-tag--on-ink" data-astro-cid-zbxwrzqb>marketing</span> </div> </div> </header> <div class="resource-body section--neutral" data-astro-cid-zbxwrzqb> <div class="container resource-body__grid" data-astro-cid-zbxwrzqb> <aside class="resource-sidebar" aria-label="page navigation"> <nav class="resource-toc" aria-label="table of contents"> <span class="eyebrow resource-sidebar__label">on this page</span> <ol class="resource-toc__list"> <li class="resource-toc__item resource-toc__item--h2"> <a href="#welcome-email-sequence" class="resource-toc__link" data-toc-link data-slug="welcome-email-sequence"> welcome email sequence </a> </li><li class="resource-toc__item resource-toc__item--h2"> <a href="#waitlist-signup" class="resource-toc__link" data-toc-link data-slug="waitlist-signup"> waitlist signup </a> </li> </ol> </nav>  <nav class="resource-toc" aria-label="workflows"> <span class="eyebrow resource-sidebar__label">workflows</span> <ol class="resource-toc__list"> <li class="resource-toc__item resource-toc__item--h2"> <a href="#workflow-welcome-email-sequence" class="resource-toc__link" data-toc-link data-slug="workflow-welcome-email-sequence"> welcome email sequence </a> </li><li class="resource-toc__item resource-toc__item--h2"> <a href="#workflow-waitlist-signup" class="resource-toc__link" data-toc-link data-slug="workflow-waitlist-signup"> waitlist signup </a> </li> </ol> </nav>  </aside> <div class="resource-main" data-astro-cid-zbxwrzqb> <div class="resource-prose" data-astro-cid-zbxwrzqb>  <p>Wire these before you announce. A welcome email and a working waitlist are the minimum viable growth stack.</p>
+<h2 id="welcome-email-sequence">welcome email sequence</h2>
+<p>Triggers on a signup webhook from your app. Extracts name and email, sends a welcome message, then adds the contact to your mailing list via API.</p>
+<h2 id="waitlist-signup">waitlist signup</h2>
+<p>Handles landing page form submissions. Validates the email, stores in supabase, sends a confirmation, and notifies your team in slack.</p>  </div>  <section class="resource-workflows" aria-label="n8n workflows" data-astro-cid-zbxwrzqb> <section class="n8n-workflow-block" id="workflow-welcome-email-sequence" aria-labelledby="workflow-title-welcome-email-sequence" data-astro-cid-cnnt6w6l> <div class="n8n-workflow-block__header" data-astro-cid-cnnt6w6l> <h2 class="heading" id="workflow-title-welcome-email-sequence" data-astro-cid-cnnt6w6l>welcome email sequence</h2> <p class="body-md n8n-workflow-block__desc" data-astro-cid-cnnt6w6l>fires on signup — extracts user data, sends a welcome email, and adds them to your mailing list.</p> </div> <div class="n8n-workflow-block__viewer n8n-theme" data-astro-cid-cnnt6w6l> <n8n-demo workflow="{
+  &quot;meta&quot;: { &quot;instanceId&quot;: &quot;aibn-welcome-email&quot; },
+  &quot;nodes&quot;: [
+    {
+      &quot;parameters&quot;: { &quot;httpMethod&quot;: &quot;POST&quot;, &quot;path&quot;: &quot;signup&quot;, &quot;options&quot;: {} },
+      &quot;name&quot;: &quot;Signup Webhook&quot;,
+      &quot;type&quot;: &quot;n8n-nodes-base.webhook&quot;,
+      &quot;typeVersion&quot;: 2,
+      &quot;position&quot;: [240, 300],
+      &quot;id&quot;: &quot;a1b2c3d4-0001-4000-8000-000000000001&quot;,
+      &quot;webhookId&quot;: &quot;signup-webhook&quot;
+    },
+    {
+      &quot;parameters&quot;: {
+        &quot;assignments&quot;: {
+          &quot;assignments&quot;: [
+            { &quot;id&quot;: &quot;1&quot;, &quot;name&quot;: &quot;email&quot;, &quot;value&quot;: &quot;={{ $json.body.email }}&quot;, &quot;type&quot;: &quot;string&quot; },
+            { &quot;id&quot;: &quot;2&quot;, &quot;name&quot;: &quot;name&quot;, &quot;value&quot;: &quot;={{ $json.body.name }}&quot;, &quot;type&quot;: &quot;string&quot; }
+          ]
+        },
+        &quot;options&quot;: {}
+      },
+      &quot;name&quot;: &quot;Extract User&quot;,
+      &quot;type&quot;: &quot;n8n-nodes-base.set&quot;,
+      &quot;typeVersion&quot;: 3.4,
+      &quot;position&quot;: [460, 300],
+      &quot;id&quot;: &quot;a1b2c3d4-0002-4000-8000-000000000002&quot;
+    },
+    {
+      &quot;parameters&quot;: {
+        &quot;fromEmail&quot;: &quot;hello@yourproduct.com&quot;,
+        &quot;toEmail&quot;: &quot;={{ $json.email }}&quot;,
+        &quot;subject&quot;: &quot;welcome to the build&quot;,
+        &quot;emailType&quot;: &quot;html&quot;,
+        &quot;message&quot;: &quot;=<p>hey {{ $json.name }},</p><p>you're in. here's what to do first...</p>&quot;
+      },
+      &quot;name&quot;: &quot;Send Welcome Email&quot;,
+      &quot;type&quot;: &quot;n8n-nodes-base.emailSend&quot;,
+      &quot;typeVersion&quot;: 2.1,
+      &quot;position&quot;: [680, 300],
+      &quot;id&quot;: &quot;a1b2c3d4-0003-4000-8000-000000000003&quot;
+    },
+    {
+      &quot;parameters&quot;: {
+        &quot;method&quot;: &quot;POST&quot;,
+        &quot;url&quot;: &quot;https://api.resend.com/contacts&quot;,
+        &quot;authentication&quot;: &quot;genericCredentialType&quot;,
+        &quot;options&quot;: {}
+      },
+      &quot;name&quot;: &quot;Add to Mailing List&quot;,
+      &quot;type&quot;: &quot;n8n-nodes-base.httpRequest&quot;,
+      &quot;typeVersion&quot;: 4.2,
+      &quot;position&quot;: [900, 300],
+      &quot;id&quot;: &quot;a1b2c3d4-0004-4000-8000-000000000004&quot;
+    }
+  ],
+  &quot;connections&quot;: {
+    &quot;Signup Webhook&quot;: { &quot;main&quot;: [[{ &quot;node&quot;: &quot;Extract User&quot;, &quot;type&quot;: &quot;main&quot;, &quot;index&quot;: 0 }]] },
+    &quot;Extract User&quot;: { &quot;main&quot;: [[{ &quot;node&quot;: &quot;Send Welcome Email&quot;, &quot;type&quot;: &quot;main&quot;, &quot;index&quot;: 0 }]] },
+    &quot;Send Welcome Email&quot;: { &quot;main&quot;: [[{ &quot;node&quot;: &quot;Add to Mailing List&quot;, &quot;type&quot;: &quot;main&quot;, &quot;index&quot;: 0 }]] }
+  },
+  &quot;pinData&quot;: {}
+}
+" frame="false" clicktointeract="true" collapseformobile="true" hidecanvaserrors="true" theme="light" data-astro-cid-cnnt6w6l="true"></n8n-demo> </div> <p class="eyebrow n8n-workflow-block__hint" data-astro-cid-cnnt6w6l>click the canvas to explore · double-click nodes for settings</p> <div class="n8n-workflow-block__footer" data-astro-cid-cnnt6w6l> <a href="/resources/workflows/welcome-email-sequence.json" class="btn-secondary btn--sm" download data-astro-cid-cnnt6w6l>
+download .json
+</a> </div> </section><section class="n8n-workflow-block" id="workflow-waitlist-signup" aria-labelledby="workflow-title-waitlist-signup" data-astro-cid-cnnt6w6l> <div class="n8n-workflow-block__header" data-astro-cid-cnnt6w6l> <h2 class="heading" id="workflow-title-waitlist-signup" data-astro-cid-cnnt6w6l>waitlist signup</h2> <p class="body-md n8n-workflow-block__desc" data-astro-cid-cnnt6w6l>validates email, saves to supabase, sends confirmation, and pings slack when someone joins.</p> </div> <div class="n8n-workflow-block__viewer n8n-theme" data-astro-cid-cnnt6w6l> <n8n-demo workflow="{
+  &quot;meta&quot;: { &quot;instanceId&quot;: &quot;aibn-waitlist-signup&quot; },
+  &quot;nodes&quot;: [
+    {
+      &quot;parameters&quot;: { &quot;httpMethod&quot;: &quot;POST&quot;, &quot;path&quot;: &quot;waitlist&quot;, &quot;options&quot;: {} },
+      &quot;name&quot;: &quot;Waitlist Form&quot;,
+      &quot;type&quot;: &quot;n8n-nodes-base.webhook&quot;,
+      &quot;typeVersion&quot;: 2,
+      &quot;position&quot;: [200, 300],
+      &quot;id&quot;: &quot;e1b2c3d4-0001-4000-8000-000000000001&quot;,
+      &quot;webhookId&quot;: &quot;waitlist-form&quot;
+    },
+    {
+      &quot;parameters&quot;: {
+        &quot;conditions&quot;: {
+          &quot;string&quot;: [
+            {
+              &quot;value1&quot;: &quot;={{ $json.body.email }}&quot;,
+              &quot;operation&quot;: &quot;regex&quot;,
+              &quot;value2&quot;: &quot;^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$&quot;
+            }
+          ]
+        }
+      },
+      &quot;name&quot;: &quot;Valid Email?&quot;,
+      &quot;type&quot;: &quot;n8n-nodes-base.if&quot;,
+      &quot;typeVersion&quot;: 2,
+      &quot;position&quot;: [400, 300],
+      &quot;id&quot;: &quot;e1b2c3d4-0002-4000-8000-000000000002&quot;
+    },
+    {
+      &quot;parameters&quot;: {
+        &quot;operation&quot;: &quot;create&quot;,
+        &quot;tableId&quot;: &quot;waitlist&quot;,
+        &quot;fieldsUi&quot;: {
+          &quot;fieldValues&quot;: [
+            { &quot;fieldName&quot;: &quot;email&quot;, &quot;fieldValue&quot;: &quot;={{ $json.body.email }}&quot; },
+            { &quot;fieldName&quot;: &quot;source&quot;, &quot;fieldValue&quot;: &quot;={{ $json.body.source || 'landing' }}&quot; }
+          ]
+        }
+      },
+      &quot;name&quot;: &quot;Save to Supabase&quot;,
+      &quot;type&quot;: &quot;n8n-nodes-base.supabase&quot;,
+      &quot;typeVersion&quot;: 1,
+      &quot;position&quot;: [620, 240],
+      &quot;id&quot;: &quot;e1b2c3d4-0003-4000-8000-000000000003&quot;
+    },
+    {
+      &quot;parameters&quot;: {
+        &quot;fromEmail&quot;: &quot;hello@yourproduct.com&quot;,
+        &quot;toEmail&quot;: &quot;={{ $json.body.email }}&quot;,
+        &quot;subject&quot;: &quot;you're on the waitlist&quot;,
+        &quot;message&quot;: &quot;=<p>thanks for signing up. we'll email you when it's your turn.</p>&quot;
+      },
+      &quot;name&quot;: &quot;Send Confirmation&quot;,
+      &quot;type&quot;: &quot;n8n-nodes-base.emailSend&quot;,
+      &quot;typeVersion&quot;: 2.1,
+      &quot;position&quot;: [840, 240],
+      &quot;id&quot;: &quot;e1b2c3d4-0004-4000-8000-000000000004&quot;
+    },
+    {
+      &quot;parameters&quot;: {
+        &quot;channel&quot;: &quot;#launches&quot;,
+        &quot;text&quot;: &quot;=new waitlist signup: {{ $json.body.email }}&quot;
+      },
+      &quot;name&quot;: &quot;Slack Alert&quot;,
+      &quot;type&quot;: &quot;n8n-nodes-base.slack&quot;,
+      &quot;typeVersion&quot;: 2.2,
+      &quot;position&quot;: [1060, 240],
+      &quot;id&quot;: &quot;e1b2c3d4-0005-4000-8000-000000000005&quot;
+    },
+    {
+      &quot;parameters&quot;: {
+        &quot;respondWith&quot;: &quot;json&quot;,
+        &quot;responseBody&quot;: &quot;={ \&quot;success\&quot;: false, \&quot;error\&quot;: \&quot;invalid email\&quot; }&quot;,
+        &quot;options&quot;: { &quot;responseCode&quot;: 400 }
+      },
+      &quot;name&quot;: &quot;Return Error&quot;,
+      &quot;type&quot;: &quot;n8n-nodes-base.respondToWebhook&quot;,
+      &quot;typeVersion&quot;: 1.1,
+      &quot;position&quot;: [620, 400],
+      &quot;id&quot;: &quot;e1b2c3d4-0006-4000-8000-000000000006&quot;
+    }
+  ],
+  &quot;connections&quot;: {
+    &quot;Waitlist Form&quot;: { &quot;main&quot;: [[{ &quot;node&quot;: &quot;Valid Email?&quot;, &quot;type&quot;: &quot;main&quot;, &quot;index&quot;: 0 }]] },
+    &quot;Valid Email?&quot;: {
+      &quot;main&quot;: [
+        [{ &quot;node&quot;: &quot;Save to Supabase&quot;, &quot;type&quot;: &quot;main&quot;, &quot;index&quot;: 0 }],
+        [{ &quot;node&quot;: &quot;Return Error&quot;, &quot;type&quot;: &quot;main&quot;, &quot;index&quot;: 0 }]
+      ]
+    },
+    &quot;Save to Supabase&quot;: { &quot;main&quot;: [[{ &quot;node&quot;: &quot;Send Confirmation&quot;, &quot;type&quot;: &quot;main&quot;, &quot;index&quot;: 0 }]] },
+    &quot;Send Confirmation&quot;: { &quot;main&quot;: [[{ &quot;node&quot;: &quot;Slack Alert&quot;, &quot;type&quot;: &quot;main&quot;, &quot;index&quot;: 0 }]] }
+  },
+  &quot;pinData&quot;: {}
+}
+" frame="false" clicktointeract="true" collapseformobile="true" hidecanvaserrors="true" theme="light" data-astro-cid-cnnt6w6l="true"></n8n-demo> </div> <p class="eyebrow n8n-workflow-block__hint" data-astro-cid-cnnt6w6l>click the canvas to explore · double-click nodes for settings</p> <div class="n8n-workflow-block__footer" data-astro-cid-cnnt6w6l> <a href="/resources/workflows/waitlist-signup.json" class="btn-secondary btn--sm" download data-astro-cid-cnnt6w6l>
+download .json
+</a> </div> </section> </section>  </div> </div> </div> </article> <script type="module" src="/vendor/n8n-demo.bundled.js"></script><script type="module">function c(){const s=document.querySelectorAll("[data-toc-link]"),o=[...s].map(t=>{const e=t.dataset.slug;if(!e)return null;const n=document.getElementById(e);return n?{link:t,el:n}:null}).filter(t=>t!==null);if(o.length===0)return;const r=t=>{s.forEach(e=>{e.classList.toggle("is-active",e.dataset.slug===t)})},i=new IntersectionObserver(t=>{const e=t.filter(n=>n.isIntersecting).sort((n,l)=>n.boundingClientRect.top-l.boundingClientRect.top);e.length>0&&r(e[0].target.id)},{rootMargin:"-80px 0px -60% 0px",threshold:0});o.forEach(({el:t})=>i.observe(t)),s.forEach(t=>{t.addEventListener("click",()=>{const e=t.dataset.slug;e&&r(e)})})}c();document.addEventListener("astro:page-load",c);</script>  </main> <footer class="footer"> <div class="container footer__inner"> <div class="footer__logo"> <img src="/aibn-logo.svg" alt="" aria-hidden="true" class="logo-img logo-img--sm"> <span class="eyebrow eyebrow--on-ink" style="margin-bottom:0">ai builders network · est. 2026</span> </div> <div class="footer__links"> <a href="/events" class="footer__link">events</a> <a href="/resources" class="footer__link">resources</a> <a href="/design-repository" class="footer__link">design</a> <a href="/courses" class="footer__link">courses</a> <a href="/cohorts" class="footer__link">cohorts</a> <a href="/community" class="footer__link">community</a> <a href="/community" class="footer__link">join</a> </div> </div> </footer>  </body> </html>

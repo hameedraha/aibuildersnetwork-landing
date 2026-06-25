@@ -1,0 +1,71 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="utf-8"><link rel="icon" type="image/svg+xml" href="/aibn-logo.svg"><link rel="icon" href="/favicon.ico"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="generator" content="Astro v6.4.8"><title>prompt engineering cheatsheet · ai builders network</title><meta name="description" content="the patterns that actually move output quality — system prompts, few-shot examples, and structured outputs for production use."><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Inter:wght@400;500&display=swap" rel="stylesheet"><link rel="stylesheet" href="/_astro/BaseLayout.ClQcFuqr.css"><link rel="stylesheet" href="/_astro/_id_.Cml_Unyd.css"></head> <body> <header class="header"> <div class="container header__inner"> <a href="/" class="wordmark" aria-label="ai builders network home"> <img src="/aibn-logo.svg" alt="" aria-hidden="true" class="logo-img logo-img--sm"> <span class="wordmark__text">ai builders network</span> </a> <nav class="header__nav" aria-label="main"> <a href="/events" class="header__link">events</a> <a href="/resources" class="header__link" aria-current="page">resources</a> <a href="/design-repository" class="header__link">design</a> </nav> <div class="header__actions"> <a href="/community" class="btn-primary btn--sm">join</a> </div> </div> </header> <main>  <article class="resource-article" data-astro-cid-zbxwrzqb> <header class="resource-hero section--ink" aria-labelledby="resource-title" data-astro-cid-zbxwrzqb> <div class="container resource-hero__inner" data-astro-cid-zbxwrzqb> <a href="/resources" class="back-link back-link--on-ink" data-astro-cid-zbxwrzqb>← all resources</a> <div class="resource-hero__meta" data-astro-cid-zbxwrzqb> <span class="eyebrow eyebrow--on-ink resource-hero__tag" data-astro-cid-zbxwrzqb>reference</span> <span class="eyebrow eyebrow--on-ink" data-astro-cid-zbxwrzqb>June 20, 2026</span> </div> <h1 class="display-l" id="resource-title" data-astro-cid-zbxwrzqb>prompt engineering cheatsheet</h1> <p class="body-lg resource-hero__desc" data-astro-cid-zbxwrzqb>the patterns that actually move output quality — system prompts, few-shot examples, and structured outputs for production use.</p> <div class="resource-hero__tags" data-astro-cid-zbxwrzqb> <span class="resource-tag resource-tag--on-ink" data-astro-cid-zbxwrzqb>prompts</span><span class="resource-tag resource-tag--on-ink" data-astro-cid-zbxwrzqb>llm</span><span class="resource-tag resource-tag--on-ink" data-astro-cid-zbxwrzqb>production</span> </div> </div> </header> <div class="resource-body section--neutral" data-astro-cid-zbxwrzqb> <div class="container resource-body__grid" data-astro-cid-zbxwrzqb> <aside class="resource-sidebar" aria-label="page navigation"> <nav class="resource-toc" aria-label="table of contents"> <span class="eyebrow resource-sidebar__label">on this page</span> <ol class="resource-toc__list"> <li class="resource-toc__item resource-toc__item--h2"> <a href="#system-prompt-structure" class="resource-toc__link" data-toc-link data-slug="system-prompt-structure"> system prompt structure </a> </li><li class="resource-toc__item resource-toc__item--h2"> <a href="#few-shot-beats-instructions" class="resource-toc__link" data-toc-link data-slug="few-shot-beats-instructions"> few-shot beats instructions </a> </li><li class="resource-toc__item resource-toc__item--h2"> <a href="#structured-outputs" class="resource-toc__link" data-toc-link data-slug="structured-outputs"> structured outputs </a> </li><li class="resource-toc__item resource-toc__item--h2"> <a href="#chain-of-thought-when-it-helps" class="resource-toc__link" data-toc-link data-slug="chain-of-thought-when-it-helps"> chain of thought (when it helps) </a> </li><li class="resource-toc__item resource-toc__item--h2"> <a href="#testing-prompts" class="resource-toc__link" data-toc-link data-slug="testing-prompts"> testing prompts </a> </li><li class="resource-toc__item resource-toc__item--h2"> <a href="#quick-reference" class="resource-toc__link" data-toc-link data-slug="quick-reference"> quick reference </a> </li> </ol> </nav>   <nav class="resource-sidebar-downloads" aria-label="downloads"> <span class="eyebrow resource-sidebar__label">downloads</span> <ul class="resource-sidebar-downloads__list"> <li> <a href="/resources/downloads/prompt-patterns-cheatsheet.txt" class="resource-sidebar-downloads__link" download> <span class="resource-sidebar-downloads__label">prompt patterns cheatsheet</span> <span class="resource-sidebar-downloads__type">txt</span> </a> </li> </ul> </nav> </aside> <div class="resource-main" data-astro-cid-zbxwrzqb> <div class="resource-prose" data-astro-cid-zbxwrzqb>  <p>Prompt engineering is less about magic words and more about giving the model the right context, constraints, and output format. These are the patterns builders in the network use daily.</p>
+<h2 id="system-prompt-structure">system prompt structure</h2>
+<p>A reliable system prompt has four parts:</p>
+<ol>
+<li><strong>Role</strong> — who the model is (<code>you are a code reviewer focused on security</code>)</li>
+<li><strong>Context</strong> — what it knows (<code>the user is building a Next.js app with Supabase</code>)</li>
+<li><strong>Constraints</strong> — what it must and must not do (<code>never suggest deprecated APIs</code>)</li>
+<li><strong>Output format</strong> — how to respond (<code>respond in JSON with keys: issue, severity, fix</code>)</li>
+</ol>
+<p>Keep it under 500 tokens when possible. Long system prompts dilute attention.</p>
+<h2 id="few-shot-beats-instructions">few-shot beats instructions</h2>
+<p>One good example is worth ten rules. Show the model what you want:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>Input: "refactor this to use async/await"</span></span>
+<span class="line"><span>Output: [show the exact refactor style you expect]</span></span></code></pre>
+<p>Two to three examples cover most formatting and tone requirements. More than five usually hurts generalization.</p>
+<h2 id="structured-outputs">structured outputs</h2>
+<p>For production, always request structured output when you need to parse results:</p>
+<ul>
+<li>Use JSON mode or response schemas where supported</li>
+<li>Define required fields explicitly</li>
+<li>Include an <code>error</code> or <code>unable_to_complete</code> field for graceful failure</li>
+</ul>
+<p>Parsing free-form text in production is a bug waiting to happen.</p>
+<h2 id="chain-of-thought-when-it-helps">chain of thought (when it helps)</h2>
+<p>Ask the model to reason step-by-step for:</p>
+<ul>
+<li>Multi-step math or logic</li>
+<li>Complex code debugging</li>
+<li>Decisions with trade-offs</li>
+</ul>
+<p>Skip it for simple transformations — it adds latency and cost without benefit.</p>
+<h2 id="testing-prompts">testing prompts</h2>
+<p>Treat prompts like code:</p>
+<ul>
+<li>Keep a test set of 10–20 real inputs</li>
+<li>Run them on every prompt change</li>
+<li>Score outputs manually or with a second model pass</li>
+</ul>
+<p>The builders who ship reliable AI features version their prompts in git and regression-test them.</p>
+<h2 id="quick-reference">quick reference</h2>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Pattern</th><th>Use when</th></tr></thead><tbody><tr><td>System role + constraints</td><td>Every production prompt</td></tr><tr><td>Few-shot examples</td><td>Formatting, tone, edge cases</td></tr><tr><td>JSON / schema output</td><td>Anything downstream parses</td></tr><tr><td>Step-by-step reasoning</td><td>Complex logic, debugging</td></tr><tr><td>Delimiters (<code>"""</code>, <code>###</code>)</td><td>Separating user content from instructions</td></tr></tbody></table>
+<p>Download the full cheatsheet below for copy-paste templates.</p>  </div>   <section class="resource-downloads-mobile" aria-labelledby="downloads-mobile-heading" data-astro-cid-zbxwrzqb> <span class="eyebrow" id="downloads-mobile-heading" data-astro-cid-zbxwrzqb>downloads</span> <ul class="resource-downloads-mobile__list" data-astro-cid-zbxwrzqb> <li data-astro-cid-zbxwrzqb> <a href="/resources/downloads/prompt-patterns-cheatsheet.txt" class="resource-downloads-mobile__item" download data-astro-cid-zbxwrzqb> <span class="heading" data-astro-cid-zbxwrzqb>prompt patterns cheatsheet</span> <span class="eyebrow" data-astro-cid-zbxwrzqb>txt</span> </a> </li> </ul> </section> </div> </div> </div> </article> <script type="module">function c(){const s=document.querySelectorAll("[data-toc-link]"),o=[...s].map(t=>{const e=t.dataset.slug;if(!e)return null;const n=document.getElementById(e);return n?{link:t,el:n}:null}).filter(t=>t!==null);if(o.length===0)return;const r=t=>{s.forEach(e=>{e.classList.toggle("is-active",e.dataset.slug===t)})},i=new IntersectionObserver(t=>{const e=t.filter(n=>n.isIntersecting).sort((n,l)=>n.boundingClientRect.top-l.boundingClientRect.top);e.length>0&&r(e[0].target.id)},{rootMargin:"-80px 0px -60% 0px",threshold:0});o.forEach(({el:t})=>i.observe(t)),s.forEach(t=>{t.addEventListener("click",()=>{const e=t.dataset.slug;e&&r(e)})})}c();document.addEventListener("astro:page-load",c);</script>  </main> <footer class="footer"> <div class="container footer__inner"> <div class="footer__logo"> <img src="/aibn-logo.svg" alt="" aria-hidden="true" class="logo-img logo-img--sm"> <span class="eyebrow eyebrow--on-ink" style="margin-bottom:0">ai builders network · est. 2026</span> </div> <div class="footer__links"> <a href="/events" class="footer__link">events</a> <a href="/resources" class="footer__link">resources</a> <a href="/design-repository" class="footer__link">design</a> <a href="/courses" class="footer__link">courses</a> <a href="/cohorts" class="footer__link">cohorts</a> <a href="/community" class="footer__link">community</a> <a href="/community" class="footer__link">join</a> </div> </div> </footer>  </body> </html>

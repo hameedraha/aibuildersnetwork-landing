@@ -1,15 +1,4 @@
-import type { APIRoute } from 'astro';
-
-export const prerender = false;
-
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-function getWebhookUrl(): string | undefined {
-  return (
-    import.meta.env.COMMUNITY_REGISTRATION_WEBHOOK_URL ||
-    import.meta.env.PUBLIC_COMMUNITY_REGISTRATION_WEBHOOK_URL
-  );
-}
 
 function isValidUrl(value: string): boolean {
   try {
@@ -20,19 +9,20 @@ function isValidUrl(value: string): boolean {
   }
 }
 
-export const POST: APIRoute = async ({ request }) => {
-  const webhookUrl = getWebhookUrl();
-  if (!webhookUrl) {
-    return Response.json({ error: 'registration unavailable' }, { status: 503 });
-  }
+export type RegistrationPayload = {
+  name: string;
+  email: string;
+  phone: string;
+  linkedin: string;
+  github: string | null;
+  acceptedTerms: true;
+  source: string;
+  submittedAt: string;
+};
 
-  let body: Record<string, unknown>;
-  try {
-    body = await request.json();
-  } catch {
-    return Response.json({ error: 'invalid request' }, { status: 400 });
-  }
-
+export function parseRegistrationBody(
+  body: Record<string, unknown>
+): { ok: true; payload: RegistrationPayload } | { ok: false } {
   const name = typeof body.name === 'string' ? body.name.trim() : '';
   const email = typeof body.email === 'string' ? body.email.trim() : '';
   const phone = typeof body.phone === 'string' ? body.phone.trim() : '';
@@ -41,26 +31,34 @@ export const POST: APIRoute = async ({ request }) => {
     typeof body.github === 'string' && body.github.trim() ? body.github.trim() : null;
 
   if (!name || !email || !EMAIL_RE.test(email) || !phone || !linkedin || !isValidUrl(linkedin)) {
-    return Response.json({ error: 'validation failed' }, { status: 400 });
+    return { ok: false };
   }
   if (github && !isValidUrl(github)) {
-    return Response.json({ error: 'validation failed' }, { status: 400 });
+    return { ok: false };
   }
   if (body.acceptedTerms !== true) {
-    return Response.json({ error: 'validation failed' }, { status: 400 });
+    return { ok: false };
   }
 
-  const payload = {
-    name,
-    email,
-    phone,
-    linkedin,
-    github,
-    acceptedTerms: true,
-    source: typeof body.source === 'string' ? body.source : 'community-page',
-    submittedAt: new Date().toISOString(),
+  return {
+    ok: true,
+    payload: {
+      name,
+      email,
+      phone,
+      linkedin,
+      github,
+      acceptedTerms: true,
+      source: typeof body.source === 'string' ? body.source : 'community-page',
+      submittedAt: new Date().toISOString(),
+    },
   };
+}
 
+export async function forwardRegistration(
+  webhookUrl: string,
+  payload: RegistrationPayload
+): Promise<Response> {
   try {
     const upstream = await fetch(webhookUrl, {
       method: 'POST',
@@ -76,4 +74,4 @@ export const POST: APIRoute = async ({ request }) => {
   } catch {
     return Response.json({ error: 'upstream error' }, { status: 502 });
   }
-};
+}
