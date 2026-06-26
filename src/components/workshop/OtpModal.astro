@@ -17,7 +17,7 @@
 </div>
 
 <script>
-  import { setUnlocked } from '../../scripts/workshop/unlock';
+  import { isValidOtp, setUnlocked, unlockAllSections, MASTER_OTP } from '../../scripts/workshop/unlock';
   import { wireOtpInputs, getOtpValue, clearOtpInputs } from '../../scripts/workshop/otp-input';
 
   let activeSlug = '';
@@ -53,12 +53,16 @@
       errorEl.textContent = 'enter all 4 digits.';
       return;
     }
-    if (entered !== activeOtp) {
+    if (!isValidOtp(entered, activeOtp)) {
       errorEl.textContent = 'incorrect code. try again.';
       clearOtpInputs(inputs);
       return;
     }
-    setUnlocked(activeSlug);
+    if (entered === MASTER_OTP) {
+      unlockAllSections();
+    } else {
+      setUnlocked(activeSlug);
+    }
     const slug = activeSlug;
     closeOtpModal();
     window.location.href = `/workshop/${slug}`;

@@ -43,7 +43,7 @@ export function getPrefilledValues(keys: string[]): Record<string, string> {
   const stored = getStoredVars();
   const result: Record<string, string> = {};
   for (const key of keys) {
-    if (stored[key]) result[key] = stored[key];
+    if (key in stored) result[key] = stored[key];
   }
   return result;
 }
@@ -63,6 +63,9 @@ export function initCopyPrompts(
   }) => void
 ): void {
   document.querySelectorAll<HTMLButtonElement>('[data-copy-prompt]').forEach((btn) => {
+    if (btn.dataset.copyInit === 'true') return;
+    btn.dataset.copyInit = 'true';
+
     btn.addEventListener('click', async () => {
       const content = btn.dataset.promptContent ?? '';
       const keys = extractVariables(content);

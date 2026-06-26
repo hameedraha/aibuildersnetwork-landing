@@ -1,10 +1,12 @@
 ---
 import repoIndex from '../../data/design-repository/index.json';
+import ideaBankData from '../../data/workshop-idea-bank.json';
 import type {
   DesignRepoEntry,
   DesignRepoIndex,
 } from '../../data/design-repository.types';
 import type {
+  IdeaBankData,
   WorkshopDesignShowcaseItem,
   WorkshopItem,
   WorkshopStarterPickerItem,
@@ -35,8 +37,10 @@ function resolveShowcaseEntries(slugs: string[]) {
 
 const isStarterPicker = item.type === 'starter-picker';
 const isDesignShowcase = item.type === 'design-showcase';
+const isIdeaBank = item.type === 'idea-bank';
 const starterItem = isStarterPicker ? (item as WorkshopStarterPickerItem) : null;
 const showcaseItem = isDesignShowcase ? (item as WorkshopDesignShowcaseItem) : null;
+const ideaBank = isIdeaBank ? (ideaBankData as IdeaBankData) : null;
 const showcaseEntries = showcaseItem ? resolveShowcaseEntries(showcaseItem.slugs) : [];
 const showcaseFirst = showcaseEntries[0];
 const defaultStarter = starterItem?.options[0];
@@ -192,6 +196,37 @@ const defaultStarter = starterItem?.options[0];
           <span class="design-showcase__count eyebrow">{designSystemCount} systems available</span>
         )}
       </a>
+    )}
+
+    {ideaBank && (
+      <div class="idea-bank">
+        <p class="idea-bank__heading">{ideaBank.heading}</p>
+
+        <div class="idea-bank__categories">
+          {ideaBank.categories.map((category) => (
+            <section class="idea-bank__category">
+              <h3 class="idea-bank__category-title">{category.title}</h3>
+              <ul class="idea-bank__list">
+                {category.ideas.map((idea) => (
+                  <li class="idea-bank__item">
+                    <span class="idea-bank__item-title">{idea.title}</span>
+                    <span class="idea-bank__item-desc">– {idea.description}</span>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          ))}
+        </div>
+
+        <section class="idea-bank__bonus">
+          <h3 class="idea-bank__bonus-title">Bonus Section: {ideaBank.bonus.title}</h3>
+          <ul class="idea-bank__bonus-list">
+            {ideaBank.bonus.ideas.map((idea) => (
+              <li class="idea-bank__bonus-item">{idea}</li>
+            ))}
+          </ul>
+        </section>
+      </div>
     )}
   </div>
 </details>

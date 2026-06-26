@@ -55,6 +55,12 @@
     firstInput?.focus();
   }
 
+  function handleVarInput(e: Event) {
+    const input = e.target as HTMLInputElement;
+    if (!input.name) return;
+    persistVariableValues({ [input.name]: input.value });
+  }
+
   function closeCopyModal() {
     modal.classList.remove('is-open');
     modal.setAttribute('aria-hidden', 'true');
@@ -106,6 +112,8 @@
     e.preventDefault();
     handleConfirm();
   });
+
+  form.addEventListener('input', handleVarInput);
 
   function init() {
     initCopyPrompts(configVars, openCopyModal);
