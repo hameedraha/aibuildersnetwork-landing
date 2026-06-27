@@ -1,0 +1,155 @@
+{
+  "heading": "AI Starter Idea Bank",
+  "categories": [
+    {
+      "title": "Sales & Marketing",
+      "ideas": [
+        { "title": "Lead Qualifier", "description": "Score inbound leads before a sales call." },
+        { "title": "Cold Email Personalizer", "description": "Personalize outreach using company data." },
+        { "title": "Proposal Generator", "description": "Create proposals from meeting notes." },
+        { "title": "Follow-up Assistant", "description": "Remind and draft follow-up emails automatically." },
+        { "title": "CRM Auto Updater", "description": "Update CRM after every meeting." },
+        { "title": "Customer Testimonial Collector", "description": "Automatically collect reviews after delivery." },
+        { "title": "Landing Page Generator", "description": "Generate landing pages from product descriptions." },
+        { "title": "Content Repurposer", "description": "Turn one post into multiple social posts." },
+        { "title": "Ad Copy Generator", "description": "Create ad copy for different platforms." },
+        { "title": "Competitor Tracker", "description": "Monitor competitor websites and updates." }
+      ]
+    },
+    {
+      "title": "Customer Support",
+      "ideas": [
+        { "title": "FAQ Chatbot", "description": "Answer common customer questions." },
+        { "title": "Ticket Summarizer", "description": "Summarize long support conversations." },
+        { "title": "Support Reply Assistant", "description": "Draft customer support replies." },
+        { "title": "Complaint Analyzer", "description": "Categorize complaints and suggest solutions." },
+        { "title": "Knowledge Base Assistant", "description": "Search company documentation instantly." }
+      ]
+    },
+    {
+      "title": "HR",
+      "ideas": [
+        { "title": "Resume Screener", "description": "Rank candidates based on job descriptions." },
+        { "title": "Interview Scheduler", "description": "Coordinate interviews automatically." },
+        { "title": "Job Description Writer", "description": "Generate role descriptions quickly." },
+        { "title": "Employee Onboarding Assistant", "description": "Guide new employees through onboarding." },
+        { "title": "Performance Review Assistant", "description": "Draft employee reviews." }
+      ]
+    },
+    {
+      "title": "Healthcare",
+      "ideas": [
+        { "title": "Appointment Reminder", "description": "Reduce missed appointments." },
+        { "title": "Medical Transcription", "description": "Convert consultations into notes." },
+        { "title": "Prescription Reminder", "description": "Remind patients to take medication." },
+        { "title": "Clinic WhatsApp Assistant", "description": "Handle appointments and FAQs." },
+        { "title": "Patient Follow-up Assistant", "description": "Follow up after consultations." }
+      ]
+    },
+    {
+      "title": "Education",
+      "ideas": [
+        { "title": "AI Tutor", "description": "Answer student questions." },
+        { "title": "Quiz Generator", "description": "Create quizzes from study material." },
+        { "title": "Assignment Reviewer", "description": "Give feedback on assignments." },
+        { "title": "Attendance Assistant", "description": "Track and report attendance." },
+        { "title": "Parent Update Generator", "description": "Create student progress updates." }
+      ]
+    },
+    {
+      "title": "Retail & E-commerce",
+      "ideas": [
+        { "title": "Inventory Alert System", "description": "Notify when stock is low." },
+        { "title": "Product Recommendation Engine", "description": "Suggest relevant products." },
+        { "title": "WhatsApp Order Assistant", "description": "Take orders through chat." },
+        { "title": "Review Analyzer", "description": "Summarize customer reviews." },
+        { "title": "Return Management Assistant", "description": "Simplify return requests." }
+      ]
+    },
+    {
+      "title": "Real Estate",
+      "ideas": [
+        { "title": "Property Matching Assistant", "description": "Match buyers to properties." },
+        { "title": "Lead Follow-up Bot", "description": "Follow up with enquiries automatically." },
+        { "title": "Site Visit Scheduler", "description": "Schedule property visits." },
+        { "title": "Rental Agreement Assistant", "description": "Generate rental documents." },
+        { "title": "Property Description Generator", "description": "Write property listings." }
+      ]
+    },
+    {
+      "title": "Finance",
+      "ideas": [
+        { "title": "Invoice Generator", "description": "Create invoices automatically." },
+        { "title": "Expense Categorizer", "description": "Organize business expenses." },
+        { "title": "Payment Reminder Bot", "description": "Send payment reminders." },
+        { "title": "Cash Flow Dashboard", "description": "Predict future cash flow." },
+        { "title": "Receipt Scanner", "description": "Extract data from receipts." }
+      ]
+    },
+    {
+      "title": "Operations",
+      "ideas": [
+        { "title": "Meeting Note Generator", "description": "Summarize meetings with action items." },
+        { "title": "SOP Generator", "description": "Create SOPs from workflows." },
+        { "title": "Task Prioritizer", "description": "Recommend task priorities." },
+        { "title": "Approval Workflow Assistant", "description": "Automate approvals." },
+        { "title": "Document Search Assistant", "description": "Search internal documents." }
+      ]
+    },
+    {
+      "title": "Manufacturing & Logistics",
+      "ideas": [
+        { "title": "Maintenance Reminder", "description": "Schedule preventive maintenance." },
+        { "title": "Quality Inspection Assistant", "description": "Record quality checks." },
+        { "title": "Delivery Tracker", "description": "Track deliveries in real time." },
+        { "title": "Route Optimizer", "description": "Recommend efficient delivery routes." },
+        { "title": "Warehouse Assistant", "description": "Help locate inventory." }
+      ]
+    },
+    {
+      "title": "Legal",
+      "ideas": [
+        { "title": "Contract Summarizer", "description": "Explain contracts in simple language." },
+        { "title": "NDA Generator", "description": "Create NDAs from templates." },
+        { "title": "Compliance Checklist", "description": "Ensure document compliance." },
+        { "title": "Legal Research Assistant", "description": "Search relevant regulations." },
+        { "title": "Case Note Organizer", "description": "Organize legal case notes." }
+      ]
+    },
+    {
+      "title": "Personal Productivity",
+      "ideas": [
+        { "title": "Email Draft Assistant", "description": "Draft emails from short prompts." },
+        { "title": "Calendar Planner", "description": "Optimize daily schedules." },
+        { "title": "Voice Note Organizer", "description": "Convert voice notes into tasks." },
+        { "title": "Personal Knowledge Base", "description": "Search your notes with AI." },
+        { "title": "Daily Journal Assistant", "description": "Generate summaries and insights." }
+      ]
+    },
+    {
+      "title": "AI for AI Builders",
+      "ideas": [
+        { "title": "Prompt Library Manager", "description": "Organize and search prompts." },
+        { "title": "Prompt Optimizer", "description": "Improve prompts automatically." },
+        { "title": "AI Cost Tracker", "description": "Monitor LLM API costs." },
+        { "title": "LLM Evaluation Tool", "description": "Compare model responses." },
+        { "title": "Workflow Builder", "description": "Connect multiple AI tools into one workflow." }
+      ]
+    }
+  ],
+  "bonus": {
+    "title": "Weekend Projects (Easy to Build)",
+    "ideas": [
+      "Meeting Summarizer",
+      "AI FAQ Chatbot",
+      "Resume Screener",
+      "Invoice Generator",
+      "WhatsApp Reminder Bot",
+      "Proposal Generator",
+      "Landing Page Generator",
+      "Blog Repurposer",
+      "Voice Note to Tasks",
+      "Contract Summarizer"
+    ]
+  }
+}

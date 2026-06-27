@@ -14,19 +14,19 @@
       "slug": "why",
       "title": "why",
       "description": "build the right thing.",
-      "otp": "0000"
+      "otp": "2477"
     },
     {
       "slug": "how",
       "title": "how",
       "description": "build it the right way.",
-      "otp": "0000"
+      "otp": "1999"
     },
     {
       "slug": "who",
       "title": "who",
       "description": "take it to the right people.",
-      "otp": "0000"
+      "otp": "7359"
     }
   ],
   "variables": [
@@ -39,6 +39,31 @@
       "key": "EMAIL",
       "label": "your email",
       "placeholder": "alex@example.com"
+    },
+    {
+      "key": "IDEA",
+      "label": "what you are building",
+      "placeholder": "a lead qualifier for sales teams"
+    },
+    {
+      "key": "CUSTOMER",
+      "label": "who it is for",
+      "placeholder": "b2b sales reps at smb companies"
+    },
+    {
+      "key": "CONTEXT",
+      "label": "context",
+      "placeholder": "sales industry, leads not qualified before calls, hubspot integration, clean admin dashboard"
+    },
+    {
+      "key": "PRODUCT",
+      "label": "product description",
+      "placeholder": "an ai tool that scores inbound leads before sales calls"
+    },
+    {
+      "key": "AUDIENCE",
+      "label": "target audience",
+      "placeholder": "b2b sales reps at smb companies"
     }
   ],
   "sections": {
@@ -48,15 +73,15 @@
       "items": [
         {
           "type": "prompt",
-          "id": "problem-statement",
-          "title": "frame the problem",
-          "content": "I'm $NAME building a product for a real problem I've experienced.\n\nHelp me articulate:\n1. Who has this problem?\n2. Why does it matter now?\n3. What happens if it stays unsolved?\n\nMy contact: $EMAIL"
+          "id": "product-thinking-coach",
+          "title": "pressure test your idea",
+          "content": "You are my product thinking coach named Hameed. I have one product idea I want to pressure test before I build anything. Your job is to interview me, not to give me answers.\n\nRules you must follow:\n\nAsk me one question at a time and wait for my reply before the next one.\n\nNever invent my buyer, their problem, or their losses. If I do not know something, tell me to go find out from a real person.\n\nKeep your questions short and simple. I am not a technical person.\n\nIf any answer I give sounds like a guess, ask me how I know it.\n\nDo not suggest a solution until the very end.\n\nWalk me through these four steps in order:\n\nStep 1, Buyer. Ask me who the buyer is. Push me to name a real person I know, not a customer type. Ask me for the names of three real people from my contacts who have this problem. If I cannot name at least one real person, stop and tell me to fix that first.\n\nStep 2, Intent. Ask me what this person is actually trying to achieve. Help me separate what they want, which is the outcome, from how they do it today, which is just their current method.\n\nStep 3, Problem. Ask me what is getting in their way. Help me phrase it as: this buyer wants this outcome, but this is stopping them.\n\nStep 4, Current way and cost. Ask me how this person solves the problem today. Then ask me what this old way is already costing them in time, money, or lost customers. Make me give a real example that has already happened, not one that might happen.\n\nAfter all four steps, do three things:\n\nOne, show me my finished statement in this exact format: Buyer, Intent, Problem.\n\nTwo, tell me honestly if this looks like a painkiller, something urgent, or a vitamin, something nice to have.\n\nThree, give me the single most important question I should ask my three real people before I build anything.\n\nBegin now with Step 1, and ask me only the first question."
         },
         {
-          "type": "prompt",
-          "id": "value-proposition",
-          "title": "sharpen the value prop",
-          "content": "I'm $NAME. My product solves [describe problem].\n\nHelp me write a one-sentence value proposition that a stranger would understand in 10 seconds.\n\nReach me at $EMAIL if you need more context."
+          "type": "idea-bank",
+          "id": "idea-bank",
+          "title": "idea bank",
+          "description": "AI Starter Idea Bank"
         }
       ]
     },
@@ -66,65 +91,45 @@
       "items": [
         {
           "type": "prompt",
-          "id": "mvp-scope",
-          "title": "define mvp scope",
-          "content": "I'm $NAME scoping an MVP for [product idea].\n\nHelp me cut this down to the smallest version that still delivers real value. List must-have features vs. nice-to-haves.\n\nContact: $EMAIL"
+          "id": "best-way-to-build",
+          "title": "best way to build this app",
+          "content": "Product strategy, MVP scoping, Lovable-first build.\n\nAnalyze the best way to build $IDEA for $CUSTOMER.\n\nContext:\n$CONTEXT\n\nI am going to vibe code this using Lovable, so the recommendation must be practical for a Lovable-first build.\n\nChoose the single best format from this list:\n\n* Landing page\n* Web app\n* Mobile app\n* Ecommerce marketplace\n* Browser extension\n* Presentation\n* Internal tool\n* Personal tool\n\nOutput:\n\nBest choice:\n[Choose one option only]\n\nWhy it works:\n[One clear sentence]\n\nWhy Lovable fits:\n[One clear sentence]\n\nWhy not the others:\n[One short sentence]\n\nSimplest first version:\n[Smallest useful build]\n\nPositioning:\n[One sentence to present this to the customer]"
         },
         {
           "type": "prompt",
-          "id": "tech-stack",
-          "title": "choose a tech stack",
-          "content": "I'm $NAME, a builder with [your skill level]. I want to ship [product type] fast using modern AI tools.\n\nRecommend a pragmatic stack and explain trade-offs for a solo builder.\n\nEmail: $EMAIL"
+          "id": "user-journey-mapping",
+          "title": "user journey mapping",
+          "content": "User journey mapping, MVP workflow, admin-first UX.\n\nCreate a user journey map for $IDEA built for $CUSTOMER.\n\nContext:\n$CONTEXT\n\nImportant:\n\n* If this is an internal tool, map only the internal/admin user journey.\n* External users should appear only as touchpoints, not app users.\n* Keep the journey MVP-friendly.\n\nOutput:\n\n1. Core User Journey\n   Table columns:\n   Stage, User Goal, User Action, System Action, Screen Needed\n\n2. External Touchpoints\n   Table columns:\n   Touchpoint, Where It Happens, What Happens\n\n3. Simplest Core Flow\n   Write as:\n   Step 1 → Step 2 → Step 3 → Step 4\n\n4. Screens Required\n   Table columns:\n   Screen, Purpose, Priority"
         },
         {
-          "type": "starter-picker",
-          "id": "starter-prompt",
-          "title": "starter prompt",
-          "description": "pick what you're shipping. copy a prompt tuned for that stack.",
-          "options": [
-            {
-              "id": "landing-page",
-              "title": "landing page",
-              "subtitle": "custom design.md",
-              "icon": "landing",
-              "content": "I'm $NAME building a marketing landing page for [product idea].\n\nStack: a single landing page with a custom DESIGN.md styleguide (generate one at /resources/design-generator or pick inspiration from /design-repository). Follow the design tokens strictly — colors, typography, spacing, and voice from DESIGN.md only.\n\nHelp me:\n1. Structure the page (hero, problem, solution, social proof, CTA)\n2. Write copy that matches the design.md voice\n3. List the components I need (nav, hero, feature grid, footer)\n4. Ship a polished landing page a stranger would trust in 10 seconds\n\nMy email for follow-up: $EMAIL"
-            },
-            {
-              "id": "web-app",
-              "title": "web app",
-              "subtitle": "shadcn/ui",
-              "icon": "web-app",
-              "content": "I'm $NAME building a web app for [product idea].\n\nStack: React + TypeScript, Shadcn/ui components, Tailwind CSS. Use Shadcn patterns for forms, dialogs, tables, sheets, and navigation. Accessible, keyboard-friendly, responsive.\n\nHelp me:\n1. Define the core screens and user flows for MVP\n2. Map each screen to Shadcn components (Button, Card, Dialog, Form, Table, etc.)\n3. Suggest folder structure and state approach for a solo builder\n4. List what to build first vs. defer\n\nContact: $EMAIL"
-            },
-            {
-              "id": "mobile-app",
-              "title": "mobile app",
-              "subtitle": "ionic react",
-              "icon": "mobile",
-              "content": "I'm $NAME building a mobile app for [product idea].\n\nStack: Ionic React with Capacitor. Use Ionic components (IonPage, IonHeader, IonContent, IonTabBar, IonCard, IonList, IonButton). Mobile-first patterns: tab navigation, pull-to-refresh where appropriate, native-feeling transitions.\n\nHelp me:\n1. Define the tab structure and primary user journeys\n2. Map screens to Ionic components\n3. Handle platform differences (iOS vs Android) pragmatically\n4. Plan for App Store / Play Store launch basics\n\n$EMAIL"
-            }
-          ]
+          "type": "prompt",
+          "id": "feature-spec-from-story",
+          "title": "feature spec based on stories",
+          "content": "Product requirements, feature specification, user stories, Lovable MVP spec.\n\nCreate a feature specification for $IDEA built for $CUSTOMER.\n\nContext:\n$CONTEXT\n\nOutput:\n\n1. Feature List\n   Table columns:\n   Feature ID, Feature Name, Purpose, Priority\n\n2. Detailed Feature Spec\n   For each feature, include:\n\n* What it does\n* Inputs required\n* User actions\n* System actions\n* Output/result\n* Edge cases\n* MVP notes\n\n3. User Stories\n   Table columns:\n   Story ID, Story, Features involved, Remarks\n\n4. MVP Boundary\n   Table columns:\n   Include in MVP, Push Later, Reason\n\n5. Data Entities\n   Table columns:\n   Entity, Fields, Notes\n\n6. Integrations\n   Table columns:\n   Integration, Purpose, Trigger, Result\n\nRules:\n\n* Keep it Lovable-friendly.\n* Avoid overengineering.\n* Do not add features outside the core problem.\n* Make simple MVP assumptions where needed."
         },
         {
-          "type": "design-showcase",
-          "id": "design-inspiration",
-          "title": "design inspiration",
-          "description": "real brand design systems as design.md files. pick one, download, ship on-brand ui.",
-          "href": "/design-repository",
-          "slugs": [
-            "stripe",
-            "notion",
-            "linear.app",
-            "vercel",
-            "figma",
-            "cursor",
-            "framer",
-            "airbnb",
-            "resend",
-            "posthog",
-            "shopify",
-            "supabase"
-          ]
+          "type": "prompt",
+          "id": "design-md-generation",
+          "title": "design.md generation",
+          "content": "Design system, UI specification, design.md, Lovable-ready visual language.\n\nCreate a detailed design.md file for $IDEA built for $CUSTOMER.\n\nContext:\n$CONTEXT\n\nThe design.md should include:\n\n1. Product UI Direction\n\n* What the product should feel like\n* What it should not feel like\n* Primary user context\n\n2. Visual Style\n\n* Layout\n* Colors\n* Typography\n* Cards\n* Spacing\n* Radius\n* Shadows\n* Icons\n* Empty states\n\n3. Design Tokens\n   Include:\n\n* colors\n* typography\n* spacing\n* radius\n* shadows\n* status colors\n\n4. Component System\n   Include:\n\n* App shell\n* Dashboard cards\n* Metric cards\n* List cards\n* Forms\n* Buttons\n* Badges\n* Tabs\n* Filters\n* Navigation\n* Empty states\n* Modals/drawers\n\n5. Screen Layout Guidance\n   For each screen:\n\n* Purpose\n* Main sections\n* Primary actions\n* Secondary actions\n* Important states\n\n6. Interaction Rules\n\n* Loading states\n* Error states\n* Success states\n* Confirmation states\n* Mobile behavior\n\n7. Content Tone\n\n* Button language\n* Empty state language\n* Alert language\n* Reminder language\n\n8. Do / Don't\n   Clear rules for future AI agents.\n\nOutput only the design.md content."
+        },
+        {
+          "type": "prompt",
+          "id": "coming-soon-page",
+          "title": "coming soon page",
+          "content": "Landing page copy, coming soon page, waitlist page, MVP validation.\n\nCreate a coming soon page for $IDEA built for $CUSTOMER.\n\nContext:\n$CONTEXT\n\nThe page should include:\n\n1. Hero Section\n\n* Headline\n* Subheadline\n* Primary CTA\n* Secondary trust line\n\n2. Pain Section\n\n* 3–5 pains the customer currently faces\n\n3. Solution Section\n\n* What the product does\n* Why it is different\n* What outcome it creates\n\n4. Feature Preview\n\n* 5–7 MVP features\n\n5. How It Works\n\n* 3-step flow\n\n6. Who It Is For\n\n* Who it is for\n* Who it is not for\n\n7. Early Access CTA\n\n* Form fields\n* CTA button copy\n* Confirmation message\n\n8. FAQ\n\n* 5 useful questions and answers\n\n9. Final CTA\n\n* Strong closing line\n\nRules:\n\n* Keep copy direct.\n* Do not overhype.\n* Do not mention non-MVP features.\n* Write for business owners, not technical users."
+        },
+        {
+          "type": "prompt",
+          "id": "screens-from-story",
+          "title": "generate list of screens",
+          "content": "Screen architecture, product UX, Lovable app screens, feature-to-screen mapping.\n\nGenerate the complete list of screens required for $IDEA built for $CUSTOMER.\n\nContext:\n$CONTEXT\n\nOutput:\n\n1. Screen List\n   Table columns:\n   Screen ID, Screen Name, Purpose, Priority\n\n2. Screen Details\n   For each screen, include:\n\n* User goal\n* Main content\n* Primary actions\n* Secondary actions\n* Empty state\n* Error state\n* Success state\n* Data shown\n* Features supported\n* Stories supported\n\n3. Navigation Structure\n   Show:\n\n* Main navigation\n* Secondary navigation\n* Detail pages\n* Settings pages\n\n4. Feature-to-Screen Mapping\n   Table columns:\n   Feature, Screen(s), Notes\n\n5. User Story-to-Screen Mapping\n   Table columns:\n   Story ID, Screen(s), Notes\n\n6. MVP Screen Cut\n   Table columns:\n   Must Build, Can Delay, Reason\n\nRules:\n\n* Keep the screen count practical for Lovable.\n* Do not create screens for non-MVP features.\n* If this is an internal tool, do not create customer-facing screens."
+        },
+        {
+          "type": "prompt",
+          "id": "start-prompt-specs",
+          "title": "start prompt with technical keywords / specifications",
+          "content": "Act as a senior product engineer and Lovable prompt architect.\n\nCreate a Lovable build prompt for $IDEA built for $CUSTOMER.\n\nContext:\n$CONTEXT\n\nOutput:\n\n1. Technical Keywords Block\n   Write one comma-separated first line covering:\n\n* app type\n* architecture\n* UI style\n* data model\n* authentication\n* integrations\n* workflows\n* dashboard behavior\n* responsive behavior\n* MVP constraints\n\n2. Lovable Build Prompt\n   The prompt must start with the Technical Keywords Block, then include:\n\n* Product context\n* User type\n* Core workflow\n* Screens to build\n* Features per screen\n* Data entities\n* Integrations\n* Business rules\n* Design style\n* Things to avoid\n\n3. Acceptance Checklist\n   Table columns:\n   Area, Requirement, Pass/Fail Criteria\n\nRules:\n\n* First line must be technical keywords/specifications.\n* Keep it MVP-first.\n* Do not include features outside the confirmed scope."
         }
       ]
     },
@@ -134,15 +139,9 @@
       "items": [
         {
           "type": "prompt",
-          "id": "target-audience",
-          "title": "identify early adopters",
-          "content": "I'm $NAME launching [product].\n\nHelp me identify my first 10 ideal users: where they hang out, what language they use, and how to reach them without a marketing budget.\n\n$EMAIL"
-        },
-        {
-          "type": "prompt",
-          "id": "outreach-message",
-          "title": "write outreach copy",
-          "content": "I'm $NAME reaching out to potential early users for [product].\n\nWrite a short, honest cold message I can send on LinkedIn or email. No hype — builder-to-builder tone.\n\nSign off with my name: $NAME"
+          "id": "gtm-strategist",
+          "title": "gtm strategist",
+          "content": "You are an experienced Go-To-Market Strategist who has launched hundreds of successful SaaS and AI products.\n\nI have built the following product:\n\n$PRODUCT\n\nTarget audience (if known):\n$AUDIENCE\n\nMy goal:\nGet my first 10 paying customers.\n\nYour task is to think like a GTM advisor and create a complete GTM strategy.\n\nFollow these steps.\n\nSTEP 1 — Understand the Product\nSummarize the product in one sentence.\n\nSTEP 2 — ICP\nIdentify the best Ideal Customer Profile.\nInclude:\n- Industry\n- Company size\n- Decision maker\n- Daily responsibilities\n- Biggest frustrations\n- Current alternatives\n- Buying triggers\n\nSTEP 3 — Problem Analysis\nList:\n- Top 10 pain points\n- Current ways they solve it\n- Why those methods fail\n- Cost of not solving it\n\nSTEP 4 — Positioning\nGenerate:\n- Value proposition\n- Positioning statement\n- Elevator pitch\n- One-line pitch\n- Website headline\n- Website subheadline\n\nSTEP 5 — Messaging\nCreate messaging for:\n- LinkedIn profile\n- Website hero section\n- Email introduction\n- Cold DM\n- WhatsApp message\n\nSTEP 6 — Customer Acquisition\nRecommend the best acquisition channels.\n\nRank them.\n\nExplain why.\n\nInclude:\n- LinkedIn\n- Reddit\n- Communities\n- Facebook Groups\n- Events\n- Cold Email\n- Partnerships\n- Referrals\n\nSTEP 7 — First 30 Days\n\nCreate a day-by-day action plan for getting the first 10 customers.\n\nSTEP 8 — Objections\n\nList likely objections.\n\nGenerate responses.\n\nSTEP 9 — Metrics\n\nWhat should I measure every week?\n\nSTEP 10 — AI Recommendations\n\nRecommend AI tools to automate:\n- Content\n- Outreach\n- Sales\n- Follow-up\n- Customer Support\n\nBe practical.\n\nDon't give generic startup advice.\n\nThink like a founder with zero marketing team and limited budget."
         }
       ]
     }

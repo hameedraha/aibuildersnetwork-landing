@@ -46,10 +46,37 @@ export interface WorkshopDesignShowcaseItem {
   slugs: string[];
 }
 
+export interface IdeaBankIdea {
+  title: string;
+  description: string;
+}
+
+export interface IdeaBankCategory {
+  title: string;
+  ideas: IdeaBankIdea[];
+}
+
+export interface IdeaBankData {
+  heading: string;
+  categories: IdeaBankCategory[];
+  bonus: {
+    title: string;
+    ideas: string[];
+  };
+}
+
+export interface WorkshopIdeaBankItem {
+  type: 'idea-bank';
+  id: string;
+  title: string;
+  description?: string;
+}
+
 export type WorkshopItem =
   | WorkshopPromptItem
   | WorkshopStarterPickerItem
-  | WorkshopDesignShowcaseItem;
+  | WorkshopDesignShowcaseItem
+  | WorkshopIdeaBankItem;
 
 export interface WorkshopSection {
   title: string;
