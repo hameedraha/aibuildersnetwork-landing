@@ -1,12 +1,15 @@
 ---
 import type { CollectionEntry } from 'astro:content';
+import type { EventStatus } from '../../lib/event-status';
+import { getEventStatusLabel, toEventDateKey } from '../../lib/event-status';
 import { getEventSlug } from '../utils/eventSlug';
 
 interface Props {
   event: CollectionEntry<'events'>;
+  status: EventStatus;
 }
 
-const { event } = Astro.props;
+const { event, status } = Astro.props;
 const {
   title,
   description,
@@ -18,7 +21,6 @@ const {
   price,
   hosts,
   ticketUrl,
-  status,
 } = event.data;
 
 const day = eventDate.toLocaleDateString('en-US', { day: 'numeric' });
@@ -26,15 +28,25 @@ const month = eventDate.toLocaleDateString('en-US', { month: 'short' });
 const weekday = eventDate.toLocaleDateString('en-US', { weekday: 'long' });
 const year = eventDate.getFullYear();
 const isLive = status === 'live';
+const isPast = status === 'past';
+const statusLabel = getEventStatusLabel(status);
+const eventDateKey = toEventDateKey(eventDate);
 ---
 
-<article class:list={['event-featured', isLive && 'event-featured--live']}>
-  {isLive && (
-    <div class="event-featured__live-badge" role="status">
-      <span class="event-featured__live-dot" aria-hidden="true"></span>
-      happening now
-    </div>
-  )}
+<article
+  class:list={['event-featured', isLive && 'event-featured--live', isPast && 'event-featured--past']}
+  data-event-root
+  data-event-date={eventDateKey}
+  data-event-status={status}
+>
+  <div class="event-featured__live-badge" data-event-live-badge hidden={!isLive} role="status">
+    <span class="event-featured__live-dot" aria-hidden="true"></span>
+    <span data-event-status-text>{statusLabel}</span>
+  </div>
+
+  <div class="event-featured__past-badge" data-event-past-badge hidden={!isPast} role="status">
+    <span data-event-status-text>{statusLabel}</span>
+  </div>
 
   <div class="event-featured__grid">
     <div class="event-featured__main">
@@ -74,9 +86,19 @@ const isLive = status === 'live';
       </div>
 
       <div class="event-featured__actions">
-        <a href={ticketUrl} class="btn-primary" target="_blank" rel="noopener noreferrer">
+        <a
+          href={ticketUrl}
+          class="btn-primary"
+          data-event-ticket
+          hidden={isPast}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           reserve your seat
         </a>
+        <p class="body-md event-featured__past-note" data-event-past-note hidden={!isPast}>
+          registration closed — this workshop has ended.
+        </p>
         <a href={`/events/${getEventSlug(event)}`} class="btn-secondary btn--sm">full details</a>
       </div>
     </div>
@@ -95,7 +117,12 @@ const isLive = status === 'live';
     border-color: rgba(199, 62, 34, 0.35);
     box-shadow: 0 0 0 1px rgba(199, 62, 34, 0.08);
   }
-  .event-featured__live-badge {
+  .event-featured--past {
+    border-color: rgba(26, 26, 26, 0.1);
+    opacity: 0.96;
+  }
+  .event-featured__live-badge,
+  .event-featured__past-badge {
     display: inline-flex;
     align-items: center;
     gap: 8px;
@@ -104,11 +131,22 @@ const isLive = status === 'live';
     font-weight: 500;
     letter-spacing: 0.12em;
     text-transform: uppercase;
+    padding: 8px var(--sp-md);
+    border-bottom: 1px solid rgba(26, 26, 26, 0.08);
+    width: 100%;
+  }
+  .event-featured__live-badge {
     color: var(--c-primary);
     background: rgba(199, 62, 34, 0.08);
-    padding: 8px var(--sp-md);
-    border-bottom: 1px solid rgba(199, 62, 34, 0.12);
-    width: 100%;
+    border-bottom-color: rgba(199, 62, 34, 0.12);
+  }
+  .event-featured__past-badge {
+    color: var(--c-muted);
+    background: rgba(26, 26, 26, 0.04);
+  }
+  .event-featured__live-badge[hidden],
+  .event-featured__past-badge[hidden] {
+    display: none;
   }
   .event-featured__live-dot {
     width: 8px;
@@ -220,6 +258,10 @@ const isLive = status === 'live';
     flex-direction: column;
     gap: var(--sp-sm);
     margin-top: auto;
+  }
+  .event-featured__past-note {
+    margin: 0;
+    color: var(--c-muted);
   }
   .event-featured__actions .btn-primary,
   .event-featured__actions .btn-secondary {

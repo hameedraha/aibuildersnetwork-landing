@@ -22,7 +22,6 @@ pnpm-debug.log*
 .env.production
 
 # workshop certificate data (real CSV + generated registry)
-data/workshop-certificates.csv
 src/data/workshop-certificates.json
 
 # macOS-specific files

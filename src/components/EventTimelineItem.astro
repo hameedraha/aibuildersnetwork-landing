@@ -1,25 +1,34 @@
 ---
 import type { CollectionEntry } from 'astro:content';
+import type { EventStatus } from '../../lib/event-status';
+import { getEventStatusLabel, toEventDateKey } from '../../lib/event-status';
 import { getEventSlug } from '../utils/eventSlug';
 
 interface Props {
   event: CollectionEntry<'events'>;
+  status: EventStatus;
   showLine?: boolean;
 }
 
-const { event, showLine = true } = Astro.props;
-const { title, description, eventDate, format, location, price, status, ticketUrl } = event.data;
+const { event, status, showLine = true } = Astro.props;
+const { title, description, eventDate, format, location, price, ticketUrl } = event.data;
 
 const dateLabel = eventDate.toLocaleDateString('en-US', {
   month: 'short',
   day: 'numeric',
   year: 'numeric',
 });
-const statusLabel =
-  status === 'live' ? 'happening now' : status === 'upcoming' ? 'upcoming' : 'past';
+const statusLabel = getEventStatusLabel(status);
+const eventDateKey = toEventDateKey(eventDate);
+const isPast = status === 'past';
 ---
 
-<li class:list={['events-timeline__item', `events-timeline__item--${status}`]}>
+<li
+  class:list={['events-timeline__item', `events-timeline__item--${status}`]}
+  data-event-root
+  data-event-date={eventDateKey}
+  data-event-status={status}
+>
   <div class="events-timeline__rail" aria-hidden="true">
     <span class="events-timeline__marker"></span>
     {showLine && <span class="events-timeline__line"></span>}
@@ -29,7 +38,7 @@ const statusLabel =
     <header class="events-timeline__header">
       <time class="eyebrow" datetime={eventDate.toISOString()}>{dateLabel}</time>
       <span class:list={['events-timeline__status', status === 'live' && 'events-timeline__status--live']}>
-        {statusLabel}
+        <span data-event-status-text>{statusLabel}</span>
       </span>
     </header>
 
@@ -46,11 +55,16 @@ const statusLabel =
 
     <div class="events-timeline__links">
       <a href={`/events/${getEventSlug(event)}`} class="events-timeline__link">details →</a>
-      {(status === 'live' || status === 'upcoming') && (
-        <a href={ticketUrl} class="events-timeline__link events-timeline__link--accent" target="_blank" rel="noopener noreferrer">
-          tickets →
-        </a>
-      )}
+      <a
+        href={ticketUrl}
+        class="events-timeline__link events-timeline__link--accent"
+        data-event-ticket
+        hidden={isPast}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        tickets →
+      </a>
     </div>
   </article>
 </li>

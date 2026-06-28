@@ -3,16 +3,22 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import EventFeaturedCard from '../../components/EventFeaturedCard.astro';
 import EventTimelineItem from '../../components/EventTimelineItem.astro';
 import { getCollection } from 'astro:content';
+import { getFeaturedEyebrow } from '../../../lib/event-status';
+import {
+  pickFeaturedEvent,
+  resolveEvents,
+  sortEventsByDate,
+} from '../../utils/events';
 
-const events = (await getCollection('events') ?? []).sort(
-  (a, b) => a.data.eventDate.valueOf() - b.data.eventDate.valueOf()
-);
+const rawEvents = sortEventsByDate(await getCollection('events') ?? []);
+const resolvedEvents = resolveEvents(rawEvents);
 
-const live = events.filter((e) => e.data.status === 'live');
-const upcoming = events.filter((e) => e.data.status === 'upcoming');
-const past = events.filter((e) => e.data.status === 'past');
-const featured = live[0] ?? upcoming[0] ?? null;
-const timelineRest = events.filter((e) => e.id !== featured?.id);
+const live = resolvedEvents.filter((entry) => entry.status === 'live');
+const upcoming = resolvedEvents.filter((entry) => entry.status === 'upcoming');
+const past = resolvedEvents.filter((entry) => entry.status === 'past');
+const featured = pickFeaturedEvent(resolvedEvents);
+const timelineRest = resolvedEvents.filter((entry) => entry.event.id !== featured?.event.id);
+const hasActiveEvents = live.length > 0 || upcoming.length > 0;
 ---
 
 <BaseLayout
@@ -24,7 +30,9 @@ const timelineRest = events.filter((e) => e.id !== featured?.id);
       <span class="eyebrow eyebrow--on-ink">gatherings</span>
       <h1 class="display-l" id="events-heading">events.</h1>
       <p class="body-lg events-hero__desc">
-        workshops and in-person sessions for builders shipping with ai. what's on now, what's next.
+        {hasActiveEvents
+          ? "workshops and in-person sessions for builders shipping with ai. what's on now, what's next."
+          : 'workshops and in-person sessions for builders shipping with ai. browse past gatherings and what is coming next.'}
       </p>
       <div class="events-hero__stats">
         <div class="events-hero__stat">
@@ -48,10 +56,10 @@ const timelineRest = events.filter((e) => e.id !== featured?.id);
       <div class="section-divider" role="separator"></div>
       <section class="section--neutral events-featured-section" aria-label="featured event">
         <div class="container">
-          <span class="eyebrow">
-            {featured.data.status === 'live' ? 'happening now' : 'next up'}
+          <span class="eyebrow" data-event-featured-eyebrow>
+            {getFeaturedEyebrow(featured.status)}
           </span>
-          <EventFeaturedCard event={featured} />
+          <EventFeaturedCard event={featured.event} status={featured.status} />
         </div>
       </section>
     </>
@@ -65,8 +73,12 @@ const timelineRest = events.filter((e) => e.id !== featured?.id);
       <h2 class="display-l events-timeline__heading">the schedule.</h2>
 
       <ol class="events-timeline">
-        {timelineRest.map((event, i) => (
-          <EventTimelineItem event={event} showLine={i < timelineRest.length - 1} />
+        {timelineRest.map((entry, i) => (
+          <EventTimelineItem
+            event={entry.event}
+            status={entry.status}
+            showLine={i < timelineRest.length - 1}
+          />
         ))}
 
         <li class="events-timeline__item events-timeline__item--future">
@@ -91,6 +103,13 @@ const timelineRest = events.filter((e) => e.id !== featured?.id);
     </div>
   </section>
 </BaseLayout>
+
+<script>
+  import { initEventStatus } from '../../scripts/event-status';
+
+  initEventStatus();
+  document.addEventListener('astro:page-load', initEventStatus);
+</script>
 
 <style>
   .events-hero {

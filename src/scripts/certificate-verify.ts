@@ -9,43 +9,105 @@ function normalizeCertificateId(input: string): string | null {
   return CERTIFICATE_ID_RE.test(normalized) ? normalized : null;
 }
 
-function stampMarkup(uniqueId: string): string {
-  return `
-    <div class="cert-stamp" aria-hidden="true">
-      <div class="cert-stamp__shadow"></div>
-      <div class="cert-stamp__body cert-stamp__body--animate">
-        <svg class="cert-stamp__svg" viewBox="0 0 200 200" aria-hidden="true">
-          <defs>
-            <path id="cert-stamp-arc-top-${uniqueId}" d="M 34,100 A 66,66 0 0,1 166,100" fill="none" />
-            <path id="cert-stamp-arc-bottom-${uniqueId}" d="M 166,100 A 66,66 0 0,1 34,100" fill="none" />
-            <filter id="cert-stamp-roughen-${uniqueId}" x="-10%" y="-10%" width="120%" height="120%">
-              <feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="3" seed="8" result="noise" />
-              <feDisplacementMap in="SourceGraphic" in2="noise" scale="1.4" xChannelSelector="R" yChannelSelector="G" />
-            </filter>
-          </defs>
-          <g class="cert-stamp__graphic" filter="url(#cert-stamp-roughen-${uniqueId})">
-            <circle class="cert-stamp__ring cert-stamp__ring--outer" cx="100" cy="100" r="88" />
-            <circle class="cert-stamp__ring cert-stamp__ring--inner" cx="100" cy="100" r="72" />
-            <text class="cert-stamp__arc-text cert-stamp__arc-text--top">
-              <textPath href="#cert-stamp-arc-top-${uniqueId}" startOffset="50%" text-anchor="middle">
-                AI BUILDERS NETWORK
-              </textPath>
-            </text>
-            <text class="cert-stamp__arc-text cert-stamp__arc-text--bottom">
-              <textPath href="#cert-stamp-arc-bottom-${uniqueId}" startOffset="50%" text-anchor="middle">
-                VERIFIED
-              </textPath>
-            </text>
-            <rect class="cert-stamp__mark" x="84" y="84" width="12" height="12" rx="2" />
-            <rect class="cert-stamp__mark" x="104" y="84" width="12" height="12" rx="2" />
-            <rect class="cert-stamp__mark" x="84" y="104" width="12" height="12" rx="2" />
-            <rect class="cert-stamp__mark cert-stamp__mark--accent" x="104" y="104" width="12" height="12" rx="2" />
-            <path class="cert-stamp__check" d="M 74 104 L 93 123 L 130 81" />
-          </g>
-        </svg>
+function showSuccess(
+  successEl: HTMLElement,
+  layoutEl: HTMLElement,
+  asideEl: HTMLElement,
+  panelEl: HTMLElement,
+  input: HTMLInputElement,
+  name: string,
+  certificateId: string
+) {
+  const verifiedOn = new Intl.DateTimeFormat('en-IN', {
+    dateStyle: 'medium',
+    timeStyle: 'short',
+  }).format(new Date());
+
+  layoutEl.classList.add('cert-portal__layout--verified');
+  asideEl.hidden = true;
+  successEl.hidden = false;
+  successEl.innerHTML = `
+    <article class="cert-verify-success" aria-label="verification successful">
+      <div class="cert-verify-success__banner" aria-hidden="true"></div>
+
+      <div class="cert-record__top cert-verify-success__top">
+        <div class="cert-verify-success__brand">
+          <img src="/aibn-logo.svg" alt="" class="cert-verify-success__logo" width="28" height="28" />
+          <span class="cert-record__badge eyebrow">registry result</span>
+        </div>
+        <span class="cert-verify-success__pill">
+          <span class="cert-verify-success__pill-dot" aria-hidden="true"></span>
+          verified
+        </span>
       </div>
-    </div>
+
+      <div class="cert-verify-success__hero">
+        <div class="cert-verify-success__icon" aria-hidden="true">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+          </svg>
+        </div>
+        <div class="cert-verify-success__intro">
+          <h2 class="cert-verify-success__title">verification successful</h2>
+          <p class="body-md cert-verify-success__lead">
+            this credential is on file with ai builders network.
+          </p>
+          <p class="cert-verify-success__meta">checked ${escapeHtml(verifiedOn)}</p>
+        </div>
+      </div>
+
+      <section class="cert-verify-success__holder" aria-label="credential holder">
+        <span class="cert-verify-success__holder-label">issued to</span>
+        <p class="cert-verify-success__holder-name">${escapeHtml(name)}</p>
+      </section>
+
+      <dl class="cert-verify-success__details">
+        <div class="cert-verify-success__row">
+          <dt>certificate number</dt>
+          <dd><code class="cert-verify-success__code">${escapeHtml(certificateId)}</code></dd>
+        </div>
+        <div class="cert-verify-success__row">
+          <dt>program</dt>
+          <dd>vibe coding: the right way</dd>
+        </div>
+        <div class="cert-verify-success__row">
+          <dt>issuer</dt>
+          <dd>ai builders network</dd>
+        </div>
+        <div class="cert-verify-success__row">
+          <dt>registry status</dt>
+          <dd><span class="cert-verify-success__status">active · authenticated</span></dd>
+        </div>
+      </dl>
+
+      <div class="cert-verify-success__actions">
+        <button type="button" class="btn-secondary cert-verify-success__reset" data-verify-reset>
+          verify another certificate
+        </button>
+      </div>
+    </article>
   `;
+
+  successEl.querySelector<HTMLButtonElement>('[data-verify-reset]')?.addEventListener('click', () => {
+    resetVerification(layoutEl, asideEl, panelEl, successEl, input);
+  });
+}
+
+function resetVerification(
+  layoutEl: HTMLElement,
+  asideEl: HTMLElement,
+  panelEl: HTMLElement,
+  successEl: HTMLElement,
+  input: HTMLInputElement
+) {
+  layoutEl.classList.remove('cert-portal__layout--verified');
+  asideEl.hidden = false;
+  panelEl.hidden = false;
+  successEl.hidden = true;
+  successEl.innerHTML = '';
+  input.value = '';
+  input.focus();
 }
 
 function showError(errorEl: HTMLElement, recordEl: HTMLElement) {
@@ -65,57 +127,6 @@ function hideError(errorEl: HTMLElement, recordEl: HTMLElement) {
 
 function setLoading(loadingEl: HTMLElement, isLoading: boolean) {
   loadingEl.hidden = !isLoading;
-}
-
-function showSuccess(
-  successEl: HTMLElement,
-  layoutEl: HTMLElement,
-  asideEl: HTMLElement,
-  name: string,
-  certificateId: string
-) {
-  const stampId = `s${Date.now()}`;
-  layoutEl.classList.add('cert-portal__layout--verified');
-  asideEl.hidden = true;
-  successEl.hidden = false;
-  successEl.innerHTML = `
-    <article class="cert-diploma" aria-label="verified certificate">
-      <div class="cert-diploma__frame">
-        <div class="cert-diploma__inner">
-          <header class="cert-diploma__header">
-            <img src="/aibn-logo.svg" alt="" class="cert-diploma__logo" aria-hidden="true" />
-            <span class="eyebrow cert-diploma__issuer">ai builders network</span>
-            <h2 class="cert-diploma__title">certificate of completion</h2>
-            <div class="cert-diploma__rule" aria-hidden="true"></div>
-          </header>
-
-          <p class="cert-diploma__awarded body-md">this is to certify that</p>
-          <p class="cert-diploma__name">${escapeHtml(name)}</p>
-          <p class="cert-diploma__body body-md">
-            has successfully completed the in-person workshop
-            <strong>vibe coding: the right way</strong>
-            and is recorded in the official ai builders network credential registry.
-          </p>
-
-          <footer class="cert-diploma__footer">
-            <div class="cert-diploma__signatory">
-              <span class="cert-diploma__sign-line" aria-hidden="true"></span>
-              <span class="cert-diploma__sign-label">authorized issuer</span>
-              <span class="cert-diploma__sign-name">ai builders network</span>
-            </div>
-            <div class="cert-diploma__id">
-              <span class="cert-diploma__id-label">credential no.</span>
-              <span class="cert-diploma__id-value">${escapeHtml(certificateId)}</span>
-            </div>
-          </footer>
-
-          <div class="cert-diploma__stamp">
-            ${stampMarkup(stampId)}
-          </div>
-        </div>
-      </div>
-    </article>
-  `;
 }
 
 function escapeHtml(value: string): string {
@@ -174,7 +185,7 @@ export function initCertificateVerification() {
 
       if (data.valid) {
         panelEl.hidden = true;
-        showSuccess(successEl, layoutEl, asideEl, data.name, normalized);
+        showSuccess(successEl, layoutEl, asideEl, panelEl, input, data.name, normalized);
       } else {
         showError(errorEl, recordEl);
       }

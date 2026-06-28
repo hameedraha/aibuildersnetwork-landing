@@ -58,13 +58,13 @@ cp data/workshop-certificates.example.csv data/workshop-certificates.csv
 | Column | Description |
 | :----- | :---------- |
 | `name` | Certificate holder name (shown when verified) |
-| `phone` | Stored for records; never shown on the verification page |
+| `check_in` | `TRUE` to include in the live registry; `FALSE` rows are kept for records only |
 | `certificate_id` | Format `CERT/AIBN/2026/W01/1` through `CERT/AIBN/2026/W01/50` |
 
-`npm run build` and `npm run dev` run `scripts/build-certificates.mjs`, which validates the CSV and writes `src/data/workshop-certificates.json`. That registry is bundled into `functions/api/workshop-certificate.ts` on Cloudflare Pages.
+`npm run build` and `npm run dev` run `scripts/build-certificates.mjs`, which validates the CSV and writes `src/data/workshop-certificates.json`. Only rows with `check_in=TRUE` are published. That registry is bundled into `functions/api/workshop-certificate.ts` on Cloudflare Pages.
 
-- **Real CSV:** `data/workshop-certificates.csv` (gitignored — add on your machine or in CI before build)
-- **Example CSV:** `data/workshop-certificates.example.csv` (committed)
+- **Registry CSV:** `data/workshop-certificates.csv` (committed)
+- **Example CSV:** `data/workshop-certificates.example.csv` (format reference)
 
 Locally, `npm run dev` serves `POST /api/workshop-certificate` via middleware in `astro.config.mjs` using the generated JSON.
 
@@ -149,7 +149,7 @@ Token resolution (`scripts/lib/resolve-tokens.mjs`) dereferences `{colors.*}`, `
 
 ```text
 /
-├── data/                    # workshop-certificates CSV (real file gitignored)
+├── data/                    # workshop-certificates CSV + example
 ├── functions/api/           # Cloudflare Pages Functions (registration + certificates)
 ├── lib/                     # Shared server logic (registration, certificate verification)
 ├── public/                  # Static assets + synced design-repo files
