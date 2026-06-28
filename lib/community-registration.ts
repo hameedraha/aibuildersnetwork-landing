@@ -1,5 +1,8 @@
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+export const COMMUNITY_REGISTRATION_WEBHOOK_URL =
+  'https://n8n.srv833787.hstgr.cloud/webhook/site-registration-link';
+
 function isValidUrl(value: string): boolean {
   try {
     new URL(value);
