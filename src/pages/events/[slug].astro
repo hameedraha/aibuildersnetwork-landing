@@ -1,6 +1,7 @@
 ---
 import EventLayout from '../../layouts/EventLayout.astro';
 import { getCollection, render } from 'astro:content';
+import { resolveEventStatus, toEventDateKey } from '../../../lib/event-status';
 
 export async function getStaticPaths() {
   const events = await getCollection('events');
@@ -18,8 +19,11 @@ export async function getStaticPaths() {
 
 const { event } = Astro.props;
 const { Content, headings } = await render(event);
-const { title, description, eventDate, format, location, city, venue, duration, price, hosts, ticketUrl, status } =
+const { title, description, eventDate, format, location, city, venue, duration, price, hosts, ticketUrl } =
   event.data;
+
+const status = resolveEventStatus(eventDate);
+const eventDateKey = toEventDateKey(eventDate);
 
 const tocHeadings = (headings ?? [])
   .filter((h) => h.depth >= 2 && h.depth <= 3)
@@ -30,6 +34,7 @@ const tocHeadings = (headings ?? [])
   title={title}
   description={description}
   eventDate={eventDate}
+  eventDateKey={eventDateKey}
   format={format}
   location={location}
   city={city}

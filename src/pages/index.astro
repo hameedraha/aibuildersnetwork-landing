@@ -3,21 +3,16 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import ResourceCard from '../components/ResourceCard.astro';
 import { getCollection } from 'astro:content';
 import { getEventSlug } from '../utils/eventSlug';
+import { pickHomeEvent, resolveEvents, sortEventsByDate } from '../utils/events';
 
 const latestResources = (await getCollection('resources') ?? [])
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
   .slice(0, 2);
 
-const nextEvent = (await getCollection('events') ?? [])
-  .filter((e) => e.data.status === 'upcoming' || e.data.status === 'live')
-  .sort((a, b) => {
-    if (a.data.status === 'live' && b.data.status !== 'live') return -1;
-    if (b.data.status === 'live' && a.data.status !== 'live') return 1;
-    return a.data.eventDate.valueOf() - b.data.eventDate.valueOf();
-  })[0];
+const homeEvent = pickHomeEvent(resolveEvents(sortEventsByDate(await getCollection('events') ?? [])));
 
-const eventDateLabel = nextEvent
-  ? nextEvent.data.eventDate.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })
+const eventDateLabel = homeEvent
+  ? homeEvent.event.data.eventDate.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })
   : '';
 ---
 
@@ -495,26 +490,26 @@ const eventDateLabel = nextEvent
   <!-- ═══════════════════════════════
        NEXT EVENT
   ═══════════════════════════════ -->
-  {nextEvent && (
+  {homeEvent && (
     <>
       <section class="next-event section--neutral" aria-labelledby="event-heading">
         <div class="container">
           <div class="next-event__header">
-            <span class="eyebrow">
-              {nextEvent.data.status === 'live' ? 'happening now' : 'next event'}
+            <span class="eyebrow" data-event-home-eyebrow>
+              {homeEvent.status === 'live' ? 'happening now' : 'next event'}
             </span>
             <a href="/events" class="btn-secondary btn--sm">all events</a>
           </div>
           <div class="event-card">
             <div class="event-card__body">
-              <p class="event-card__tag eyebrow">{nextEvent.data.format}</p>
+              <p class="event-card__tag eyebrow">{homeEvent.event.data.format}</p>
               <h2 class="display-l" id="event-heading">
-                <a href={`/events/${getEventSlug(nextEvent)}`}>{nextEvent.data.title}</a>
+                <a href={`/events/${getEventSlug(homeEvent.event)}`}>{homeEvent.event.data.title}</a>
               </h2>
-              <p class="body-lg event-card__desc">{nextEvent.data.description}</p>
+              <p class="body-lg event-card__desc">{homeEvent.event.data.description}</p>
               <div class="event-hosts">
                 <span class="eyebrow">led by</span>
-                <p class="body-md">{nextEvent.data.hosts.join(' · ')}</p>
+                <p class="body-md">{homeEvent.event.data.hosts.join(' · ')}</p>
               </div>
             </div>
             <div class="event-card__meta">
@@ -524,14 +519,14 @@ const eventDateLabel = nextEvent
               </div>
               <div class="event-meta-item">
                 <span class="eyebrow">location</span>
-                <span class="body-md">{nextEvent.data.location}</span>
+                <span class="body-md">{homeEvent.event.data.location}</span>
               </div>
               <div class="event-meta-item">
                 <span class="eyebrow">price</span>
-                <span class="heading">{nextEvent.data.price}</span>
+                <span class="heading">{homeEvent.event.data.price}</span>
               </div>
-              <a href={nextEvent.data.ticketUrl} class="btn-primary" target="_blank" rel="noopener noreferrer">reserve your seat</a>
-              <a href={`/events/${getEventSlug(nextEvent)}`} class="btn-secondary btn--sm" style="text-align:center;">event details</a>
+              <a href={homeEvent.event.data.ticketUrl} class="btn-primary" target="_blank" rel="noopener noreferrer">reserve your seat</a>
+              <a href={`/events/${getEventSlug(homeEvent.event)}`} class="btn-secondary btn--sm" style="text-align:center;">event details</a>
             </div>
           </div>
         </div>

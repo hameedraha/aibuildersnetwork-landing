@@ -1,4 +1,6 @@
 ---
+import type { EventStatus } from '../../lib/event-status';
+
 interface Heading {
   depth: number;
   text: string;
@@ -12,7 +14,7 @@ interface Props {
   city: string;
   price: string;
   ticketUrl: string;
-  status: 'live' | 'upcoming' | 'past';
+  status: EventStatus;
 }
 
 const { headings, eventDate, location, city, price, ticketUrl, status } = Astro.props;

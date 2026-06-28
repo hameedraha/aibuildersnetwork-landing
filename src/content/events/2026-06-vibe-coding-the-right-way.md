@@ -11,7 +11,6 @@ duration: 4 hours
 price: "₹3,499"
 hosts: ["hameed", "leo", "hari"]
 ticketUrl: https://the-ai-vibecoding-workshop.vercel.app/
-status: live
 ---
 
 Everyone is building apps. very few are building products people actually want. this workshop teaches you how to go from idea to product to customer using modern ai tools and proven startup thinking.

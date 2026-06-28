@@ -1,6 +1,8 @@
 ---
 import BaseLayout from './BaseLayout.astro';
 import EventSidebar from '../components/EventSidebar.astro';
+import { getEventStatusLabel } from '../../lib/event-status';
+import type { EventStatus } from '../../lib/event-status';
 
 interface Heading {
   depth: number;
@@ -12,6 +14,7 @@ interface Props {
   title: string;
   description: string;
   eventDate: Date;
+  eventDateKey: string;
   format: string;
   location: string;
   city: string;
@@ -20,7 +23,7 @@ interface Props {
   price: string;
   hosts: string[];
   ticketUrl: string;
-  status: 'live' | 'upcoming' | 'past';
+  status: EventStatus;
   headings: Heading[];
 }
 
@@ -28,6 +31,7 @@ const {
   title,
   description,
   eventDate,
+  eventDateKey,
   format,
   location,
   city,
@@ -42,6 +46,7 @@ const {
 
 const isLive = status === 'live';
 const isPast = status === 'past';
+const statusLabel = getEventStatusLabel(status);
 
 const dateLabel = eventDate.toLocaleDateString('en-US', {
   weekday: 'long',
@@ -52,23 +57,24 @@ const dateLabel = eventDate.toLocaleDateString('en-US', {
 ---
 
 <BaseLayout title={`${title} · events`} description={description}>
-  <article class="event-article">
-    <header class="event-hero section--ink" aria-labelledby="event-title">
+  <article
+    class="event-article"
+    data-event-root
+    data-event-date={eventDateKey}
+    data-event-status={status}
+  >
+    <header class="event-hero section--ink event-hero" aria-labelledby="event-title">
       <div class="container event-hero__inner">
         <a href="/events" class="back-link back-link--on-ink">← all events</a>
 
         <div class="event-hero__badges">
-          {isLive && (
-            <span class="event-hero__live" role="status">
-              <span class="event-hero__live-dot" aria-hidden="true"></span>
-              happening now
-            </span>
-          )}
-          {!isLive && (
-            <span class:list={['event-hero__status', isPast && 'event-hero__status--past']}>
-              {isPast ? 'past event' : 'upcoming'}
-            </span>
-          )}
+          <span class="event-hero__live" data-event-live-badge hidden={!isLive} role="status">
+            <span class="event-hero__live-dot" aria-hidden="true"></span>
+            <span data-event-status-text>{statusLabel}</span>
+          </span>
+          <span class:list={['event-hero__status', isPast && 'event-hero__status--past']} hidden={isLive}>
+            <span data-event-status-text>{statusLabel}</span>
+          </span>
           <span class="eyebrow eyebrow--on-ink event-hero__format">{format}</span>
         </div>
 
@@ -113,13 +119,19 @@ const dateLabel = eventDate.toLocaleDateString('en-US', {
               </div>
             </dl>
 
-            {!isPast ? (
-              <a href={ticketUrl} class="btn-primary event-hero__cta" target="_blank" rel="noopener noreferrer">
-                {isLive ? 'reserve your seat' : 'get tickets'}
-              </a>
-            ) : (
-              <p class="body-md event-hero__past">registration closed</p>
-            )}
+            <a
+              href={ticketUrl}
+              class="btn-primary event-hero__cta"
+              data-event-ticket
+              hidden={isPast}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {isLive ? 'reserve your seat' : 'get tickets'}
+            </a>
+            <p class="body-md event-hero__past" data-event-past-note hidden={!isPast}>
+              registration closed — this workshop has ended.
+            </p>
           </aside>
         </div>
       </div>
@@ -194,6 +206,13 @@ const dateLabel = eventDate.toLocaleDateString('en-US', {
     initTocSpy();
     document.addEventListener('astro:page-load', initTocSpy);
   </script>
+
+  <script>
+    import { initEventStatus } from '../scripts/event-status';
+
+    initEventStatus();
+    document.addEventListener('astro:page-load', initEventStatus);
+  </script>
 </BaseLayout>
 
 <style>
@@ -237,6 +256,10 @@ const dateLabel = eventDate.toLocaleDateString('en-US', {
     padding: 6px 12px;
     border-radius: var(--r-sm);
     border: 1px solid rgba(199, 62, 34, 0.25);
+  }
+  .event-hero__live[hidden],
+  .event-hero__status[hidden] {
+    display: none;
   }
   .event-hero__live-dot {
     width: 7px;

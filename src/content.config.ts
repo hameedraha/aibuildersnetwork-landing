@@ -61,7 +61,6 @@ const events = defineCollection({
     price: z.string(),
     hosts: z.array(z.string()),
     ticketUrl: z.string().url(),
-    status: z.enum(['live', 'upcoming', 'past']).default('upcoming'),
     duration: z.string().optional(),
     venue: z.string().optional(),
   }),

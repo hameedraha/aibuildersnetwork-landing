@@ -9,6 +9,21 @@ const outJson = join(root, 'src/data/workshop-certificates.json');
 
 const CERTIFICATE_ID_RE = /^CERT\/AIBN\/2026\/W01\/(?:[1-9]|[1-4]\d|50)$/;
 
+function detectDelimiter(headerLine) {
+  const tabs = (headerLine.match(/\t/g) || []).length;
+  const commas = (headerLine.match(/,/g) || []).length;
+  return tabs > commas ? '\t' : ',';
+}
+
+function splitRow(line, delimiter) {
+  return line.split(delimiter).map((col) => col.trim());
+}
+
+function parseCheckIn(value) {
+  const normalized = value.trim().toUpperCase();
+  return normalized === 'TRUE' || normalized === '1' || normalized === 'YES';
+}
+
 function parseCsv(text) {
   const lines = text
     .split(/\r?\n/)
@@ -19,23 +34,25 @@ function parseCsv(text) {
     throw new Error('CSV must include a header row and at least one data row.');
   }
 
-  const header = lines[0].split(',').map((col) => col.trim().toLowerCase());
+  const delimiter = detectDelimiter(lines[0]);
+  const header = splitRow(lines[0], delimiter).map((col) => col.toLowerCase());
   const nameIdx = header.indexOf('name');
-  const phoneIdx = header.indexOf('phone');
+  const checkInIdx = header.indexOf('check_in');
   const idIdx = header.indexOf('certificate_id');
 
-  if (nameIdx === -1 || phoneIdx === -1 || idIdx === -1) {
-    throw new Error('CSV header must include: name, phone, certificate_id');
+  if (nameIdx === -1 || idIdx === -1) {
+    throw new Error('CSV header must include: name, certificate_id');
   }
 
   return lines.slice(1).map((line, rowIndex) => {
-    const cols = line.split(',').map((col) => col.trim());
+    const cols = splitRow(line, delimiter);
     const name = cols[nameIdx] ?? '';
-    const phone = cols[phoneIdx] ?? '';
     const certificateId = (cols[idIdx] ?? '').toUpperCase();
+    const checkedIn =
+      checkInIdx === -1 ? true : parseCheckIn(cols[checkInIdx] ?? '');
 
-    if (!name || !phone || !certificateId) {
-      throw new Error(`Row ${rowIndex + 2}: name, phone, and certificate_id are required.`);
+    if (!name || !certificateId) {
+      throw new Error(`Row ${rowIndex + 2}: name and certificate_id are required.`);
     }
 
     if (!CERTIFICATE_ID_RE.test(certificateId)) {
@@ -44,7 +61,7 @@ function parseCsv(text) {
       );
     }
 
-    return { name, phone, certificateId };
+    return { name, certificateId, checkedIn };
   });
 }
 
@@ -53,6 +70,8 @@ function buildRegistry(rows) {
   const seen = new Set();
 
   for (const row of rows) {
+    if (!row.checkedIn) continue;
+
     if (seen.has(row.certificateId)) {
       throw new Error(`Duplicate certificate_id: ${row.certificateId}`);
     }
