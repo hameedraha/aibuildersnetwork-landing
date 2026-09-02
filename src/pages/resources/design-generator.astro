@@ -38,7 +38,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
           <legend class="eyebrow">colors</legend>
           <label class="generator-label">
             <span class="heading">primary</span>
-            <input type="color" name="primary" value="#C73E22" class="generator-input generator-input--color" />
+            <input type="color" name="primary" value="#E63B1F" class="generator-input generator-input--color" />
           </label>
           <label class="generator-label">
             <span class="heading">ink (text dark)</span>
@@ -101,7 +101,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
   function generateDesignMd(data: FormData): string {
     const name = (data.get('name') as string) || 'my product';
     const description = (data.get('description') as string) || '';
-    const primary = (data.get('primary') as string) || '#C73E22';
+    const primary = (data.get('primary') as string) || '#E63B1F';
     const ink = (data.get('ink') as string) || '#1A1A1A';
     const neutral = (data.get('neutral') as string) || '#F4F1EA';
     const muted = (data.get('muted') as string) || '#5C5C5C';
