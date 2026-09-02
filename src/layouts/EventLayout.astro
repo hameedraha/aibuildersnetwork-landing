@@ -25,6 +25,12 @@ interface Props {
   ticketUrl: string;
   status: EventStatus;
   headings: Heading[];
+  schedule?: { time?: string; title: string; description?: string }[];
+  includes?: string[];
+  outcomes?: string[];
+  whoFor?: string[];
+  instructors?: { name: string; title?: string; bio: string; photo?: string; linkedin?: string }[];
+  videoGallery?: { title?: string; url: string; thumbnail?: string; platform?: 'youtube' | 'vimeo' | 'other' }[];
 }
 
 const {
@@ -42,11 +48,18 @@ const {
   ticketUrl,
   status,
   headings,
+  schedule = [],
+  includes = [],
+  outcomes = [],
+  whoFor = [],
+  instructors = [],
+  videoGallery = [],
 } = Astro.props;
 
 const isLive = status === 'live';
 const isPast = status === 'past';
 const statusLabel = getEventStatusLabel(status);
+const hasToc = headings.length > 0;
 
 const dateLabel = eventDate.toLocaleDateString('en-US', {
   weekday: 'long',
@@ -54,6 +67,10 @@ const dateLabel = eventDate.toLocaleDateString('en-US', {
   day: 'numeric',
   year: 'numeric',
 });
+
+const dayNum = eventDate.toLocaleDateString('en-US', { day: 'numeric' });
+const monthShort = eventDate.toLocaleDateString('en-US', { month: 'short' });
+const weekdayShort = eventDate.toLocaleDateString('en-US', { weekday: 'short' });
 ---
 
 <BaseLayout title={`${title} · events`} description={description}>
@@ -99,11 +116,10 @@ const dateLabel = eventDate.toLocaleDateString('en-US', {
 
           <aside class="event-hero__card" aria-label="event details">
             <div class="event-hero__card-date">
-              <span class="event-hero__card-day">
-                {eventDate.toLocaleDateString('en-US', { day: 'numeric' })}
-              </span>
-              <span class="event-hero__card-month">
-                {eventDate.toLocaleDateString('en-US', { month: 'short' })}
+              <span class="event-hero__card-day">{dayNum}</span>
+              <span class="event-hero__card-monthwrap">
+                <span class="event-hero__card-month">{monthShort}</span>
+                <span class="eyebrow event-hero__card-weekday">{weekdayShort} · {eventDate.getFullYear()}</span>
               </span>
             </div>
 
@@ -113,6 +129,12 @@ const dateLabel = eventDate.toLocaleDateString('en-US', {
                 <dd class="body-md">{location}</dd>
                 {venue && <dd class="body-md event-hero__venue">{venue}</dd>}
               </div>
+              {duration && (
+                <div>
+                  <dt class="eyebrow">runs</dt>
+                  <dd class="body-md">{duration}</dd>
+                </div>
+              )}
               <div>
                 <dt class="eyebrow">price</dt>
                 <dd class="heading">{price}</dd>
@@ -140,7 +162,7 @@ const dateLabel = eventDate.toLocaleDateString('en-US', {
     <div class="section-divider" role="separator"></div>
 
     <div class="event-body section--neutral">
-      <div class="container event-body__grid">
+      <div class:list={['container', 'event-body__grid', !hasToc && 'event-body__grid--solo']}>
         <EventSidebar
           headings={headings}
           eventDate={eventDate}
@@ -155,6 +177,136 @@ const dateLabel = eventDate.toLocaleDateString('en-US', {
           <div class="event-prose">
             <slot />
           </div>
+
+          {includes.length > 0 && (
+            <section class="event-extra" aria-label="what's included">
+              <h2 class="heading event-extra__title">what's included</h2>
+              <ul class="event-facets">
+                {includes.map((item) => (
+                  <li class="event-facet">
+                    <span class="dot-bullet" aria-hidden="true">
+                      <span></span><span></span><span class="accent"></span><span></span>
+                    </span>
+                    <span class="body-md">{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+
+          {schedule.length > 0 && (
+            <section class="event-extra event-schedule" aria-label="schedule">
+              <h2 class="heading event-extra__title">schedule</h2>
+              <ol class="event-schedule__list">
+                {schedule.map((item, i) => (
+                  <li class="event-schedule__item">
+                    <span class="event-schedule__marker" aria-hidden="true">
+                      <span></span><span></span><span class="accent"></span><span></span>
+                    </span>
+                    <div class="event-schedule__body">
+                      <div class="event-schedule__meta">
+                        <span class="event-schedule__index">{String(i + 1).padStart(2, '0')}</span>
+                        {item.time && <time class="event-schedule__time">{item.time}</time>}
+                      </div>
+                      <p class="heading event-schedule__label">{item.title}</p>
+                      {item.description && (
+                        <p class="body-md event-schedule__desc">{item.description}</p>
+                      )}
+                    </div>
+                  </li>
+                ))}
+              </ol>
+            </section>
+          )}
+
+          {outcomes.length > 0 && (
+            <section class="event-extra" aria-label="what you walk away with">
+              <h2 class="heading event-extra__title">what you walk away with</h2>
+              <ul class="event-facets">
+                {outcomes.map((item) => (
+                  <li class="event-facet">
+                    <span class="dot-bullet" aria-hidden="true">
+                      <span></span><span></span><span class="accent"></span><span></span>
+                    </span>
+                    <span class="body-md">{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+
+          {whoFor.length > 0 && (
+            <section class="event-extra" aria-label="who it's for">
+              <h2 class="heading event-extra__title">who it's for</h2>
+              <ul class="event-facets event-facets--who">
+                {whoFor.map((item) => (
+                  <li class="event-facet">
+                    <span class="dot-bullet" aria-hidden="true">
+                      <span></span><span></span><span class="accent"></span><span></span>
+                    </span>
+                    <span class="body-md">{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+
+          {instructors.length > 0 && (
+            <section class="event-extra" aria-label="about the instructor">
+              <h2 class="heading event-extra__title">
+                about the {instructors.length > 1 ? 'instructors' : 'instructor'}
+              </h2>
+              <div class="event-instructors">
+                {instructors.map((person) => (
+                  <article class="event-instructor">
+                    <div class="event-instructor__avatar" aria-hidden="true">
+                      {person.photo
+                        ? <img src={person.photo} alt="" loading="lazy" width="80" height="80" />
+                        : <span>{person.name.trim().charAt(0) || '·'}</span>}
+                    </div>
+                    <div class="event-instructor__body">
+                      <p class="heading event-instructor__name">{person.name}</p>
+                      {person.title && <p class="eyebrow event-instructor__title">{person.title}</p>}
+                      <p class="body-md event-instructor__bio">{person.bio}</p>
+                      {person.linkedin && (
+                        <a
+                          href={person.linkedin}
+                          class="btn-secondary btn--sm event-instructor__link"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          linkedin ↗
+                        </a>
+                      )}
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {videoGallery.length > 0 && (
+            <section class="event-extra event-videos" aria-label="videos">
+              <h2 class="heading event-extra__title">videos</h2>
+              <div class="event-videos__grid">
+                {videoGallery.map((video) => (
+                  <a
+                    href={video.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="event-videos__card"
+                  >
+                    {video.thumbnail ? (
+                      <img src={video.thumbnail} alt="" class="event-videos__thumb" loading="lazy" />
+                    ) : (
+                      <span class="event-videos__placeholder" aria-hidden="true">▶</span>
+                    )}
+                    {video.title && <span class="heading event-videos__title">{video.title}</span>}
+                  </a>
+                ))}
+              </div>
+            </section>
+          )}
         </div>
       </div>
     </div>
@@ -222,7 +374,7 @@ const dateLabel = eventDate.toLocaleDateString('en-US', {
 
   /* ── HERO ── */
   .event-hero {
-    padding-block: clamp(56px, 10vw, 96px);
+    padding-block: clamp(44px, 7vw, 84px);
     border-bottom: 1px solid rgba(244, 241, 234, 0.1);
   }
   .event-hero__inner {
@@ -342,32 +494,41 @@ const dateLabel = eventDate.toLocaleDateString('en-US', {
     background: var(--c-surface);
     color: var(--c-ink);
     border-radius: var(--r-md);
-    padding: var(--sp-md);
+    padding: var(--sp-lg) var(--sp-md) var(--sp-md);
     display: flex;
     flex-direction: column;
     gap: var(--sp-md);
     border: 1px solid rgba(244, 241, 234, 0.08);
-    box-shadow: 0 24px 48px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 18px 44px -24px rgba(0, 0, 0, 0.6);
   }
   .event-hero__card-date {
     display: flex;
-    align-items: baseline;
-    gap: 8px;
+    align-items: center;
+    gap: var(--sp-sm);
     padding-bottom: var(--sp-md);
     border-bottom: 1px solid rgba(26, 26, 26, 0.1);
   }
   .event-hero__card-day {
     font-family: var(--f-display);
-    font-size: 3rem;
+    font-size: 3.25rem;
     font-weight: 500;
     line-height: 1;
     letter-spacing: -0.03em;
+  }
+  .event-hero__card-monthwrap {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
   }
   .event-hero__card-month {
     font-family: var(--f-display);
     font-size: 1.125rem;
     font-weight: 500;
     text-transform: lowercase;
+    line-height: 1;
+  }
+  .event-hero__card-weekday {
+    color: var(--c-muted);
   }
   .event-hero__card-meta {
     display: flex;
@@ -415,6 +576,19 @@ const dateLabel = eventDate.toLocaleDateString('en-US', {
   .event-main {
     min-width: 0;
     max-width: 680px;
+  }
+  /* events with no table of contents: no phantom sidebar column */
+  @media (min-width: 901px) {
+    .event-body__grid--solo {
+      display: block;
+    }
+    .event-body__grid--solo :global(.event-sidebar) {
+      display: none;
+    }
+    .event-body__grid--solo .event-main {
+      max-width: 760px;
+      margin-inline: auto;
+    }
   }
 
   /* ── SIDEBAR ── */
@@ -607,6 +781,268 @@ const dateLabel = eventDate.toLocaleDateString('en-US', {
   }
   .event-prose :global(tr:hover td) {
     background: rgba(199, 62, 34, 0.03);
+  }
+
+  /* ── EXTRA SECTIONS (schedule / includes / videos) ── */
+  .event-extra {
+    margin-top: var(--sp-lg);
+    padding-top: var(--sp-lg);
+    border-top: 1px solid rgba(26, 26, 26, 0.1);
+    scroll-margin-top: 96px;
+  }
+  .event-extra__title {
+    font-size: 1.375rem;
+    text-transform: lowercase;
+    color: var(--c-ink);
+    margin-bottom: var(--sp-md);
+  }
+  /* ── FACET GRIDS (includes / outcomes / who it's for) ── */
+  .event-facets {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    padding-left: 0;
+    background: var(--c-divider);
+    border: 1px solid var(--c-divider);
+    border-radius: var(--r-md);
+    overflow: hidden;
+  }
+  .event-facet {
+    background: var(--c-surface);
+    padding: var(--sp-md);
+    display: flex;
+    align-items: flex-start;
+    gap: var(--sp-sm);
+  }
+  .event-facet .dot-bullet {
+    margin-top: 7px;
+    color: var(--c-ink);
+  }
+  .event-facet .body-md {
+    color: var(--c-ink);
+  }
+  /* a trailing odd cell fills the row instead of leaving a dark gap */
+  .event-facet:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+  }
+
+  .event-checklist {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-sm);
+    padding-left: 0;
+  }
+  .event-checklist li {
+    position: relative;
+    padding-left: 1.5rem;
+    color: var(--c-ink);
+  }
+  .event-checklist li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.55em;
+    width: 8px;
+    height: 8px;
+    border-radius: 1px;
+    background: var(--c-primary);
+    opacity: 0.85;
+  }
+
+  /* ── SCHEDULE — one continuous spine, matching the events timeline ── */
+  .event-schedule__list {
+    list-style: none;
+    padding-left: 0;
+    position: relative;
+  }
+  .event-schedule__list::before {
+    content: '';
+    position: absolute;
+    left: 7px;
+    top: 10px;
+    bottom: 10px;
+    width: 2px;
+    background: rgba(26, 26, 26, 0.14);
+  }
+  .event-schedule__item {
+    display: grid;
+    grid-template-columns: 16px 1fr;
+    gap: var(--sp-md);
+    align-items: start;
+    padding-bottom: var(--sp-lg);
+  }
+  .event-schedule__item:last-child {
+    padding-bottom: 0;
+  }
+  .event-schedule__meta {
+    display: flex;
+    align-items: center;
+    gap: var(--sp-sm);
+    margin-bottom: 6px;
+  }
+  .event-schedule__marker {
+    position: relative;
+    z-index: 1;
+    width: 16px;
+    height: 16px;
+    margin-top: 3px;
+    border-radius: 1px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3px;
+    box-shadow: 0 0 0 5px var(--c-neutral);
+  }
+  .event-schedule__marker span {
+    border-radius: 1px;
+    background: rgba(26, 26, 26, 0.32);
+  }
+  .event-schedule__marker span.accent {
+    background: var(--c-primary);
+  }
+  .event-schedule__time {
+    font-family: var(--f-mono);
+    font-size: 0.8125rem;
+    line-height: 1;
+    color: var(--c-muted);
+    letter-spacing: 0.02em;
+  }
+  .event-schedule__body {
+    min-width: 0;
+    padding-top: 1px;
+  }
+  .event-schedule__label {
+    color: var(--c-ink);
+    margin-bottom: 4px;
+  }
+  .event-schedule__index {
+    font-family: var(--f-mono);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    color: var(--c-primary);
+  }
+  .event-schedule__desc {
+    color: var(--c-muted);
+    max-width: 56ch;
+  }
+
+  /* ── ABOUT THE INSTRUCTOR ── */
+  .event-instructors {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-md);
+  }
+  .event-instructor {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: var(--sp-md);
+    align-items: start;
+    background: var(--c-surface);
+    border: 1px solid rgba(26, 26, 26, 0.1);
+    border-radius: var(--r-md);
+    padding: var(--sp-md);
+  }
+  /* the initials avatar is a logo-cell: vermilion square, white letterform */
+  .event-instructor__avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: var(--r-sm);
+    overflow: hidden;
+    background: var(--c-primary);
+    color: var(--c-surface);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--f-display);
+    font-size: 2rem;
+    font-weight: 500;
+    line-height: 1;
+    text-transform: lowercase;
+  }
+  .event-instructor__avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .event-instructor__body {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .event-instructor__name {
+    color: var(--c-ink);
+  }
+  .event-instructor__title {
+    color: var(--c-muted);
+  }
+  .event-instructor__bio {
+    color: var(--c-muted);
+    max-width: 56ch;
+    margin-top: 2px;
+  }
+  .event-instructor__link {
+    align-self: flex-start;
+    margin-top: var(--sp-sm);
+  }
+
+  @media (max-width: 560px) {
+    .event-facets {
+      grid-template-columns: 1fr;
+    }
+    .event-facet:last-child:nth-child(odd) {
+      grid-column: auto;
+    }
+    .event-instructor {
+      grid-template-columns: 60px 1fr;
+      gap: var(--sp-sm);
+    }
+    .event-instructor__avatar {
+      width: 60px;
+      height: 60px;
+      font-size: 1.5rem;
+    }
+  }
+
+  .event-videos__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: var(--sp-sm);
+  }
+  .event-videos__card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-sm);
+    background: var(--c-surface);
+    border: 1px solid rgba(26, 26, 26, 0.1);
+    border-radius: var(--r-md);
+    padding: var(--sp-sm);
+    transition: border-color 0.15s ease, transform 0.15s ease;
+  }
+  .event-videos__card:hover {
+    border-color: rgba(199, 62, 34, 0.4);
+    transform: translateY(-2px);
+  }
+  .event-videos__thumb,
+  .event-videos__placeholder {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border-radius: var(--r-sm);
+    background: var(--c-ink);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--c-on-ink);
+    font-size: 1.25rem;
+  }
+  .event-videos__title {
+    color: var(--c-ink);
+    font-size: 0.875rem;
+    text-transform: lowercase;
   }
 
   @media (max-width: 900px) {

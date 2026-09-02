@@ -18,9 +18,38 @@ export async function getStaticPaths() {
 }
 
 const { event } = Astro.props;
-const { Content, headings } = await render(event);
 const { title, description, eventDate, format, location, city, venue, duration, price, hosts, ticketUrl } =
   event.data;
+
+const {
+  body: jsonBody = '',
+  schedule = [],
+  includes = [],
+  outcomes = [],
+  whoFor = [],
+  instructors = [],
+  videoGallery = [],
+} = event.data;
+
+const isMarkdown = (event.filePath ?? '').endsWith('.md');
+// Markdown entries render their prose body via `render()`; JSON entries have no
+// renderable body, so long-form copy lives in `data.body` (plain paragraphs).
+let Content: any;
+let headings: any[] = [];
+if (isMarkdown) {
+  try {
+    const result = await render(event);
+    Content = result.Content;
+    headings = result.headings ?? [];
+  } catch {
+    Content = undefined;
+    headings = [];
+  }
+}
+
+const proseParagraphs = !isMarkdown && jsonBody
+  ? jsonBody.split(/\n{2,}/).map((p) => p.trim()).filter(Boolean)
+  : [];
 
 const status = resolveEventStatus(eventDate);
 const eventDateKey = toEventDateKey(eventDate);
@@ -45,6 +74,13 @@ const tocHeadings = (headings ?? [])
   ticketUrl={ticketUrl}
   status={status}
   headings={tocHeadings}
+  schedule={schedule}
+  includes={includes}
+  outcomes={outcomes}
+  whoFor={whoFor}
+  instructors={instructors}
+  videoGallery={videoGallery}
 >
-  <Content />
+  {Content && <Content />}
+  {proseParagraphs.map((p) => <p>{p}</p>)}
 </EventLayout>

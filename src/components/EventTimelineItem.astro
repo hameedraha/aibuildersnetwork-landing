@@ -7,10 +7,9 @@ import { getEventSlug } from '../utils/eventSlug';
 interface Props {
   event: CollectionEntry<'events'>;
   status: EventStatus;
-  showLine?: boolean;
 }
 
-const { event, status, showLine = true } = Astro.props;
+const { event, status } = Astro.props;
 const { title, description, eventDate, format, location, price, ticketUrl } = event.data;
 
 const dateLabel = eventDate.toLocaleDateString('en-US', {
@@ -30,8 +29,9 @@ const isPast = status === 'past';
   data-event-status={status}
 >
   <div class="events-timeline__rail" aria-hidden="true">
-    <span class="events-timeline__marker"></span>
-    {showLine && <span class="events-timeline__line"></span>}
+    <span class="events-timeline__marker">
+      <span></span><span></span><span class="accent"></span><span></span>
+    </span>
   </div>
 
   <article class="events-timeline__card">
@@ -68,3 +68,144 @@ const isPast = status === 'past';
     </div>
   </article>
 </li>
+
+<style>
+  .events-timeline__item {
+    display: grid;
+    grid-template-columns: 18px 1fr;
+    gap: var(--sp-md);
+    list-style: none;
+  }
+  .events-timeline__rail {
+    display: flex;
+    justify-content: center;
+    padding-top: 4px;
+  }
+  /* the 2x2 mark, sitting on the spine with a paper halo so the line reads behind it */
+  .events-timeline__marker {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3px;
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    box-shadow: 0 0 0 5px var(--c-neutral);
+    border-radius: 1px;
+  }
+  .events-timeline__marker span {
+    border-radius: 1px;
+    background: rgba(26, 26, 26, 0.4);
+  }
+  .events-timeline__marker span.accent {
+    background: var(--c-primary);
+  }
+  .events-timeline__item--past .events-timeline__marker span {
+    background: rgba(26, 26, 26, 0.3);
+  }
+  .events-timeline__item--past .events-timeline__marker span.accent {
+    background: var(--c-muted);
+  }
+  .events-timeline__item--live .events-timeline__marker {
+    box-shadow: 0 0 0 5px var(--c-neutral), 0 0 0 8px rgba(230, 59, 31, 0.18);
+  }
+
+  .events-timeline__card {
+    background: var(--c-surface);
+    border: 1px solid rgba(26, 26, 26, 0.1);
+    border-radius: var(--r-md);
+    padding: var(--sp-md) var(--sp-lg);
+    margin-bottom: var(--sp-md);
+    display: flex;
+    flex-direction: column;
+    gap: var(--sp-sm);
+    transition: border-color 0.15s ease, transform 0.15s ease;
+  }
+  .events-timeline__card:hover {
+    border-color: rgba(26, 26, 26, 0.26);
+    transform: translateY(-2px);
+  }
+  .events-timeline__item--past .events-timeline__card:hover {
+    transform: translateY(-1px);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .events-timeline__card { transition: border-color 0.15s ease; }
+    .events-timeline__card:hover { transform: none; }
+  }
+  .events-timeline__card--future {
+    background: transparent;
+    border-style: dashed;
+    border-color: rgba(26, 26, 26, 0.15);
+  }
+  .events-timeline__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--sp-sm);
+    flex-wrap: wrap;
+  }
+  .events-timeline__status {
+    font-family: var(--f-mono);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--c-muted);
+    padding: 3px 8px;
+    border: 1px solid rgba(26, 26, 26, 0.1);
+    border-radius: var(--r-sm);
+  }
+  .events-timeline__status--live {
+    color: var(--c-primary);
+    border-color: rgba(199, 62, 34, 0.25);
+    background: rgba(199, 62, 34, 0.06);
+  }
+  .events-timeline__format {
+    color: var(--c-primary);
+  }
+  .events-timeline__desc {
+    color: var(--c-muted);
+    max-width: 58ch;
+  }
+  .events-timeline__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--sp-md);
+    padding-top: var(--sp-sm);
+    margin-top: var(--sp-xs);
+    border-top: 1px solid rgba(26, 26, 26, 0.08);
+    flex-wrap: wrap;
+  }
+  .events-timeline__footer .body-md {
+    color: var(--c-muted);
+  }
+  .events-timeline__links {
+    display: flex;
+    gap: var(--sp-md);
+    margin-top: var(--sp-xs);
+  }
+  .events-timeline__link {
+    font-family: var(--f-display);
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--c-muted);
+    text-transform: lowercase;
+    transition: color 0.15s ease;
+  }
+  .events-timeline__link:hover,
+  .events-timeline__link--accent {
+    color: var(--c-primary);
+  }
+  .events-timeline__card h3 a:hover {
+    color: var(--c-primary);
+  }
+  .events-timeline__card--future .events-timeline__desc {
+    margin-bottom: var(--sp-sm);
+  }
+
+  @media (max-width: 640px) {
+    .events-timeline__item { grid-template-columns: 16px 1fr; gap: var(--sp-sm); }
+  }
+</style>

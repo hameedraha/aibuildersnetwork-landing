@@ -1,0 +1,77 @@
+{
+  "title": "how to make a $1 million dollar ad for your brand",
+  "description": "a hands-on workshop on making films with ai — no camera, no crew, no studio. taught by sameer z, architect turned ai professional.",
+  "slug": "2026-09-film-shoot-without-a-camera",
+  "eventDate": "2026-09-19",
+  "format": "workshop · in-person · chennai",
+  "location": "venue tbd",
+  "city": "chennai",
+  "price": "₹1,499",
+  "hosts": ["sameer z"],
+  "ticketUrl": "https://aibuilders.network/community",
+  "venue": "tbd",
+  "duration": "5 hours",
+  "body": "film used to mean cameras, crews, studios, and budgets. not anymore. sameer z — architect turned ai professional — shows you how to direct, shoot, and edit films using ai tools, end to end, on a single laptop.\n\nthis is a hands-on workshop. you will walk out having written, storyboarded, generated, and edited your own short film — with tools that are accessible today, no cinema degree required.",
+  "schedule": [
+    {
+      "time": "09:30",
+      "title": "check-in",
+      "description": "arrive, grab a seat, meet the other builders."
+    },
+    {
+      "time": "10:00",
+      "title": "the new film set",
+      "description": "why the camera is optional now — an overview of the ai film stack."
+    },
+    {
+      "time": "11:00",
+      "title": "writing the film",
+      "description": "script, storyboard, and shot list with ai — from idea to plan in minutes."
+    },
+    {
+      "time": "12:00",
+      "title": "generating the footage",
+      "description": "text-to-video, image-to-video, and consistency tricks that make ai footage feel directed."
+    },
+    {
+      "time": "13:00",
+      "title": "lunch break"
+    },
+    {
+      "time": "14:00",
+      "title": "editing and sound",
+      "description": "cut the film, add voiceover, music, and sound design without a studio."
+    },
+    {
+      "time": "15:30",
+      "title": "screening",
+      "description": "watch your short film on the big screen and get feedback from the room."
+    }
+  ],
+  "includes": [
+    "hands-on build: your own ai-generated short film",
+    "curated prompt library for film, story, and visuals",
+    "a working ai film stack you can keep using",
+    "ai builders network access — private builder community"
+  ],
+  "outcomes": [
+    "a finished short film made entirely with ai",
+    "a repeatable process for ai filmmaking",
+    "confidence picking the right tools for each stage"
+  ],
+  "whoFor": [
+    "filmmakers curious about ai workflows",
+    "founders and marketers who need video without a crew",
+    "architects, designers, and creators moving into ai",
+    "anyone who has ever wanted to make a film but thought they couldn't"
+  ],
+  "instructors": [
+    {
+      "name": "sameer z",
+      "title": "architect turned ai professional",
+      "bio": "sameer moved from architecture into ai and now builds film and video end to end with generative tools. he will walk you through directing, shooting, and editing on a single laptop — no camera, crew, or studio.",
+      "photo": "/instructors/sameer-z.jpg",
+      "linkedin": "https://www.linkedin.com/"
+    }
+  ]
+}

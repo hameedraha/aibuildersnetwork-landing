@@ -17,8 +17,12 @@ const joinUrl = '/community';
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <link rel="icon" type="image/svg+xml" href="/aibn-logo.svg" />
-  <link rel="icon" href="/favicon.ico" />
+  <link rel="icon" type="image/png" href="/aibn-favicon/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="/aibn-favicon/favicon.svg" />
+  <link rel="shortcut icon" href="/aibn-favicon/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/aibn-favicon/apple-touch-icon.png" />
+  <meta name="apple-mobile-web-app-title" content="AIBN" />
+  <link rel="manifest" href="/aibn-favicon/site.webmanifest" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="generator" content={Astro.generator} />
   <title>{title}</title>
@@ -34,7 +38,7 @@ const joinUrl = '/community';
 
     /* ── TOKENS ── */
     :root {
-      --c-primary:      #C73E22;
+      --c-primary:      #E63B1F;
       --c-primary-deep: #B83A22;
       --c-ink:          #1A1A1A;
       --c-on-ink:       #F4F1EA;
@@ -148,6 +152,8 @@ const joinUrl = '/community';
     }
 
     /* ── BUTTON ── */
+    .btn-primary[hidden],
+    .btn-secondary[hidden] { display: none !important; }
     .btn-primary {
       display: inline-flex;
       align-items: center;

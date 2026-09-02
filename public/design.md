@@ -3,7 +3,7 @@ version: alpha
 name: AI Builders Network
 description: Visual identity for a community of builders shipping AI solutions. Built from the aibn logo — a 2x2 vermilion grid of lowercase letters on near-black.
 colors:
-  primary: "#C73E22"
+  primary: "#E63B1F"
   primary-deep: "#B83A22"
   on-primary: "#FFFFFF"
   ink: "#1A1A1A"

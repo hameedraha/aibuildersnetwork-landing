@@ -112,10 +112,22 @@ const eventDateKey = toEventDateKey(eventDate);
     border-radius: var(--r-md);
     overflow: hidden;
     position: relative;
+    transition: border-color 0.15s ease, transform 0.15s ease;
+  }
+  .event-featured:hover {
+    border-color: rgba(26, 26, 26, 0.26);
+    transform: translateY(-2px);
   }
   .event-featured--live {
     border-color: rgba(199, 62, 34, 0.35);
     box-shadow: 0 0 0 1px rgba(199, 62, 34, 0.08);
+  }
+  .event-featured--live:hover {
+    border-color: rgba(199, 62, 34, 0.5);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .event-featured { transition: border-color 0.15s ease; }
+    .event-featured:hover { transform: none; }
   }
   .event-featured--past {
     border-color: rgba(26, 26, 26, 0.1);

@@ -46,7 +46,7 @@ const resources = defineCollection({
 });
 
 const events = defineCollection({
-  loader: glob({ pattern: '**/*.md', base: './src/content/events' }),
+  loader: glob({ pattern: '**/*.{md,json}', base: './src/content/events' }),
   schema: z.object({
     title: z.string(),
     description: z.string(),
@@ -63,6 +63,49 @@ const events = defineCollection({
     ticketUrl: z.string().url(),
     duration: z.string().optional(),
     venue: z.string().optional(),
+    // Plain-text body for JSON-based events (rendered as paragraphs).
+    // Markdown-based events keep their prose in the .md body instead.
+    body: z.string().optional(),
+    // optional structured "run of show"
+    schedule: z
+      .array(
+        z.object({
+          time: z.string().optional(),
+          title: z.string(),
+          description: z.string().optional(),
+        })
+      )
+      .optional()
+      .default([]),
+    // optional short text lists rendered as cards/blocks
+    includes: z.array(z.string()).optional().default([]),
+    outcomes: z.array(z.string()).optional().default([]),
+    whoFor: z.array(z.string()).optional().default([]),
+    // optional richer instructor bios (the `hosts` array stays for compact chips)
+    instructors: z
+      .array(
+        z.object({
+          name: z.string(),
+          title: z.string().optional(),
+          bio: z.string(),
+          photo: z.string().optional(),
+          linkedin: z.string().url().optional(),
+        })
+      )
+      .optional()
+      .default([]),
+    // optional video gallery (e.g. showreels / aftermovies)
+    videoGallery: z
+      .array(
+        z.object({
+          title: z.string().optional(),
+          url: z.string().url(),
+          thumbnail: z.string().optional(),
+          platform: z.enum(['youtube', 'vimeo', 'other']).optional(),
+        })
+      )
+      .optional()
+      .default([]),
   }),
 });
 
